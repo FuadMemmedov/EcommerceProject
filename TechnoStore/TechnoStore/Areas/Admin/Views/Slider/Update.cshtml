@@ -1,0 +1,37 @@
+﻿@using Business.DTOs.SliderDTOs
+@model SliderUpdateDTO
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <form asp-action="Update" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Title</label>
+                    <input asp-for="Title" class="form-control" id="exampleInputEmail1">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Price</label>
+                    <input asp-for="Price" class="form-control" id="exampleInputEmail1">
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">DiscountPrice</label>
+                    <input asp-for="DiscountPrice" class="form-control" id="exampleInputEmail1">
+                    <span asp-validation-for="DiscountPrice" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">RedirectUrl</label>
+                    <input asp-for="RedirectUrl" class="form-control" id="exampleInputEmail1">
+                    <span asp-validation-for="RedirectUrl" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">ImageFile</label>
+                    <input asp-for="ImageFile" class="form-control" id="exampleInputEmail1">
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
