@@ -8445,16 +8445,48 @@
       "PackagePath": "staticwebassets\\stylesheets\\waves.min.css"
     },
     {
-      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\shopsliders\\shopslider-27f2220e-5103-4a33-8e25-ea44511180cf.png",
-      "PackagePath": "staticwebassets\\uploads\\shopsliders\\shopslider-27f2220e-5103-4a33-8e25-ea44511180cf.png"
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\products\\product-01822852-ef47-4f8f-90e6-02b1962f8c6a.png",
+      "PackagePath": "staticwebassets\\uploads\\products\\product-01822852-ef47-4f8f-90e6-02b1962f8c6a.png"
     },
     {
-      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\shopsliders\\shopslider-3619d884-3a53-42f5-b693-263e940cfab8.png",
-      "PackagePath": "staticwebassets\\uploads\\shopsliders\\shopslider-3619d884-3a53-42f5-b693-263e940cfab8.png"
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\products\\product-1fe5c768-bba6-4c14-b827-1616254e17ab.png",
+      "PackagePath": "staticwebassets\\uploads\\products\\product-1fe5c768-bba6-4c14-b827-1616254e17ab.png"
     },
     {
-      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\shopsliders\\shopslider-6108fb62-cf9e-40b0-825c-d2cf8d849b71.png",
-      "PackagePath": "staticwebassets\\uploads\\shopsliders\\shopslider-6108fb62-cf9e-40b0-825c-d2cf8d849b71.png"
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\products\\product-25eb7574-ff2f-44be-b5c2-034aadba41c6.png",
+      "PackagePath": "staticwebassets\\uploads\\products\\product-25eb7574-ff2f-44be-b5c2-034aadba41c6.png"
+    },
+    {
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\products\\product-2d30fc4c-0842-4fdd-8cf4-9ad25f6442a7.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\product-2d30fc4c-0842-4fdd-8cf4-9ad25f6442a7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\products\\product-4ee6aa59-fecb-41b6-9b05-2893581379ae.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\product-4ee6aa59-fecb-41b6-9b05-2893581379ae.jpg"
+    },
+    {
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\products\\product-5c8a423a-d99b-480f-89a4-c718fe281800.png",
+      "PackagePath": "staticwebassets\\uploads\\products\\product-5c8a423a-d99b-480f-89a4-c718fe281800.png"
+    },
+    {
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\products\\product-c6e7128d-91a8-4397-9378-a2cfd65eeff1.png",
+      "PackagePath": "staticwebassets\\uploads\\products\\product-c6e7128d-91a8-4397-9378-a2cfd65eeff1.png"
+    },
+    {
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\shopsliders\\shopslider-6850e235-c2a3-422f-ac92-c0683c6ca288.png",
+      "PackagePath": "staticwebassets\\uploads\\shopsliders\\shopslider-6850e235-c2a3-422f-ac92-c0683c6ca288.png"
+    },
+    {
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\shopsliders\\shopslider-7812a3da-956b-4c17-88c9-ead2c8c79920.png",
+      "PackagePath": "staticwebassets\\uploads\\shopsliders\\shopslider-7812a3da-956b-4c17-88c9-ead2c8c79920.png"
+    },
+    {
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\shopsliders\\shopslider-9cdf6022-a020-48c1-a5aa-1c83314252be.png",
+      "PackagePath": "staticwebassets\\uploads\\shopsliders\\shopslider-9cdf6022-a020-48c1-a5aa-1c83314252be.png"
+    },
+    {
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\shopsliders\\shopslider-a29b0d7a-a668-4e60-bac8-0bfa9023d180.png",
+      "PackagePath": "staticwebassets\\uploads\\shopsliders\\shopslider-a29b0d7a-a668-4e60-bac8-0bfa9023d180.png"
     },
     {
       "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\sliders\\slider-5e876b60-e836-463e-aeb4-07a97ebfe65b.png",
@@ -8463,6 +8495,14 @@
     {
       "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\sliders\\slider-9ff7af80-1ae7-4fb7-83d6-e0b47b8e2be3.png",
       "PackagePath": "staticwebassets\\uploads\\sliders\\slider-9ff7af80-1ae7-4fb7-83d6-e0b47b8e2be3.png"
+    },
+    {
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\sliders\\slider-e756a539-c392-4341-966c-018bb835ef03.png",
+      "PackagePath": "staticwebassets\\uploads\\sliders\\slider-e756a539-c392-4341-966c-018bb835ef03.png"
+    },
+    {
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\sliders\\slider-f0f8302b-f606-4e2c-8bcc-23ad2c1a833f.png",
+      "PackagePath": "staticwebassets\\uploads\\sliders\\slider-f0f8302b-f606-4e2c-8bcc-23ad2c1a833f.png"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.TechnoStore.Microsoft.AspNetCore.StaticWebAssets.props",

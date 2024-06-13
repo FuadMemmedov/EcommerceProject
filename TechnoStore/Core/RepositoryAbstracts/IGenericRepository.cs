@@ -11,9 +11,8 @@ public interface IGenericRepository<T> where T:BaseEntity,new()
 {
 	Task AddEntityAsync(T entity);
 	void DeleteEntity(T entity);
-	T GetEntity(Func<T, bool>? func = null);
-	List<T> GetAllEntities(Func<T, bool>? func = null);
+	T GetEntity(Func<T, bool>? func = null, params string[]? includes);
+	List<T> GetAllEntities(Func<T, bool>? func = null, params string[]? includes);
 	int Commit();
-
 	Task<int> CommitAsync();
 }

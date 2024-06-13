@@ -58,8 +58,8 @@ public class SliderService : ISliderService
 
 	public List<SliderGetDTO> GetAllSliders(Func<Slider, bool>? func = null)
 	{
-		var books = _sliderRepository.GetAllEntities(func);
-		List<SliderGetDTO> slidersDto = _mapper.Map<List<SliderGetDTO>>(books);
+		var sliders = _sliderRepository.GetAllEntities(func);
+		List<SliderGetDTO> slidersDto = _mapper.Map<List<SliderGetDTO>>(sliders);
 
 
 		return slidersDto;
@@ -67,8 +67,8 @@ public class SliderService : ISliderService
 
 	public SliderGetDTO GetSlider(Func<Slider, bool>? func = null)
 	{
-		var books = _sliderRepository.GetEntity(func);
-		SliderGetDTO sliderDto = _mapper.Map<SliderGetDTO>(books);
+		var slider = _sliderRepository.GetEntity(func);
+		SliderGetDTO sliderDto = _mapper.Map<SliderGetDTO>(slider);
 
 		return sliderDto;
 
@@ -81,6 +81,7 @@ public class SliderService : ISliderService
 
 		if(updateDTO.ImageFile != null)
 		{
+			
 			Slider slider = _mapper.Map<Slider>(updateDTO);
 
 			slider.ImageUrl = Helper.SaveFile(_env.WebRootPath, @"uploads/sliders", updateDTO.ImageFile, "slider");

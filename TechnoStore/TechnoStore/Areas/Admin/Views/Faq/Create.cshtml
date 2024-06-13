@@ -1,0 +1,22 @@
+﻿@using Business.DTOs.FaqDTOs
+@model FaqCreateDTO
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <form asp-action="Create" method="post">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Question</label>
+                    <input asp-for="Question" class="form-control" id="exampleInputEmail1">
+                    <span asp-validation-for="Question" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Answer</label>
+                    <input asp-for="Answer" class="form-control" id="exampleInputEmail1">
+                    <span asp-validation-for="Answer" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a asp-action="index" asp-controller="faq" class="btn btn-danger">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>

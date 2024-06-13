@@ -1,6 +1,7 @@
 ﻿using Core.Models;
 using Core.RepositoryAbstracts;
 using Data.DAL;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,13 +39,31 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
 		_appDbContext.Set<T>().Remove(entity);
 	}
 
-	public List<T> GetAllEntities(Func<T, bool>? func = null)
+	public List<T> GetAllEntities(Func<T, bool>? func = null, params string[]? includes)
 	{
-		return func == null ? _appDbContext.Set<T>().ToList() : _appDbContext.Set<T>().Where(func).ToList();
+		var entity = _appDbContext.Set<T>().AsQueryable();
+		if (includes is not null)
+		{
+			foreach (var include in includes)
+			{
+				entity = entity.Include(include);
+			}
+		}
+
+		return func == null ? entity.ToList() : entity.Where(func).ToList();
 	}
 
-	public T GetEntity(Func<T, bool>? func = null)
+	public T GetEntity(Func<T, bool>? func = null, params string[]? includes)
 	{
-		return func == null ? _appDbContext.Set<T>().FirstOrDefault() : _appDbContext.Set<T>().FirstOrDefault(func);
+		var entity = _appDbContext.Set<T>().AsQueryable();
+		if(includes is not null)
+		{
+			foreach(var include in includes)
+			{
+			 entity = entity.Include(include);
+			}
+		}
+
+		return func == null ? entity.FirstOrDefault() : entity.FirstOrDefault(func);
 	}
 }

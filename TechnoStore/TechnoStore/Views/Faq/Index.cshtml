@@ -1,0 +1,34 @@
+﻿@using Business.DTOs.FaqDTOs
+@model List<FaqGetDTO>
+<section class="flat-row flat-accordion">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="accordion">
+							<div class="title">
+								<h3>Answers to Your Questions</h3>
+							</div>
+					@foreach(var item in Model)
+					{
+						<div class="accordion-toggle">
+							<div class="toggle-title">
+								@item.Question
+							</div>
+							<div class="toggle-content">
+								<p>
+									@item.Answer
+								</p>
+							</div>
+						</div>
+
+						<!-- /.accordion-toggle -->
+					}
+
+							
+						</div><!-- /.accordion -->
+					</div><!-- /.col-md-12 -->
+				</div><!-- /.row -->
+			</div><!-- /.container -->
+		</section><!-- /.flat-accordion -->
+
+	

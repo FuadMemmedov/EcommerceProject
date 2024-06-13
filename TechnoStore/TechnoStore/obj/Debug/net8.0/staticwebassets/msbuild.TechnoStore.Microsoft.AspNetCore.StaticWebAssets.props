@@ -33776,12 +33776,12 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\TechnoStore.bundle.scp.css))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\shopsliders\shopslider-27f2220e-5103-4a33-8e25-ea44511180cf.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\product-01822852-ef47-4f8f-90e6-02b1962f8c6a.png))">
       <SourceType>Package</SourceType>
       <SourceId>TechnoStore</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TechnoStore</BasePath>
-      <RelativePath>uploads/shopsliders/shopslider-27f2220e-5103-4a33-8e25-ea44511180cf.png</RelativePath>
+      <RelativePath>uploads/products/product-01822852-ef47-4f8f-90e6-02b1962f8c6a.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -33790,14 +33790,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\shopsliders\shopslider-27f2220e-5103-4a33-8e25-ea44511180cf.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\product-01822852-ef47-4f8f-90e6-02b1962f8c6a.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\shopsliders\shopslider-3619d884-3a53-42f5-b693-263e940cfab8.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\product-1fe5c768-bba6-4c14-b827-1616254e17ab.png))">
       <SourceType>Package</SourceType>
       <SourceId>TechnoStore</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TechnoStore</BasePath>
-      <RelativePath>uploads/shopsliders/shopslider-3619d884-3a53-42f5-b693-263e940cfab8.png</RelativePath>
+      <RelativePath>uploads/products/product-1fe5c768-bba6-4c14-b827-1616254e17ab.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -33806,14 +33806,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\shopsliders\shopslider-3619d884-3a53-42f5-b693-263e940cfab8.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\product-1fe5c768-bba6-4c14-b827-1616254e17ab.png))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\shopsliders\shopslider-6108fb62-cf9e-40b0-825c-d2cf8d849b71.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\product-25eb7574-ff2f-44be-b5c2-034aadba41c6.png))">
       <SourceType>Package</SourceType>
       <SourceId>TechnoStore</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TechnoStore</BasePath>
-      <RelativePath>uploads/shopsliders/shopslider-6108fb62-cf9e-40b0-825c-d2cf8d849b71.png</RelativePath>
+      <RelativePath>uploads/products/product-25eb7574-ff2f-44be-b5c2-034aadba41c6.png</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -33822,7 +33822,135 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\shopsliders\shopslider-6108fb62-cf9e-40b0-825c-d2cf8d849b71.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\product-25eb7574-ff2f-44be-b5c2-034aadba41c6.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\product-2d30fc4c-0842-4fdd-8cf4-9ad25f6442a7.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TechnoStore</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TechnoStore</BasePath>
+      <RelativePath>uploads/products/product-2d30fc4c-0842-4fdd-8cf4-9ad25f6442a7.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\product-2d30fc4c-0842-4fdd-8cf4-9ad25f6442a7.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\product-4ee6aa59-fecb-41b6-9b05-2893581379ae.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>TechnoStore</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TechnoStore</BasePath>
+      <RelativePath>uploads/products/product-4ee6aa59-fecb-41b6-9b05-2893581379ae.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\product-4ee6aa59-fecb-41b6-9b05-2893581379ae.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\product-5c8a423a-d99b-480f-89a4-c718fe281800.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>TechnoStore</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TechnoStore</BasePath>
+      <RelativePath>uploads/products/product-5c8a423a-d99b-480f-89a4-c718fe281800.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\product-5c8a423a-d99b-480f-89a4-c718fe281800.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\product-c6e7128d-91a8-4397-9378-a2cfd65eeff1.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>TechnoStore</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TechnoStore</BasePath>
+      <RelativePath>uploads/products/product-c6e7128d-91a8-4397-9378-a2cfd65eeff1.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\product-c6e7128d-91a8-4397-9378-a2cfd65eeff1.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\shopsliders\shopslider-6850e235-c2a3-422f-ac92-c0683c6ca288.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>TechnoStore</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TechnoStore</BasePath>
+      <RelativePath>uploads/shopsliders/shopslider-6850e235-c2a3-422f-ac92-c0683c6ca288.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\shopsliders\shopslider-6850e235-c2a3-422f-ac92-c0683c6ca288.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\shopsliders\shopslider-7812a3da-956b-4c17-88c9-ead2c8c79920.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>TechnoStore</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TechnoStore</BasePath>
+      <RelativePath>uploads/shopsliders/shopslider-7812a3da-956b-4c17-88c9-ead2c8c79920.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\shopsliders\shopslider-7812a3da-956b-4c17-88c9-ead2c8c79920.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\shopsliders\shopslider-9cdf6022-a020-48c1-a5aa-1c83314252be.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>TechnoStore</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TechnoStore</BasePath>
+      <RelativePath>uploads/shopsliders/shopslider-9cdf6022-a020-48c1-a5aa-1c83314252be.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\shopsliders\shopslider-9cdf6022-a020-48c1-a5aa-1c83314252be.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\shopsliders\shopslider-a29b0d7a-a668-4e60-bac8-0bfa9023d180.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>TechnoStore</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TechnoStore</BasePath>
+      <RelativePath>uploads/shopsliders/shopslider-a29b0d7a-a668-4e60-bac8-0bfa9023d180.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\shopsliders\shopslider-a29b0d7a-a668-4e60-bac8-0bfa9023d180.png))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\sliders\slider-5e876b60-e836-463e-aeb4-07a97ebfe65b.png))">
       <SourceType>Package</SourceType>
@@ -33855,6 +33983,38 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\sliders\slider-9ff7af80-1ae7-4fb7-83d6-e0b47b8e2be3.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\sliders\slider-e756a539-c392-4341-966c-018bb835ef03.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>TechnoStore</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TechnoStore</BasePath>
+      <RelativePath>uploads/sliders/slider-e756a539-c392-4341-966c-018bb835ef03.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\sliders\slider-e756a539-c392-4341-966c-018bb835ef03.png))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\sliders\slider-f0f8302b-f606-4e2c-8bcc-23ad2c1a833f.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>TechnoStore</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TechnoStore</BasePath>
+      <RelativePath>uploads/sliders/slider-f0f8302b-f606-4e2c-8bcc-23ad2c1a833f.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\sliders\slider-f0f8302b-f606-4e2c-8bcc-23ad2c1a833f.png))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
 </Project>

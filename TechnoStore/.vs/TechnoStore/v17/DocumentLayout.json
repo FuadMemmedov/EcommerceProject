@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|c:\\users\\memme\\desktop\\ecommerceproject\\technostore\\technostore\\views\\shop\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|solutionrelative:technostore\\views\\shop\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|c:\\users\\memme\\desktop\\ecommerceproject\\technostore\\technostore\\views\\faq\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|solutionrelative:technostore\\views\\faq\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|c:\\users\\memme\\desktop\\ecommerceproject\\technostore\\technostore\\controllers\\shopcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|solutionrelative:technostore\\controllers\\shopcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|c:\\users\\memme\\desktop\\ecommerceproject\\technostore\\technostore\\controllers\\faqcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|solutionrelative:technostore\\controllers\\faqcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -24,26 +24,26 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Views\\Shop\\Index.cshtml",
-              "RelativeDocumentMoniker": "TechnoStore\\Views\\Shop\\Index.cshtml",
-              "ToolTip": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Views\\Shop\\Index.cshtml",
-              "RelativeToolTip": "TechnoStore\\Views\\Shop\\Index.cshtml",
-              "ViewState": "AQIAAFIBAAAAAAAAAAAAAGEBAAA3AAAA",
+              "DocumentMoniker": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Views\\Faq\\Index.cshtml",
+              "RelativeDocumentMoniker": "TechnoStore\\Views\\Faq\\Index.cshtml",
+              "ToolTip": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Views\\Faq\\Index.cshtml",
+              "RelativeToolTip": "TechnoStore\\Views\\Faq\\Index.cshtml",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAAABIAAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-11T19:05:56.646Z",
+              "WhenOpened": "2024-06-13T17:42:53.184Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ShopController.cs",
-              "DocumentMoniker": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Controllers\\ShopController.cs",
-              "RelativeDocumentMoniker": "TechnoStore\\Controllers\\ShopController.cs",
-              "ToolTip": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Controllers\\ShopController.cs",
-              "RelativeToolTip": "TechnoStore\\Controllers\\ShopController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAiAAAA",
+              "Title": "FaqController.cs",
+              "DocumentMoniker": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Controllers\\FaqController.cs",
+              "RelativeDocumentMoniker": "TechnoStore\\Controllers\\FaqController.cs",
+              "ToolTip": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Controllers\\FaqController.cs",
+              "RelativeToolTip": "TechnoStore\\Controllers\\FaqController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T19:05:02.349Z",
+              "WhenOpened": "2024-06-13T17:42:15.805Z",
               "EditorCaption": ""
             }
           ]

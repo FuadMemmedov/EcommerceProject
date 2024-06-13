@@ -58,8 +58,8 @@ public class ShopSliderService : IShopSliderService
 
 	public List<ShopSliderGetDTO> GetAllShopSliders(Func<ShopSlider, bool>? func = null)
 	{
-		var books = _shopSliderRepository.GetAllEntities(func);
-		List<ShopSliderGetDTO> slidersDto = _mapper.Map<List<ShopSliderGetDTO>>(books);
+		var shopSliders = _shopSliderRepository.GetAllEntities(func);
+		List<ShopSliderGetDTO> slidersDto = _mapper.Map<List<ShopSliderGetDTO>>(shopSliders);
 
 
 		return slidersDto;
@@ -67,8 +67,8 @@ public class ShopSliderService : IShopSliderService
 
 	public ShopSliderGetDTO GetShopSlider(Func<ShopSlider, bool>? func = null)
 	{
-		var books = _shopSliderRepository.GetEntity(func);
-		ShopSliderGetDTO sliderDto = _mapper.Map<ShopSliderGetDTO>(books);
+		var shopSlider = _shopSliderRepository.GetEntity(func);
+		ShopSliderGetDTO sliderDto = _mapper.Map<ShopSliderGetDTO>(shopSlider);
 
 		return sliderDto;
 
