@@ -37,12 +37,26 @@
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">ProductPosterImageFile</label>
                     <input asp-for="ProductPosterImageFile" class="form-control" id="exampleInputEmail1">
-                    <img src="~/uploads/products/@Model.ProductImages.Where(x=> x.IsPoster == true).FirstOrDefault()?.ImageUrl" />
+                    <div style="width:150px;margin:0 20px">
+                        <img style="max-width:100%" src="~/uploads/products/@Model.ProductImages?.Where(x=> x.IsPoster == true).FirstOrDefault()?.ImageUrl" />
+                            </div>
                     <span asp-validation-for="ProductPosterImageFile" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">ImageFile</label>
                     <input asp-for="ImageFiles" class="form-control" id="exampleInputEmail1">
+                    <div style="display:flex">
+                        @foreach (var image in Model.ProductImages.Where(x => x.IsPoster == false))
+                        {
+
+                            <div style="width:150px;margin:0 20px;margin-top:20px;position:relative;">
+                                <span class="delete-image-btn position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger fs-3 text-white">X</span>
+                                <img style="max-width:100%" src="~/uploads/products/@image.ImageUrl" />
+                                <input name="ProductImageIds" type="hidden" value="@image.Id" />
+                            </div>
+
+                        }
+                    </div>
                     <span asp-validation-for="ImageFiles" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
@@ -55,3 +69,12 @@
         </div>
     </div>
 </div>
+<script>
+    var btns = document.querySelectorAll(".delete-image-btn");
+
+    btns.forEach(btn => {
+        btn.addEventListener("click", function () {
+            btn.parentElement.remove()
+        })
+    })
+</script>

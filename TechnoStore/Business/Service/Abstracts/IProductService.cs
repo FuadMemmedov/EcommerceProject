@@ -12,7 +12,8 @@ public interface IProductService
 {
     Task AddProduct(ProductCreateDTO productCreateDTO);
     void DeleteProduct(int id);
-    void UpdateProduct(ProductUpdateDTO productUpdateDTO);
+	void SoftDelete(int id);
+	void UpdateProduct(ProductUpdateDTO productUpdateDTO);
     ProductGetDTO GetProduct(Func<Product, bool>? func = null);
     List<ProductGetDTO> GetAllProducts(Func<Product, bool>? func = null);
 }

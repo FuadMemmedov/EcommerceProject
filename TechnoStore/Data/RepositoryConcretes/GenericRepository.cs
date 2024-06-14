@@ -66,4 +66,9 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
 
 		return func == null ? entity.FirstOrDefault() : entity.FirstOrDefault(func);
 	}
+
+	public void SoftDelete(T entity)
+	{
+		entity.IsDeleted = true;
+	}
 }

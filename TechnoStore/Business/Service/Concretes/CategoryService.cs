@@ -65,20 +65,27 @@ public class CategoryService : ICategoryService
 		return categoryGetDTOs;
 	}
 
+	public void SoftDelete(int id)
+	{
+		var existCategory = _categoryRepository.GetEntity(x => x.Id == id);
+		if (existCategory == null) throw new EntityNotFoundException("Category not found!");
+
+		existCategory.DeletedDate = DateTime.UtcNow.AddHours(4);
+
+		_categoryRepository.SoftDelete(existCategory);
+	}
+
 	public void UpdateCategory(CategoryUpdateDTO updateDTO)
 	{
-		if (!_categoryRepository.GetAllEntities().Any(x => x.Name == updateDTO.Name && x.Id != updateDTO.Id ))
-		{
-			
-				throw new EntityNotFoundException("Category not found!");
-			Category category = _mapper.Map<Category>(updateDTO);
+		var existCategory = _categoryRepository.GetEntity(x => x.Id == updateDTO.Id);
+		throw new EntityNotFoundException("Category not found!");
 
-			
-			_categoryRepository.Commit();
-		}
-		else
-		{
+		if (!_categoryRepository.GetAllEntities().Any(x => x.Name == updateDTO.Name && x.Id != updateDTO.Id ))
 			throw new DuplicateCategoryException("Category  cannot be repeated");
-		}
+
+
+
+
+		_categoryRepository.Commit();
 	}
 }

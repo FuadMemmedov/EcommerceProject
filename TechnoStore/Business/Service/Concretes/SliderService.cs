@@ -5,6 +5,7 @@ using Business.Extensions;
 using Business.Service.Abstracts;
 using Core.Models;
 using Core.RepositoryAbstracts;
+using Data.RepositoryConcretes;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System;
@@ -72,6 +73,16 @@ public class SliderService : ISliderService
 
 		return sliderDto;
 
+	}
+
+	public void SoftDelete(int id)
+	{
+		var existSlider = _sliderRepository.GetEntity(x => x.Id == id);
+		if (existSlider == null) throw new EntityNotFoundException("Slider not found!");
+
+		existSlider.DeletedDate = DateTime.UtcNow.AddHours(4);
+
+		_sliderRepository.SoftDelete(existSlider);
 	}
 
 	public void UpdateSlider(SliderUpdateDTO updateDTO)

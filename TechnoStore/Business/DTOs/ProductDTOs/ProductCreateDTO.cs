@@ -20,7 +20,8 @@ public class ProductCreateDTO
     public IFormFile ProductPosterImageFile { get; set; }
     public List<IFormFile>? ImageFiles { get; set; }
     public int CategoryId { get; set; }
-   
+  
+
 }
 public class ProductCreateDTOValidator : AbstractValidator<ProductCreateDTO>
 {

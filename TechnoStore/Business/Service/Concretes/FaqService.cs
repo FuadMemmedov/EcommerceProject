@@ -4,6 +4,7 @@ using Business.Exceptions;
 using Business.Service.Abstracts;
 using Core.Models;
 using Core.RepositoryAbstracts;
+using Data.RepositoryConcretes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +59,16 @@ public class FaqService : IFaqService
         return faqDto;
     }
 
-    public void UpdateFaq(FaqUpdateDTO updateDTO)
+	public void SoftDelete(int id)
+	{
+		var existFaq = _faqRepository.GetEntity(x => x.Id == id);
+		if (existFaq == null) throw new EntityNotFoundException("Faq not found!");
+		existFaq.DeletedDate = DateTime.UtcNow.AddHours(4);
+
+		_faqRepository.SoftDelete(existFaq);
+	}
+
+	public void UpdateFaq(FaqUpdateDTO updateDTO)
     {
         var oldFaq = _faqRepository.GetEntity(x => x.Id == updateDTO.Id);
         if (oldFaq == null) throw new EntityNotFoundException("Faq tapilmadi");

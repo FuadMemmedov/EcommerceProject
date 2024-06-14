@@ -22,6 +22,7 @@ public class ProductGetDTO
 	public decimal CostPrice { get; set; }
 	public Category Category { get; set; }
     public List<ProductImage>? ProductImages { get; set; }
+    public List<int> ProductImageIds { get; set; }
 
 
 }

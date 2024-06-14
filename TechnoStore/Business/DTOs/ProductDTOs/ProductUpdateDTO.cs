@@ -23,6 +23,7 @@ public class ProductUpdateDTO
     public List<ProductImage>? ProductImages { get; set; }
     public IFormFile? ProductPosterImageFile { get; set; }
     public List<IFormFile>? ImageFiles { get; set; }
+    public List<int> ProductImageIds { get; set; }
 
 }
 public class ProductUpdateDTOValidator : AbstractValidator<ProductUpdateDTO>

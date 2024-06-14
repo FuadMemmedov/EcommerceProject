@@ -12,6 +12,7 @@ public interface ISliderService
 {
 	Task AddSliderAsync(SliderCreateDTO createDTO);
 	void DeleteSlider(int id);
+	void SoftDelete(int id);
 	void UpdateSlider(SliderUpdateDTO updateDTO);
 	SliderGetDTO GetSlider(Func<Slider, bool>? func = null);
 	List<SliderGetDTO> GetAllSliders(Func<Slider, bool>? func = null);

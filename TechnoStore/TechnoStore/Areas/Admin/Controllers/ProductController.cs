@@ -45,7 +45,16 @@ namespace TechnoStore.Areas.Admin.Controllers
             {
                 return View();
             }
-            await _productService.AddProduct(productCreateDTO);
+			try
+			{
+                await _productService.AddProduct(productCreateDTO);
+            }
+			catch (FileContentTypeException ex)
+			{
+                ModelState.AddModelError("ImageFile", ex.Message);
+                return View();
+
+            }
             return RedirectToAction("Index");
         }
 		public IActionResult Update(int id)
@@ -63,7 +72,9 @@ namespace TechnoStore.Areas.Admin.Controllers
 				ShortDescription = existProduct.ShortDescription,
 				DiscountPercent =  existProduct.DiscountPercent,
 				CostPrice = existProduct.CostPrice,
-				CategoryId = existProduct.Category.Id
+				CategoryId = existProduct.Category.Id,
+				ProductImages = existProduct.ProductImages
+				
 
 			};
 
@@ -84,7 +95,11 @@ namespace TechnoStore.Areas.Admin.Controllers
 			{
 				_productService.UpdateProduct(productUpdateDTO);
 			}
-			catch (FileContentTypeException ex)
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound();
+            }
+            catch (FileContentTypeException ex)
 			{
 				ModelState.AddModelError("ImageFile", ex.Message);
 				return View();

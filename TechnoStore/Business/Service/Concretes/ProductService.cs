@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -91,7 +92,7 @@ public class ProductService : IProductService
 
     public List<ProductGetDTO> GetAllProducts(Func<Product, bool>? func = null)
     {
-        var products = _productRepository.GetAllEntities(null, "Category","ProductImage");
+        var products = _productRepository.GetAllEntities(func, "Category", "ProductImages");
         List<ProductGetDTO> productsDto = _mapper.Map<List<ProductGetDTO>>(products);
 
         return productsDto;
@@ -99,7 +100,7 @@ public class ProductService : IProductService
 
     public ProductGetDTO GetProduct(Func<Product, bool>? func = null)
     {
-        var product = _productRepository.GetEntity(func,"Category");
+        var product = _productRepository.GetEntity(func,"Category", "ProductImages");
         ProductGetDTO productsDto = _mapper.Map<ProductGetDTO>(product);
 
 
@@ -107,55 +108,92 @@ public class ProductService : IProductService
         return productsDto;
     }
 
+	public void SoftDelete(int id)
+	{
+		var existProduct = _productRepository.GetEntity(x => x.Id == id);
+		if (existProduct == null) throw new EntityNotFoundException("Product not found!");
+		existProduct.DeletedDate = DateTime.UtcNow.AddHours(4);
+
+		_productRepository.SoftDelete(existProduct);
+	}
+
     public void UpdateProduct(ProductUpdateDTO productUpdateDTO)
     {
-		var oldProduct = _productRepository.GetEntity(x => x.Id == productUpdateDTO.Id);
-		if (oldProduct == null) throw new EntityNotFoundException("Product not found");
-        var oldImages = _productImageRepository.GetAllEntities(x => x.ProductId == productUpdateDTO.Id);
-        if (oldImages == null) throw new EntityNotFoundException("ProductImage not found");
-      
+        var oldProduct = _productRepository.GetEntity(x => x.Id == productUpdateDTO.Id, "ProductImages");
+
+        if (oldProduct == null)
+            throw new EntityNotFoundException("Product tapilmadi");
+   
+        Product product = _mapper.Map<Product>(productUpdateDTO);
 
 
-        if (productUpdateDTO.ProductPosterImageFile != null || productUpdateDTO.ImageFiles != null)
+        if (productUpdateDTO.ProductPosterImageFile is not null)
         {
-            
-            ProductImage productImage = new ProductImage
+
+            ProductImage productImage = new ProductImage()
             {
                 Product = oldProduct,
-                ImageUrl = Helper.SaveFile(_env.WebRootPath, @"uploads/products", productUpdateDTO.ProductPosterImageFile, "product"),
+                ImageUrl = Helper.SaveFile(_env.WebRootPath, @"uploads\products", productUpdateDTO.ProductPosterImageFile, "product"),
                 IsPoster = true
             };
-            _productImageRepository.AddEntityAsync(productImage);
 
-            foreach (var item in productUpdateDTO.ImageFiles)
+            foreach (var item in oldProduct.ProductImages)
             {
-                ProductImage productImage1 = new ProductImage
+                Helper.DeleteFile(_env.WebRootPath, @"uploads\products", item.ImageUrl);
+            }
+
+            oldProduct.ProductImages.Remove(oldProduct.ProductImages.Where(x => x.IsPoster == true).FirstOrDefault());
+
+
+            oldProduct.ProductImages.Add(productImage);
+         }
+
+
+            if (productUpdateDTO.ImageFiles is not null)
+            {
+             
+
+                foreach (var item in productUpdateDTO.ImageFiles)
                 {
-                    Product = oldProduct,
-                    ImageUrl = Helper.SaveFile(_env.WebRootPath, @"uploads/products", item, "product"),
-                    IsPoster = false
-                };
-                _productImageRepository.AddEntityAsync(productImage1);
-                foreach (var image in oldImages)
-                {
-                    Helper.DeleteFile(_env.WebRootPath, @"uploads\products", image.ImageUrl);
+                    ProductImage image = new ProductImage()
+                    {
+                        Product = oldProduct,
+                        ImageUrl = Helper.SaveFile(_env.WebRootPath, @"uploads\products", item,"product"),
+                        IsPoster = false
+                    };
+                   
+                
+
+                    oldProduct.ProductImages.Add(image);
+
+
                 }
+              
 
             }
-            
+
+        foreach (var imgd in oldProduct.ProductImages.Where(bi => !productUpdateDTO.ProductImageIds.Contains(bi.Id) && bi.IsPoster != true))
+        {
+            Helper.DeleteFile(_env.WebRootPath, @"uploads\products", imgd.ImageUrl);
         }
 
+        oldProduct.ProductImages.RemoveAll(bi => !productUpdateDTO.ProductImageIds.Contains(bi.Id) && bi.IsPoster != true);
+
+
+        oldProduct.CategoryId = productUpdateDTO.CategoryId;
         oldProduct.Name = productUpdateDTO.Name;
-		oldProduct.Price = productUpdateDTO.Price;
-		oldProduct.CostPrice = productUpdateDTO.CostPrice;
-		oldProduct.DiscountPercent = productUpdateDTO.DiscountPercent;
-		oldProduct.ShortDescription = productUpdateDTO.ShortDescription;
-		oldProduct.Description = productUpdateDTO.Description;
-		oldProduct.CategoryId = productUpdateDTO.CategoryId;
-		oldProduct.UpdatedDate = DateTime.UtcNow.AddHours(4);
+        oldProduct.Description = productUpdateDTO.Description;
+        oldProduct.ShortDescription = productUpdateDTO.ShortDescription;
+        oldProduct.Price = productUpdateDTO.Price;
+        oldProduct.DiscountPercent = productUpdateDTO.DiscountPercent;
+        oldProduct.CostPrice = productUpdateDTO.CostPrice;
+        oldProduct.CategoryId = productUpdateDTO.CategoryId;
 
 
-		_productRepository.Commit();
 
-	}
+
+        _productRepository.Commit();
+
+    }
+
 }
