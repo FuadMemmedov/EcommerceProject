@@ -59,19 +59,32 @@ public class FaqService : IFaqService
         return faqDto;
     }
 
-	public void SoftDelete(int id)
+    public void ReturnFaq(int id)
+    {
+        var existFaq = _faqRepository.GetEntity(x => x.Id == id);
+        if (existFaq == null) throw new EntityNotFoundException("Faq not found!");
+
+        _faqRepository.ReturnEntity(existFaq);
+
+        _faqRepository.Commit();
+    }
+
+    public void SoftDelete(int id)
 	{
 		var existFaq = _faqRepository.GetEntity(x => x.Id == id);
 		if (existFaq == null) throw new EntityNotFoundException("Faq not found!");
 		existFaq.DeletedDate = DateTime.UtcNow.AddHours(4);
 
 		_faqRepository.SoftDelete(existFaq);
+
+        _faqRepository.Commit();
 	}
 
 	public void UpdateFaq(FaqUpdateDTO updateDTO)
     {
         var oldFaq = _faqRepository.GetEntity(x => x.Id == updateDTO.Id);
         if (oldFaq == null) throw new EntityNotFoundException("Faq tapilmadi");
+        oldFaq.UpdatedDate = DateTime.UtcNow.AddHours(4);
 
 
         oldFaq.Question = updateDTO.Question;

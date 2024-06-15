@@ -19,7 +19,7 @@ namespace TechnoStore.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var faqs = _faqService.GetAllFaqs();
+            var faqs = _faqService.GetAllFaqs(x=> x.IsDeleted == false);
             return View(faqs);
         }
 
@@ -105,5 +105,39 @@ namespace TechnoStore.Areas.Admin.Controllers
 
             return Ok();
         }
-    }
+		public IActionResult SoftDelete(int id)
+		{
+			try
+			{
+				_faqService.SoftDelete(id);
+			}
+			catch (EntityNotFoundException ex)
+			{
+				return NotFound();
+			}
+
+			return RedirectToAction("Index");
+		}
+        public IActionResult Return(int id)
+        {
+            try
+            {
+                _faqService.ReturnFaq(id);
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+        public IActionResult Archive()
+		{
+			var faqs = _faqService.GetAllFaqs(x => x.IsDeleted == true);
+
+			return View(faqs);
+		}
+	}
 }

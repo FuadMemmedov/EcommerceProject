@@ -75,7 +75,18 @@ public class SliderService : ISliderService
 
 	}
 
-	public void SoftDelete(int id)
+    public void ReturnSlider(int id)
+    {
+        var existSlider = _sliderRepository.GetEntity(x => x.Id == id);
+        if (existSlider == null) throw new EntityNotFoundException("Slider not found!");
+
+
+        _sliderRepository.ReturnEntity(existSlider);
+
+        _sliderRepository.Commit();
+    }
+
+    public void SoftDelete(int id)
 	{
 		var existSlider = _sliderRepository.GetEntity(x => x.Id == id);
 		if (existSlider == null) throw new EntityNotFoundException("Slider not found!");
@@ -83,7 +94,9 @@ public class SliderService : ISliderService
 		existSlider.DeletedDate = DateTime.UtcNow.AddHours(4);
 
 		_sliderRepository.SoftDelete(existSlider);
-	}
+
+        _sliderRepository.Commit();
+    }
 
 	public void UpdateSlider(SliderUpdateDTO updateDTO)
 	{

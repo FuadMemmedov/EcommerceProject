@@ -45,7 +45,7 @@
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">ImageFile</label>
                     <input asp-for="ImageFiles" class="form-control" id="exampleInputEmail1">
-                    <div style="display:flex">
+                    <div style="display:flex;flex-wrap:wrap">
                         @foreach (var image in Model.ProductImages.Where(x => x.IsPoster == false))
                         {
 
@@ -60,9 +60,19 @@
                     <span asp-validation-for="ImageFiles" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Genre</label>
+                    <label for="exampleInputEmail1" class="form-label">ColorName</label>
                     <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.Categories,"Id","Name"))"></select>
                     <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">ProductColor</label>
+                    <select asp-for="ProductColorId" class="form-control" asp-items="@(new SelectList(ViewBag.ProductColor,"Id","Name"))"></select>
+                    <span asp-validation-for="ProductColorId" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">BrandName</label>
+                    <select asp-for="BrandId" class="form-control" asp-items="@(new SelectList(ViewBag.Brand,"Id","Name"))"></select>
+                    <span asp-validation-for="BrandId" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>

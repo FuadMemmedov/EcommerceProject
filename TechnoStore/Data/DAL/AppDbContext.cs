@@ -16,8 +16,9 @@ public class AppDbContext : DbContext
 	public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
 	public DbSet<ProductImage> ProductImages { get; set; }
-	public DbSet<Faq> Faqs { get; set; }
-	public AppDbContext(DbContextOptions options) : base(options)
+	public DbSet<ProductColor> Colors { get; set; }
+	public DbSet<Brand> Brands { get; set; }
+    public AppDbContext(DbContextOptions options) : base(options)
 	{
 	}
 

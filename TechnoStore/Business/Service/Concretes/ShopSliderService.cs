@@ -74,7 +74,17 @@ public class ShopSliderService : IShopSliderService
 
 	}
 
-	public void SoftDelete(int id)
+    public void ReturnShopSlider(int id)
+    {
+        var existShopSlider = _shopSliderRepository.GetEntity(x => x.Id == id);
+        if (existShopSlider == null) throw new EntityNotFoundException("ShopSlider not found!");
+
+        _shopSliderRepository.ReturnEntity(existShopSlider);
+
+        _shopSliderRepository.Commit();
+    }
+
+    public void SoftDelete(int id)
 	{
 		var existShopSlider = _shopSliderRepository.GetEntity(x => x.Id == id);
 		if (existShopSlider == null) throw new EntityNotFoundException("ShopSlider not found!");
@@ -82,7 +92,9 @@ public class ShopSliderService : IShopSliderService
 		existShopSlider.DeletedDate = DateTime.UtcNow.AddHours(4);
 
 		_shopSliderRepository.SoftDelete(existShopSlider);
-	}
+
+        _shopSliderRepository.Commit();
+    }
 
 	public void UpdateShopSlider(ShopSliderUpdateDTO updateDTO)
 	{

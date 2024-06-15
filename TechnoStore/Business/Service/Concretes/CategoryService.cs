@@ -65,7 +65,18 @@ public class CategoryService : ICategoryService
 		return categoryGetDTOs;
 	}
 
-	public void SoftDelete(int id)
+    public void ReturnCategoryd(int id)
+    {
+        var existCategory = _categoryRepository.GetEntity(x => x.Id == id);
+        if (existCategory == null) throw new EntityNotFoundException("Category not found!");
+
+
+        _categoryRepository.ReturnEntity(existCategory);
+
+        _categoryRepository.Commit();
+    }
+
+    public void SoftDelete(int id)
 	{
 		var existCategory = _categoryRepository.GetEntity(x => x.Id == id);
 		if (existCategory == null) throw new EntityNotFoundException("Category not found!");
@@ -73,7 +84,9 @@ public class CategoryService : ICategoryService
 		existCategory.DeletedDate = DateTime.UtcNow.AddHours(4);
 
 		_categoryRepository.SoftDelete(existCategory);
-	}
+
+        _categoryRepository.Commit();
+    }
 
 	public void UpdateCategory(CategoryUpdateDTO updateDTO)
 	{

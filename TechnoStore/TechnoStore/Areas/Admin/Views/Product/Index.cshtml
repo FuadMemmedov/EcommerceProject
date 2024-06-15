@@ -8,6 +8,7 @@
     <div class="row">
         <div class="col-3 mb-5">
             <a asp-action="Create" asp-controller="Product" class="btn btn-primary">Create</a>
+            <a asp-action="Archive" asp-controller="Product" class="btn btn-dark">Archive</a>
         </div>
     </div>
     <div class="row">
@@ -19,12 +20,10 @@
                         <th scope="col">Id</th>
                         <th scope="col">Name</th>
                         <th scope="col">Price</th>
-                        <th scope="col">CostPrice</th>
-                        <th scope="col">DiscountPercent</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">ShortDescription</th>
                         <th scope="col">ImageUrl</th>
                         <th scope="col">CategoryName</th>
+                        <th scope="col">ProductColor</th>
+                        <th scope="col">BrandName</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -36,15 +35,14 @@
                             <td>@item.Id</td>
                             <td>@item.Name</td>
                             <td>@item.Price</td>
-                            <td>@item.CostPrice</td>
-                            <td>@item.DiscountPercent</td>
-                            <td>@item.Description</td>
-                            <td>@item.ShortDescription</td>
                             <td><img src="~/uploads/products/@item.ProductImages?.Where(x => x.IsPoster == true).FirstOrDefault()?.ImageUrl" width="100" height="100" /></td>
                             <td>@item.Category.Name</td>
+                            <td>@item.ProductColor.Name</td>
+                            <td>@item.Brand.Name</td>
                             <td>
                                 <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning">Update</a>
                                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger item-delete">Delete</a>
+                                <a asp-action="SoftDelete" asp-route-id="@item.Id" class="btn btn-info item-delete">SoftDelete</a>
                             </td>
                         </tr>
                     }

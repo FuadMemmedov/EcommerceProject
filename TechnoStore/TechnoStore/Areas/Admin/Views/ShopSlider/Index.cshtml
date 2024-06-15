@@ -8,6 +8,7 @@
     <div class="row">
         <div class="col-3 mb-5">
             <a asp-action="Create" asp-controller="ShopSlider" class="btn btn-primary">Create</a>
+            <a asp-action="Archive" asp-controller="ShopSlider" class="btn btn-dark">Archive</a>
         </div>
     </div>
     <div class="row">
@@ -33,6 +34,7 @@
                             <td>
                                 <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning">Update</a>
                                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger  item-delete">Delete</a>
+                                <a asp-action="SoftDelete" asp-route-id="@item.Id" class="btn btn-info item-delete">SoftDelete</a>
                             </td>
                         </tr>
                     }

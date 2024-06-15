@@ -1,6 +1,7 @@
 ﻿using Business.DTOs.SliderDTOs;
 using Business.Exceptions;
 using Business.Service.Abstracts;
+using Business.Service.Concretes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
@@ -17,7 +18,7 @@ namespace TechnoStore.Areas.Admin.Controllers
 
 		public IActionResult Index()
 		{
-			var sliders = _shopSliderService.GetAllShopSliders();
+			var sliders = _shopSliderService.GetAllShopSliders(x => x.IsDeleted == false);
 			return View(sliders);
 		}
 
@@ -126,6 +127,40 @@ namespace TechnoStore.Areas.Admin.Controllers
 			}
 
 			return Ok();
+		}
+
+		public IActionResult SoftDelete(int id)
+		{
+			try
+			{
+				_shopSliderService.SoftDelete(id);
+			}
+			catch (EntityNotFoundException ex)
+			{
+				return NotFound();
+			}
+
+			return RedirectToAction("Index");
+		}
+        public IActionResult Return(int id)
+        {
+            try
+            {
+                _shopSliderService.ReturnShopSlider(id);
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Archive()
+		{
+			var shopsliders = _shopSliderService.GetAllShopSliders(x => x.IsDeleted == true);
+
+			return View(shopsliders);
 		}
 	}
 }

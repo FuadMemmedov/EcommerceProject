@@ -13,7 +13,8 @@ public interface IShopSliderService
 	Task AddShopSliderAsync(ShopSliderCreateDTO createDTO);
 	void DeleteShopSlider(int id);
 	void SoftDelete(int id);
-	void UpdateShopSlider(ShopSliderUpdateDTO updateDTO);
+    void ReturnShopSlider(int id);
+    void UpdateShopSlider(ShopSliderUpdateDTO updateDTO);
 	ShopSliderGetDTO GetShopSlider(Func<ShopSlider, bool>? func = null);
 	List<ShopSliderGetDTO> GetAllShopSliders(Func<ShopSlider, bool>? func = null);
 }

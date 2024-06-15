@@ -1,4 +1,5 @@
 ﻿using Business.Exceptions;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,8 @@ public static class Helper
 		if (!file.ContentType.Contains("image/"))
 			throw new FileContentTypeException("Image type is wrong");
 
-		if (file.Length > 2097152)
-			throw new FileSizeException("Image size must be 2mb");
+		//if (file.Length > 2097152)
+		//	throw new FileSizeException("Image size must be 2mb");
 
 		string extension = Path.GetExtension(file.FileName);
 		string fileName = $"{container}-{Guid.NewGuid().ToString().ToLower()}{extension}";
@@ -40,4 +41,6 @@ public static class Helper
 
 		File.Delete(path);
 	}
+
+ 
 }

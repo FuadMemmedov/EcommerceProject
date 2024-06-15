@@ -18,9 +18,11 @@ public class ProductGetDTO
 	public string ShortDescription { get; set; }
 
 	public decimal Price { get; set; }
-	public decimal DiscountPercent { get; set; }
+	public int DiscountPercent { get; set; }
 	public decimal CostPrice { get; set; }
 	public Category Category { get; set; }
+    public Brand Brand { get; set; }
+    public ProductColor ProductColor { get; set; }
     public List<ProductImage>? ProductImages { get; set; }
     public List<int> ProductImageIds { get; set; }
 

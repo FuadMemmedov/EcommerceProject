@@ -153,10 +153,14 @@
 								<div class="widget-content">
 									<p>Price</p>
 									<div class="price search-filter-input">
-                                        <div id="slider-range" class="price-slider ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header" ></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span></div>
-                                        <p class="amount">
-                                          <input type="text" id="amount" disabled="">
-                                        </p>
+							  <form asp-action="searchprice" asp-controller="home">
+									<div class="container mt-3">
+										<div class="row">
+											<input type="number" placeholder="Min Price">
+											<input type="number" placeholder="Max Price">
+										</div>
+									</div>
+							  </form>
                                    </div>
 								</div>
 							</div><!-- /.widget widget-price -->

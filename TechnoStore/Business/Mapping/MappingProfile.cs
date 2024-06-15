@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Business.DTOs.BrandDTOs;
 using Business.DTOs.CategoryDTOs;
 using Business.DTOs.FaqDTOs;
+using Business.DTOs.ProductColorDTOs;
 using Business.DTOs.ProductDTOs;
 using Business.DTOs.SliderDTOs;
 using Core.Models;
@@ -35,6 +37,15 @@ public class MappingProfile:Profile
         CreateMap<FaqCreateDTO, Faq>().ReverseMap();
         CreateMap<Faq, FaqGetDTO>().ReverseMap();
         CreateMap<FaqUpdateDTO, Faq>().ReverseMap();
+
+
+        CreateMap<ProductColorCreateDTO, ProductColor>().ReverseMap();
+        CreateMap<ProductColor, ProductColorGetDTO>().ReverseMap();
+        CreateMap<ProductColorUpdateDTO, ProductColor>().ReverseMap();
+
+        CreateMap<BrandCreateDTO, Brand>().ReverseMap();
+        CreateMap<Brand, BrandGetDTO>().ReverseMap();
+        CreateMap<BrandUpdateDTO, Brand>().ReverseMap();
 
     }
 }

@@ -19,7 +19,7 @@ namespace TechnoStore.Areas.Admin.Controllers
 
 		public IActionResult Index()
 		{
-			var categories = _categoryService.GetAllCategories();
+			var categories = _categoryService.GetAllCategories(x => x.IsDeleted == false);
 			return View(categories);
 		}
 		public IActionResult Create()
@@ -57,6 +57,41 @@ namespace TechnoStore.Areas.Admin.Controllers
 			}
 
 			return Ok();
+		}
+
+		public IActionResult SoftDelete(int id)
+		{
+			try
+			{
+				_categoryService.SoftDelete(id);
+			}
+			catch (EntityNotFoundException ex)
+			{
+				return NotFound();
+			}
+
+			return RedirectToAction("Index");
+		}
+        public IActionResult Return(int id)
+        {
+            try
+            {
+                _categoryService.ReturnCategoryd(id);
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+        public IActionResult Archive()
+		{
+			var categories = _categoryService.GetAllCategories(x => x.IsDeleted == true);
+
+			return View(categories);
 		}
 
 	}

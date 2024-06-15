@@ -45,9 +45,19 @@
                     <span asp-validation-for="ImageFiles" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Genre</label>
+                    <label for="exampleInputEmail1" class="form-label">CategoryName</label>
                     <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.Categories,"Id","Name"))"></select>
                     <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">ProdoctColorName</label>
+                    <select asp-for="ProductColorId" class="form-control" asp-items="@(new SelectList(ViewBag.ProductColor,"Id","Name"))"></select>
+                    <span asp-validation-for="ProductColorId" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">BrandName</label>
+                    <select asp-for="BrandId" class="form-control" asp-items="@(new SelectList(ViewBag.Brand,"Id","Name"))"></select>
+                    <span asp-validation-for="BrandId" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-primary">Create</button>
                 <a asp-action="index" asp-controller="product" class="btn btn-danger">Cancel</a>

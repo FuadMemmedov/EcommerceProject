@@ -14,7 +14,8 @@ public interface IFaqService
     Task AddFaqAsync(FaqCreateDTO faqCreateDTO);
     void DeleteFaq(int id);
 	void SoftDelete(int id);
-	void UpdateFaq(FaqUpdateDTO updateDTO);
+    void ReturnFaq(int id);
+    void UpdateFaq(FaqUpdateDTO updateDTO);
     FaqGetDTO GetFaq(Func<Faq, bool>? func = null, params string[]? includes);
     List<FaqGetDTO> GetAllFaqs(Func<Faq, bool>? func = null, params string[]? includes);
 }

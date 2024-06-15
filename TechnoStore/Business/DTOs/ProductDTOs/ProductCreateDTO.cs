@@ -15,12 +15,14 @@ public class ProductCreateDTO
     public string Description { get; set; }
 	public string ShortDescription { get; set; }
 	public decimal Price { get; set; }
-    public decimal DiscountPercent { get; set; }
+    public int DiscountPercent { get; set; }
     public decimal CostPrice { get; set; }
+    public int BrandId { get; set; }
     public IFormFile ProductPosterImageFile { get; set; }
     public List<IFormFile>? ImageFiles { get; set; }
     public int CategoryId { get; set; }
-  
+    public int ProductColorId { get; set; }
+
 
 }
 public class ProductCreateDTOValidator : AbstractValidator<ProductCreateDTO>

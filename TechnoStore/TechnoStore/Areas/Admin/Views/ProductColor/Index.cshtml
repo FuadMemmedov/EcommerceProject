@@ -1,0 +1,45 @@
+﻿@using Business.DTOs.ProductColorDTOs
+@model List<ProductColorGetDTO>
+@{
+    int counter = 1;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-3 mb-5">
+            <a asp-action="Create" asp-controller="ProductColor" class="btn btn-primary">Create</a>
+            <a asp-action="Archive" asp-controller="ProductColor" class="btn btn-dark">Archive</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">HexCode</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@(counter++)</th>
+                            <td>@item.Id</td>
+                            <td style="text-align:center;"><span style="width:40px;height:40px;box-shadow: 0px 0px 60px -7px rgba(0,0,0,0.75);display: inline-block; background-color:@item.HexCode;"></span></td>
+                            <td>@item.Name</td>
+                            <td>
+                                <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning">Update</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger  item-delete">Delete</a>
+                                <a asp-action="SoftDelete" asp-route-id="@item.Id" class="btn btn-info item-delete">SoftDelete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

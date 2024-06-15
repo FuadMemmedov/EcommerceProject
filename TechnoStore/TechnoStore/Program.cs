@@ -17,7 +17,11 @@ namespace TechnoStore
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation().AddFluentValidation(x =>
+            builder.Services.AddControllersWithViews().AddJsonOptions(opt =>
+            {
+                opt.JsonSerializerOptions.ReferenceHandler =
+                System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+            }). AddRazorRuntimeCompilation().AddFluentValidation(x =>
 			{
 				x.RegisterValidatorsFromAssemblyContaining(typeof(SliderCreateDTOValidator));
 				x.RegisterValidatorsFromAssemblyContaining(typeof(SliderUpdateDTOValidator));
@@ -44,6 +48,10 @@ namespace TechnoStore
             builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
             builder.Services.AddScoped<IFaqService, FaqService>();
             builder.Services.AddScoped<IFaqRepository, FaqRepository>();
+            builder.Services.AddScoped<IProductColorRepository, ProductColorRepository>();
+            builder.Services.AddScoped<IProductColorService, ProductColorService>();
+            builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+            builder.Services.AddScoped<IBrandService, BrandService>();
 
             var app = builder.Build();
 

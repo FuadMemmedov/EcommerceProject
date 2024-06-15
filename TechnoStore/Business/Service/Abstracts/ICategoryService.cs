@@ -14,7 +14,8 @@ public interface ICategoryService
 	Task AddCategoryAsync(CategoryCreateDTO categoryCreateDTO);
 	void DeleteCategory(int id);
 	void SoftDelete(int id);
-	void UpdateCategory(CategoryUpdateDTO updateDTO);
+    void ReturnCategoryd(int id);
+    void UpdateCategory(CategoryUpdateDTO updateDTO);
 	CategoryGetDTO GetCategory(Func<Category, bool>? func = null,params string[]? includes);
 	List<CategoryGetDTO> GetAllCategories(Func<Category, bool>? func = null, params string[]? includes);
 }
