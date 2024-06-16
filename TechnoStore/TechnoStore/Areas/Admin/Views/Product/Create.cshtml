@@ -5,63 +5,84 @@
         <div class="col-6">
             <form asp-action="Create" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Name</label>
-                    <input asp-for="Name" class="form-control" id="exampleInputEmail1">
+                    <label for="Name" class="form-label">Name</label>
+                    <input asp-for="Name" class="form-control" id="Name">
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Price</label>
-                    <input asp-for="Price" class="form-control" id="exampleInputEmail1">
+                    <label for="Price" class="form-label">Price</label>
+                    <input asp-for="Price" class="form-control" id="Price">
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">CostPrice</label>
-                    <input asp-for="CostPrice" class="form-control" id="exampleInputEmail1">
+                    <label for="CostPrice" class="form-label">Cost Price</label>
+                    <input asp-for="CostPrice" class="form-control" id="CostPrice">
                     <span asp-validation-for="CostPrice" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">DiscountPercent</label>
-                    <input asp-for="DiscountPercent" class="form-control" id="exampleInputEmail1">
+                    <label for="DiscountPercent" class="form-label">Discount Percent</label>
+                    <input asp-for="DiscountPercent" class="form-control" id="DiscountPercent">
                     <span asp-validation-for="DiscountPercent" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">ShortDescription</label>
-                    <input asp-for="ShortDescription" class="form-control" id="exampleInputEmail1">
+                    <label for="ShortDescription" class="form-label">Short Description</label>
+                    <input asp-for="ShortDescription" class="form-control" id="ShortDescription">
                     <span asp-validation-for="ShortDescription" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Description</label>
-                    <input asp-for="Description" class="form-control" id="exampleInputEmail1">
+                    <label for="Description" class="form-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" id="Description"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">ProductPosterImageFile</label>
-                    <input asp-for="ProductPosterImageFile" class="form-control" id="exampleInputEmail1">
+                    <label for="TechnicalSpecs" class="form-label">Technical Specs</label>
+                    <textarea asp-for="TechnicalSpecs" class="form-control" id="TechnicalSpecs"></textarea>
+                    <span asp-validation-for="TechnicalSpecs" class="text-danger"></span>
+                </div>
+                <div class="form-check mb-3">
+                    <input type="checkbox" name="IsFeatured" class="form-check-input" id="IsFeatured">
+                    <label class="form-check-label" for="IsFeatured">Is Featured</label>
+                    <span asp-validation-for="IsFeatured" class="text-danger"></span>
+                </div>
+                <div class="form-check mb-3">
+                    <input type="checkbox" name="IsNewArrivals" class="form-check-input" id="IsNewArrivals">
+                    <label class="form-check-label" for="IsNewArrivals">Is New Arrivals</label>
+                    <span asp-validation-for="IsNewArrivals" class="text-danger"></span>
+                </div>
+                <div class="form-check mb-3">
+                    <input type="checkbox" name="IsTopSelling" class="form-check-input" id="IsTopSelling">
+                    <label class="form-check-label" for="IsTopSelling">Is Top Selling</label>
+                    <span asp-validation-for="IsTopSelling" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="ProductPosterImageFile" class="form-label">Product Poster Image File</label>
+                    <input asp-for="ProductPosterImageFile" class="form-control" id="ProductPosterImageFile">
                     <span asp-validation-for="ProductPosterImageFile" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">ImageFile</label>
-                    <input asp-for="ImageFiles" class="form-control" id="exampleInputEmail1">
+                    <label for="ImageFiles" class="form-label">Image Files</label>
+                    <input asp-for="ImageFiles" class="form-control" id="ImageFiles">
                     <span asp-validation-for="ImageFiles" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">CategoryName</label>
-                    <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.Categories,"Id","Name"))"></select>
+                    <label for="CategoryId" class="form-label">Category Name</label>
+                    <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.Categories, "Id", "Name"))" id="CategoryId"></select>
                     <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">ProdoctColorName</label>
-                    <select asp-for="ProductColorId" class="form-control" asp-items="@(new SelectList(ViewBag.ProductColor,"Id","Name"))"></select>
+                    <label for="ProductColorId" class="form-label">Product Color Name</label>
+                    <select asp-for="ProductColorId" class="form-control" asp-items="@(new SelectList(ViewBag.ProductColor, "Id", "Name"))" id="ProductColorId"></select>
                     <span asp-validation-for="ProductColorId" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">BrandName</label>
-                    <select asp-for="BrandId" class="form-control" asp-items="@(new SelectList(ViewBag.Brand,"Id","Name"))"></select>
+                    <label for="BrandId" class="form-label">Brand Name</label>
+                    <select asp-for="BrandId" class="form-control" asp-items="@(new SelectList(ViewBag.Brand, "Id", "Name"))" id="BrandId"></select>
                     <span asp-validation-for="BrandId" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-primary">Create</button>
-                <a asp-action="index" asp-controller="product" class="btn btn-danger">Cancel</a>
+                <a asp-action="Index" asp-controller="Product" class="btn btn-danger">Cancel</a>
             </form>
         </div>
     </div>
 </div>
+

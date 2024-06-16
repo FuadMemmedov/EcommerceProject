@@ -33,7 +33,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 15, 0, 28, 31, 88, DateTimeKind.Utc).AddTicks(4630));
+                        .HasDefaultValue(new DateTime(2024, 6, 16, 2, 57, 25, 171, DateTimeKind.Utc).AddTicks(2411));
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -50,7 +50,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands");
+                    b.ToTable("Brands", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Category", b =>
@@ -84,7 +84,7 @@ namespace Data.Migrations
 
                     b.HasIndex("ParentCategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Faq", b =>
@@ -102,7 +102,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 15, 0, 28, 31, 92, DateTimeKind.Utc).AddTicks(3895));
+                        .HasDefaultValue(new DateTime(2024, 6, 16, 2, 57, 25, 172, DateTimeKind.Utc).AddTicks(7434));
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -119,7 +119,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Faq");
+                    b.ToTable("Faq", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Product", b =>
@@ -155,6 +155,15 @@ namespace Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool?>("IsFeatured")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsNewArrivals")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsTopSelling")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -169,6 +178,10 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TechnicalSpecs")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
@@ -180,7 +193,7 @@ namespace Data.Migrations
 
                     b.HasIndex("ProductColorId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.ProductColor", b =>
@@ -194,7 +207,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 15, 0, 28, 31, 93, DateTimeKind.Utc).AddTicks(692));
+                        .HasDefaultValue(new DateTime(2024, 6, 16, 2, 57, 25, 173, DateTimeKind.Utc).AddTicks(1262));
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -218,7 +231,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors");
+                    b.ToTable("Colors", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.ProductImage", b =>
@@ -255,7 +268,7 @@ namespace Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages");
+                    b.ToTable("ProductImages", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.ShopSlider", b =>
@@ -269,7 +282,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 15, 0, 28, 31, 93, DateTimeKind.Utc).AddTicks(3813));
+                        .HasDefaultValue(new DateTime(2024, 6, 16, 2, 57, 25, 173, DateTimeKind.Utc).AddTicks(4930));
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -291,7 +304,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ShopSliders");
+                    b.ToTable("ShopSliders", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Slider", b =>
@@ -305,7 +318,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 15, 0, 28, 31, 96, DateTimeKind.Utc).AddTicks(2131));
+                        .HasDefaultValue(new DateTime(2024, 6, 16, 2, 57, 25, 173, DateTimeKind.Utc).AddTicks(6908));
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -337,7 +350,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sliders");
+                    b.ToTable("Sliders", (string)null);
                 });
 
             modelBuilder.Entity("Core.Models.Category", b =>

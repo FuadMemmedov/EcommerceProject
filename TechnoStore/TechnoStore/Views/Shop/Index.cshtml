@@ -1,26 +1,8 @@
-﻿@using Business.DTOs.SliderDTOs
-@model List<ShopSliderGetDTO>
-<section class="flat-breadcrumb">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<ul class="breadcrumbs">
-					<li class="trail-item">
-						<a href="#" title="">Home</a>
-						<span><img src="~/images//icons/arrow-right.png" alt=""></span>
-					</li>
-					<li class="trail-item">
-						<a href="#" title="">Shop</a>
-						<span><img src="~/images//icons/arrow-right.png" alt=""></span>
-					</li>
-					<li class="trail-end">
-						<a href="#" title="">Smartphones</a>
-					</li>
-				</ul><!-- /.breacrumbs -->
-			</div><!-- /.col-md-12 -->
-		</div><!-- /.row -->
-	</div><!-- /.container -->
-</section><!-- /.flat-breadcrumb -->
+﻿@using TechnoStore.ViewModels
+@model ShopVm
+@{
+	int counter = 0;
+}
 
 <main id="shop">
 			<div class="container">
@@ -32,320 +14,87 @@
 									<h3>Categories<span></span></h3>
 								</div>
 								<ul class="cat-list style1 widget-content">
-									<li>
-										<span>Accessories<i>(03)</i></span>
-										<ul class="cat-child">
-											<li>
-												<a href="#" title="">TV</a>
-											</li>
-											<li>
-												<a href="#" title="">Monitors</a>
-											</li>
-											<li>
-												<a href="#" title="">Software</a>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<span>Cameras<i>(19)</i></span>
-										<ul class="cat-child">
-											<li>
-												<a href="#" title="">Go Pro</a>
-											</li>
-											<li>
-												<a href="#" title="">Video</a>
-											</li>
-											<li>
-												<a href="#" title="">Software</a>
-											</li>
-										</ul>
-									</li>
-									<li class="">
-										<span>Computers<i>(56)</i></span>
-										<ul class="cat-child">
-											<li>
-												<a href="#" title="">Desktop</a>
-											</li>
-											<li>
-												<a href="#" title="">Monitors</a>
-											</li>
-											<li>
-												<a href="#" title="">Software</a>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<span>Laptops<i>(03)</i></span>
-										<ul class="cat-child">
-											<li>
-												<a href="#" title="">Desktop</a>
-											</li>
-											<li>
-												<a href="#" title="">Monitors</a>
-											</li>
-											<li>
-												<a href="#" title="">Software</a>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<span>Networking<i>(03)</i></span>
-										<ul class="cat-child">
-											<li>
-												<a href="#" title="">Monitors</a>
-											</li>
-											<li>
-												<a href="#" title="">Software</a>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<span>Old Products<i>(89)</i></span>
-										<ul class="cat-child">
-											<li>
-												<a href="#" title="">Monitors</a>
-											</li>
-											<li>
-												<a href="#" title="">Software</a>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<span>Smartphones<i>(90)</i></span>
-										<ul class="cat-child">
-											<li>
-												<a href="#" title="">Apple</a>
-											</li>
-											<li>
-												<a href="#" title="">HTC</a>
-											</li>
-											<li>
-												<a href="#" title="">Sony</a>
-											</li>
-											<li>
-												<a href="#" title="">Samsung</a>
-											</li>
-											<li>
-												<a href="#" title="">LG</a>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<span>Software<i>(23)</i></span>
-										<ul class="cat-child">
-											<li>
-												<a href="#" title="">Desktop</a>
-											</li>
-											<li>
-												<a href="#" title="">Monitors</a>
-											</li>
-											<li>
-												<a href="#" title="">BKAV</a>
-											</li>
-										</ul>
-									</li>
+							@foreach(var item in Model.Categories)
+							{
+								<li>
+									<span>@item.Name</span>
+									<ul class="cat-child">
+										<li>
+											<a href="#" title="">@item.ParentCategory.Name</a>
+										</li>
+									</ul>
+								</li>
+							}
+
 								</ul><!-- /.cat-list -->
 							</div><!-- /.widget-categories -->
-							<div class="widget widget-price">
-								<div class="widget-title">
-									<h3>Price<span></span></h3>
-								</div>
-								<div class="widget-content">
-									<p>Price</p>
-									<div class="price search-filter-input">
-							  <form asp-action="searchprice" asp-controller="home">
+					<form asp-action="Filter" asp-controller="Shop" method="get">
+						<div class="widget widget-price">
+							<div class="widget-title">
+								<h3>Price<span></span></h3>
+							</div>
+							<div class="widget-content">
+								<div class="price search-filter-input">
 									<div class="container mt-3">
 										<div class="row">
-											<input type="number" placeholder="Min Price">
-											<input type="number" placeholder="Max Price">
+											<input type="number" name="minPrice" placeholder="Min Price">
+											<input type="number" name="maxPrice" placeholder="Max Price">
 										</div>
 									</div>
-							  </form>
-                                   </div>
 								</div>
-							</div><!-- /.widget widget-price -->
-							<div class="widget widget-brands">
-								<div class="widget-title">
-									<h3>Brands<span></span></h3>
-								</div>
-								<div class="widget-content">
-									<form action="#" method="get" accept-charset="utf-8">
-										<input type="text" name="brands" placeholder="Brands Search">
-									</form>
-									<ul class="box-checkbox scroll">
+							</div>
+						</div><!-- /.widget widget-price -->
+
+						<div class="widget widget-brands">
+							<div class="widget-title">
+								<h3>Brands<span></span></h3>
+							</div>
+							<div class="widget-content">
+								<ul class="box-checkbox scroll">
+									@foreach (var item in Model.Brands)
+									{
 										<li class="check-box">
-											<input type="checkbox" id="checkbox1" name="checkbox1">
-											<label for="checkbox1">Apple <span>(4)</span></label>
+											<input type="checkbox" id="brand_@item.Id" name="selectedBrands" value="@item.Id">
+											<label for="brand_@item.Id">@item.Name</label>
 										</li>
-										<li class="check-box">
-											<input type="checkbox" id="checkbox2" name="checkbox2">
-											<label for="checkbox2">Samsung <span>(2)</span></label>
-										</li>
-										<li class="check-box">
-											<input type="checkbox" id="checkbox3" name="checkbox3">
-											<label for="checkbox3">HTC <span>(2)</span></label>
-										</li>
-										<li class="check-box">
-											<input type="checkbox" id="checkbox4" name="checkbox4">
-											<label for="checkbox4">LG <span>(2)</span></label>
-										</li>
-										<li class="check-box">
-											<input type="checkbox" id="checkbox5" name="checkbox5">
-											<label for="checkbox5">Dell <span>(1)</span></label>
-										</li>
-										<li class="check-box">
-											<input type="checkbox" id="checkbox6" name="checkbox6">
-											<label for="checkbox6">Sony <span>(3)</span></label>
-										</li>
-										<li class="check-box">
-											<input type="checkbox" id="checkbox7" name="checkbox7">
-											<label for="checkbox7">Bphone <span>(4)</span></label>
-										</li>
-										<li class="check-box">
-											<input type="checkbox" id="checkbox8" name="checkbox8">
-											<label for="checkbox8">Oppo <span>(4)</span></label>
-										</li>
-									</ul>
-								</div>
-							</div><!-- /.widget widget-brands -->
-							<div class="widget widget-color">
-								<div class="widget-title">
-									<h3>Color<span></span></h3>
-									<div style="height: 2px"></div>
-								</div>
-								<div class="widget-content">
-									<form action="#" method="get" accept-charset="utf-8">
-										<input type="text" name="color" placeholder="Color Search">
-									</form>
-									<div style="height: 5px"></div>
-									<ul class="box-checkbox scroll">
-										<li class="check-box">
-											<input type="checkbox" id="check1" name="check1">
-											<label for="check1">Black <span>(4)</span></label>
-										</li>
-										<li class="check-box">
-											<input type="checkbox" id="check2" name="check2">
-											<label for="check2">Yellow <span>(2)</span></label>
-										</li>
-										<li class="check-box">
-											<input type="checkbox" id="check3" name="check3">
-											<label for="check3">White <span>(2)</span></label>
-										</li>
-										<li class="check-box">
-											<input type="checkbox" id="check4" name="check4">
-											<label for="check4">Blue <span>(2)</span></label>
-										</li>
-										<li class="check-box">
-											<input type="checkbox" id="check5" name="check5">
-											<label for="check5">Red <span>(1)</span></label>
-										</li>
-										<li class="check-box">
-											<input type="checkbox" id="check6" name="check6">
-											<label for="check6">Pink <span>(3)</span></label>
-										</li>
-										<li class="check-box">
-											<input type="checkbox" id="check7" name="check7">
-											<label for="check7">Green <span>(4)</span></label>
-										</li>
-										<li class="check-box">
-											<input type="checkbox" id="check8" name="check8">
-											<label for="check8">Gold <span>(4)</span></label>
-										</li>
-									</ul>
-								</div>
-							</div><!-- /.widget widget-color -->
-							<div class="widget widget-products">
-								<div class="widget-title">
-									<h3>Best Seller<span></span></h3>
-								</div>
-								<ul class="product-list widget-content">
-									<li>
-										<div class="img-product">
-											<a href="#" title="">
-												<img src="~/images//blog/14.jpg" alt="">
-											</a>
-										</div>
-										<div class="info-product">
-											<div class="name">
-												<a href="#" title="">Razer RZ02-01071 <br/>500-R3M1</a>
-											</div>
-											<div class="queue">
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-											</div>
-											<div class="price">
-												<span class="sale">$50.00</span>
-												<span class="regular">$2,999.00</span>
-											</div>
-										</div>
-									</li>	
-									<li>
-										<div class="img-product">
-											<a href="#" title="">
-												<img src="~/images//blog/13.jpg" alt="">
-											</a>
-										</div>
-										<div class="info-product">
-											<div class="name">
-												<a href="#" title="">Notebook Black Spire <br/>V Nitro VN7-591G</a>
-											</div>
-											<div class="queue">
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-											</div>
-											<div class="price">
-												<span class="sale">$24.00</span>
-												<span class="regular">$2,999.00</span>
-											</div>
-										</div>
-									</li>
-									<li>
-										
-										<div class="img-product">
-											<a href="#" title="">
-												<img src="~/images//blog/12.jpg" alt="">
-											</a>
-										</div>
-										<div class="info-product">
-											<div class="name">
-												<a href="#" title="">Apple iPad Mini <br/>G2356</a>
-											</div>
-											<div class="queue">
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-											</div>
-											<div class="price">
-												<span class="sale">$90.00</span>
-												<span class="regular">$2,999.00</span>
-											</div>
-										</div>
-									</li>	
+									}
 								</ul>
-							</div><!-- /.widget widget-products -->
-							<div class="widget widget-banner">
-								<div class="banner-box">
-									<div class="inner-box">
-										<a href="#" title="">
-											<img src="~/images//banner_boxes/06.png" alt="">
-										</a>
-									</div>
-								</div>
-							</div><!-- /.widget widget-banner -->
+							</div>
+						</div><!-- /.widget widget-brands -->
+
+						<div class="widget widget-color">
+							<div class="widget-title">
+								<h3>Color<span></span></h3>
+								<div style="height: 2px"></div>
+							</div>
+							<div class="widget-content">
+								<div style="height: 5px"></div>
+								<ul class="box-checkbox scroll">
+									@foreach (var item in Model.Colors)
+									{
+										<li class="check-box">
+											<input type="checkbox" id="color_@item.Id" name="selectedColors" value="@item.Id">
+											<label for="color_@item.Id">@item.Name</label>
+										</li>
+									}
+								</ul>
+							</div>
+						</div><!-- /.widget widget-color -->
+
+						<div class="row">
+							<div>
+								<button type="submit" class="btn btn-outline-warning">Filter</button>
+							</div>
+						</div>
+					</form>
+							
+							
 						</div><!-- /.sidebar -->
 					</div><!-- /.col-lg-3 col-md-4 -->
 					<div class="col-lg-9 col-md-8">
 						<div class="main-shop">
 							<div class="slider owl-carousel-16">
-						@foreach(var item in Model)
+						@foreach(var item in Model.ShopSliders)
 						{
 							<div class="slider-item style9">
 								<div class="item-text">
@@ -365,10 +114,6 @@
 							</div><!-- /.slider -->
 							<div class="wrap-imagebox">
 								<div class="flat-row-title">
-									<h3>Mobile & Tablet</h3>
-									<span>
-										Showing 1–15 of 20 results
-									</span>
 									<div class="clearfix"></div>
 								</div>
 								<div class="sort-product">
@@ -389,779 +134,121 @@
 												<option value="">Sort by popularity</option>
 											</select>
 										</div>
-										<div class="showed">
-											<select name="showed">
-												<option value="">Show 15</option>
-												<option value="">Show 15</option>
-												<option value="">Show 15</option>
-												<option value="">Show 15</option>
-											</select>
-										</div>
 									</div>
 									<div class="clearfix"></div>
 								</div>
 								<div class="tab-product">
 									<div class="row sort-box">
-										<div class="col-lg-4 col-sm-6">
-											<div class="product-box">
-												<div class="imagebox">
-													<div class="box-image owl-carousel-1">
-														<a href="#" title="">
-															<img src="~/images//product/other/02.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/02.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/02.jpg" alt="">
-														</a>
-													</div><!-- /.box-image -->
-													<div class="box-content">
-														<div class="cat-name">
-															<a href="#" title="">Cameras</a>
-														</div>
-														<div class="product-name">
-															<a href="#" title="">New X5C-1 2.4Ghz Gyro<br />RC Quadcopter Drone</a>
-														</div>
+								@foreach(var item in Model.Products)
+								{
+									<div class="col-lg-4 col-sm-6">
+										<div class="product-box">
+											<div class="imagebox">
+												<div class="box-image owl-carousel-1">
+													<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
+														<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+													</a>
+													<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
+														<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+													</a>
+													<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
+														<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+													</a>
+												</div><!-- /.box-image -->
+												<div class="box-content">
+													<div class="cat-name">
+														<a href="#" title="">@item.Category.ParentCategory.Name</a>
+													</div>
+													<div class="product-name">
+														<a href="#" title="">@item.Name<br />@item.Brand.Name</a>
+													</div>
+													@if (item.DiscountPercent != null)
+													{
 														<div class="price">
-															<span class="sale">$2,009.00</span>
-															<span class="regular">$2,999.00</span>
+															<span class="regular">$@item.Price</span>
+															<span class="sale">$@(item.Price - item.Price * item.DiscountPercent / 100)</span>
 														</div>
-													</div><!-- /.box-content -->
-													<div class="box-bottom">
-														<div class="btn-add-cart">
-															<a href="#" title="">
-																<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-															</a>
-														</div>
-														<div class="compare-wishlist">
-															<a href="#" class="compare" title="">
-																<img src="~/images//icons/compare.png" alt="">Compare
-															</a>
-															<a href="#" class="wishlist" title="">
-																<img src="~/images//icons/wishlist.png" alt="">Wishlist
-															</a>
-														</div>
-													</div><!-- /.box-bottom -->
-												</div><!-- /.imagebox -->
-											</div>
-										</div><!-- /.col-lg-4 col-sm-6 -->
-										<div class="col-lg-4 col-sm-6">
-											<div class="product-box">
-												<div class="imagebox">
-													<div class="box-image owl-carousel-1">
+													}
+													else
+													{
+														<span class="regular">$@item.Price</span>
+													}
+												</div><!-- /.box-content -->
+												<div class="box-bottom">
+													<div class="btn-add-cart">
 														<a href="#" title="">
-															<img src="~/images//product/other/03.jpg" alt="">
+															<img src="~/images//icons/add-cart.png" alt="">Add to Cart
 														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/03.jpg" alt="">
+													</div>
+													<div class="compare-wishlist">
+														<a href="#" class="wishlist" title="">
+															<img src="~/images//icons/wishlist.png" alt="">Wishlist
 														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/03.jpg" alt="">
-														</a>
-													</div><!-- /.box-image -->
-													<div class="box-content">
-														<div class="cat-name">
-															<a href="#" title="">Headphones</a>
-														</div>
-														<div class="product-name">
-															<a href="#" title="">Beats Solo<br />HD</a>
-														</div>
-														<div class="price">
-															<span class="sale">$1,999.00</span>
-															<span class="regular">$2,999.00</span>
-														</div>
-													</div><!-- /.box-content -->
-													<div class="box-bottom">
-														<div class="btn-add-cart">
-															<a href="#" title="">
-																<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-															</a>
-														</div>
-														<div class="compare-wishlist">
-															<a href="#" class="compare" title="">
-																<img src="~/images//icons/compare.png" alt="">Compare
-															</a>
-															<a href="#" class="wishlist" title="">
-																<img src="~/images//icons/wishlist.png" alt="">Wishlist
-															</a>
-														</div>
-													</div><!-- /.box-bottom -->
-												</div><!-- /.imagebox -->
-											</div>
-										</div><!-- /.col-lg-4 col-sm-6 -->
-										<div class="col-lg-4 col-sm-6">
-											<div class="product-box">
-												<div class="imagebox">
-													<span class="item-sale">SALE</span>
-													<div class="box-image owl-carousel-1">
-														<a href="#" title="">
-															<img src="~/images//product/other/04.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/04.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/04.jpg" alt="">
-														</a>
-													</div><!-- /.box-image -->
-													<div class="box-content">
-														<div class="cat-name">
-															<a href="#" title="">Computers</a>
-														</div>
-														<div class="product-name">
-															<a href="#" title="">Apple İmac Z0SC4824<br />Retina</a>
-														</div>
-														<div class="price">
-															<span class="sale">$5,759.68</span>
-															<span class="regular">$2,999.00</span>
-														</div>
-													</div><!-- /.box-content -->
-													<div class="box-bottom">
-														<div class="btn-add-cart">
-															<a href="#" title="">
-																<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-															</a>
-														</div>
-														<div class="compare-wishlist">
-															<a href="#" class="compare" title="">
-																<img src="~/images//icons/compare.png" alt="">Compare
-															</a>
-															<a href="#" class="wishlist" title="">
-																<img src="~/images//icons/wishlist.png" alt="">Wishlist
-															</a>
-														</div>
-													</div><!-- /.box-bottom -->
-												</div><!-- /.imagebox -->
-											</div>
-										</div><!-- /.col-lg-4 col-sm-6 -->
-										<div class="col-lg-4 col-sm-6">
-											<div class="product-box">
-												<div class="imagebox">
-													<div class="box-image owl-carousel-1">
-														<a href="#" title="">
-															<img src="~/images//product/other/06.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/06.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/06.jpg" alt="">
-														</a>
-													</div><!-- /.box-image -->
-													<div class="box-content">
-														<div class="cat-name">
-															<a href="#" title="">Cameras</a>
-														</div>
-														<div class="product-name">
-															<a href="#" title="">New X5C-1 2.4Ghz Gyro <br />RC Quadcopter Drone</a>
-														</div>
-														<div class="price">
-															<span class="sale">$2,009.00</span>
-															<span class="regular">$2,999.00</span>
-														</div>
-													</div><!-- /.box-content -->
-													<div class="box-bottom">
-														<div class="btn-add-cart">
-															<a href="#" title="">
-																<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-															</a>
-														</div>
-														<div class="compare-wishlist">
-															<span class="compare">
-																<a href="#" title="">
-																	<img src="~/images//icons/compare.png" alt="">Compare
-																</a>
-															</span>
-															<span class="wishlist">
-																<a href="#" title="">
-																	<img src="~/images//icons/wishlist.png" alt="">Wishlist
-																</a>
-															</span>
-														</div>
-													</div><!-- /.box-bottom -->
-												</div><!-- /.imagebox -->
-											</div>
-										</div><!-- /.col-lg-4 col-sm-6 -->
-										<div class="col-lg-4 col-sm-6">
-											<div class="product-box">
-												<div class="imagebox">
-													<div class="box-image owl-carousel-1">
-														<a href="#" title="">
-															<img src="~/images//product/other/07.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/07.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/07.jpg" alt="">
-														</a>
-													</div><!-- /.box-image -->
-													<div class="box-content">
-														<div class="cat-name">
-															<a href="#" title="">Computers</a>
-														</div>
-														<div class="product-name">
-															<a href="#" title="">Apple iPad Air 2 32GB 9.7" <br />Tablet</a>
-														</div>
-														<div class="price">
-															<span class="sale">$5,759.68</span>
-															<span class="regular">$2,999.00</span>
-														</div>
-													</div><!-- /.box-content -->
-													<div class="box-bottom">
-														<div class="btn-add-cart">
-															<a href="#" title="">
-																<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-															</a>
-														</div>
-														<div class="compare-wishlist">
-															<a href="#" class="compare" title="">
-																<img src="~/images//icons/compare.png" alt="">Compare
-															</a>
-															<a href="#" class="wishlist" title="">
-																<img src="~/images//icons/wishlist.png" alt="">Wishlist
-															</a>
-														</div>
-													</div><!-- /.box-bottom -->
-												</div><!-- /.imagebox -->
-											</div>
-										</div><!-- /.col-lg-4 col-sm-6 -->
-										<div class="col-lg-4 col-sm-6">
-											<div class="product-box">
-												<div class="imagebox">
-													<div class="box-image owl-carousel-1">
-														<a href="#" title="">
-															<img src="~/images//product/other/08.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/08.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/08.jpg" alt="">
-														</a>
-													</div><!-- /.box-image -->
-													<div class="box-content">
-														<div class="cat-name">
-															<a href="#" title="">Computers</a>
-														</div>
-														<div class="product-name">
-															<a href="#" title="">Apple İmac Z0SC4824<br />Retina</a>
-														</div>
-														<div class="price">
-															<span class="sale">$5,759.68</span>
-															<span class="regular">$2,999.00</span>
-														</div>
-													</div><!-- /.box-content -->
-													<div class="box-bottom">
-														<div class="btn-add-cart">
-															<a href="#" title="">
-																<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-															</a>
-														</div>
-														<div class="compare-wishlist">
-															<a href="#" class="compare" title="">
-																<img src="~/images//icons/compare.png" alt="">Compare
-															</a>
-															<a href="#" class="wishlist" title="">
-																<img src="~/images//icons/wishlist.png" alt="">Wishlist
-															</a>
-														</div>
-													</div><!-- /.box-bottom -->
-												</div><!-- /.imagebox -->
-											</div>
-										</div><!-- /.col-lg-4 col-sm-6 -->
-										<div class="col-lg-4 col-sm-6">
-											<div class="product-box">
-												<div class="imagebox">
-													<span class="item-new">NEW</span>
-													<div class="box-image owl-carousel-1">
-														<a href="#" title="">
-															<img src="~/images//product/other/01.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/01.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/01.jpg" alt="">
-														</a>
-													</div><!-- /.box-image -->
-													<div class="box-content">
-														<div class="cat-name">
-															<a href="#" title="">Laptops</a>
-														</div>
-														<div class="product-name">
-															<a href="#" title="">Apple iPad Mini<br />G2356</a>
-														</div>
-														<div class="price">
-															<span class="sale">$1,250.00</span>
-															<span class="regular">$2,999.00</span>
-														</div>
-													</div><!-- /.box-content -->
-													<div class="box-bottom">
-														<div class="btn-add-cart">
-															<a href="#" title="">
-																<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-															</a>
-														</div>
-														<div class="compare-wishlist">
-															<a href="#" class="compare" title="">
-																<img src="~/images//icons/compare.png" alt="">Compare
-															</a>
-															<a href="#" class="wishlist" title="">
-																<img src="~/images//icons/wishlist.png" alt="">Wishlist
-															</a>
-														</div>
-													</div><!-- /.box-bottom -->
-												</div><!-- /.imagebox -->
-											</div>
-										</div><!-- /.col-lg-4 col-sm-6 -->
-										<div class="col-lg-4 col-sm-6">
-											<div class="product-box">
-												<div class="imagebox">
-													<div class="box-image owl-carousel-1">
-														<a href="#" title="">
-															<img src="~/images//product/other/05.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/05.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/05.jpg" alt="">
-														</a>
-													</div><!-- /.box-image -->
-													<div class="box-content">
-														<div class="cat-name">
-															<a href="#" title="">Cameras</a>
-														</div>
-														<div class="product-name">
-															<a href="#" title="">Apple iPad Mini<br />G2356</a>
-														</div>
-														<div class="price">
-															<span class="sale">$1,250.00</span>
-															<span class="regular">$2,999.00</span>
-														</div>
-													</div><!-- /.box-content -->
-													<div class="box-bottom">
-														<div class="btn-add-cart">
-															<a href="#" title="">
-																<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-															</a>
-														</div>
-														<div class="compare-wishlist">
-															<span class="compare">
-																<a href="#" title="">
-																	<img src="~/images//icons/compare.png" alt="">Compare
-																</a>
-															</span>
-															<span class="wishlist">
-																<a href="#" title="">
-																	<img src="~/images//icons/wishlist.png" alt="">Wishlist
-																</a>
-															</span>
-														</div>
-													</div><!-- /.box-bottom -->
-												</div><!-- /.imagebox -->
-											</div>
-										</div><!-- /.col-lg-4 col-sm-6 -->
-										<div class="col-lg-4 col-sm-6">
-											<div class="product-box">
-												<div class="imagebox">
-													<div class="box-image owl-carousel-1">
-														<a href="#" title="">
-															<img src="~/images//product/other/l03.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/l03.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/l03.jpg" alt="">
-														</a>
-													</div><!-- /.box-image -->
-													<div class="box-content">
-														<div class="cat-name">
-															<a href="#" title="">Laptops</a>
-														</div>
-														<div class="product-name">
-															<a href="#" title="">Apple iPad Mini<br />G2356</a>
-														</div>
-														<div class="price">
-															<span class="sale">$1,250.00</span>
-															<span class="regular">$2,999.00</span>
-														</div>
-													</div><!-- /.box-content -->
-													<div class="box-bottom">
-														<div class="btn-add-cart">
-															<a href="#" title="">
-																<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-															</a>
-														</div>
-														<div class="compare-wishlist">
-															<a href="#" class="compare" title="">
-																<img src="~/images//icons/compare.png" alt="">Compare
-															</a>
-															<a href="#" class="wishlist" title="">
-																<img src="~/images//icons/wishlist.png" alt="">Wishlist
-															</a>
-														</div>
-													</div><!-- /.box-bottom -->
-												</div><!-- /.imagebox -->
-											</div>
-										</div><!-- /.col-lg-4 col-sm-6 -->
-										<div class="col-lg-4 col-sm-6">
-											<div class="product-box">
-												<div class="imagebox">
-													<div class="box-image owl-carousel-1">
-														<a href="#" title="">
-															<img src="~/images//product/other/l02.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/l02.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/l02.jpg" alt="">
-														</a>
-													</div><!-- /.box-image -->
-													<div class="box-content">
-														<div class="cat-name">
-															<a href="#" title="">Laptops</a>
-														</div>
-														<div class="product-name">
-															<a href="#" title="">Apple iPad Mini <br />G2356</a>
-														</div>
-														<div class="price">
-															<span class="sale">$1,250.00</span>
-															<span class="regular">$2,999.00</span>
-														</div>
-													</div><!-- /.box-content -->
-													<div class="box-bottom">
-														<div class="btn-add-cart">
-															<a href="#" title="">
-																<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-															</a>
-														</div>
-														<div class="compare-wishlist">
-															<a href="#" class="compare" title="">
-																<img src="~/images//icons/compare.png" alt="">Compare
-															</a>
-															<a href="#" class="wishlist" title="">
-																<img src="~/images//icons/wishlist.png" alt="">Wishlist
-															</a>
-														</div>
-													</div><!-- /.box-bottom -->
-												</div><!-- /.imagebox -->
-											</div>
-										</div><!-- /.col-lg-4 col-sm-6 -->
-										<div class="col-lg-4 col-sm-6">
-											<div class="product-box">
-												<div class="imagebox">
-													<div class="box-image owl-carousel-1">
-														<a href="#" title="">
-															<img src="~/images//product/other/l04.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/l04.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/l04.jpg" alt="">
-														</a>
-													</div><!-- /.box-image -->
-													<div class="box-content">
-														<div class="cat-name">
-															<a href="#" title="">Cameras</a>
-														</div>
-														<div class="product-name">
-															<a href="#" title="">HTC One M8</a>
-														</div>
-														<div class="price">
-															<span class="sale">$2,009.00</span>
-															<span class="regular">$2,999.00</span>
-														</div>
-													</div><!-- /.box-content -->
-													<div class="box-bottom">
-														<div class="btn-add-cart">
-															<a href="#" title="">
-																<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-															</a>
-														</div>
-														<div class="compare-wishlist">
-															<a href="#" class="compare" title="">
-																<img src="~/images//icons/compare.png" alt="">Compare
-															</a>
-															<a href="#" class="wishlist" title="">
-																<img src="~/images//icons/wishlist.png" alt="">Wishlist
-															</a>
-														</div>
-													</div><!-- /.box-bottom -->
-												</div><!-- /.imagebox -->
-											</div>
-										</div><!-- /.col-lg-4 col-sm-6 -->
-										<div class="col-lg-4 col-sm-6">
-											<div class="product-box">
-												<div class="imagebox">
-													<div class="box-image owl-carousel-1">
-														<a href="#" title="">
-															<img src="~/images//product/other/l05.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/l05.jpg" alt="">
-														</a>
-														<a href="#" title="">
-															<img src="~/images//product/other/l05.jpg" alt="">
-														</a>
-													</div><!-- /.box-image -->
-													<div class="box-content">
-														<div class="cat-name">
-															<a href="#" title="">Computers</a>
-														</div>
-														<div class="product-name">
-															<a href="#" title="">Apple macbook pro Z0SC4824<br />Retina</a>
-														</div>
-														<div class="price">
-															<span class="sale">$5,759.68</span>
-															<span class="regular">$2,999.00</span>
-														</div>
-													</div><!-- /.box-content -->
-													<div class="box-bottom">
-														<div class="btn-add-cart">
-															<a href="#" title="">
-																<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-															</a>
-														</div>
-														<div class="compare-wishlist">
-															<a href="#" class="compare" title="">
-																<img src="~/images//icons/compare.png" alt="">Compare
-															</a>
-															<a href="#" class="wishlist" title="">
-																<img src="~/images//icons/wishlist.png" alt="">Wishlist
-															</a>
-														</div>
-													</div><!-- /.box-bottom -->
-												</div><!-- /.imagebox -->
-											</div>
-										</div><!-- /.col-lg-4 col-sm-6 -->
+													</div>
+												</div><!-- /.box-bottom -->
+											</div><!-- /.imagebox -->
+										</div>
+									</div>
+
+									<!-- /.col-lg-4 col-sm-6 -->
+								}
+
 									</div>
 									<div class="sort-box">
-										<div class="product-box style3">
-											<div class="imagebox style1 v3">
-												<div class="box-image">
-													<a href="#" title="">
-														<img src="~/images//product/other/s02.jpg" alt="">
-													</a>
-												</div><!-- /.box-image -->
-												<div class="box-content">
-													<div class="cat-name">
-														<a href="#" title="">Cameras</a>
-													</div>
-													<div class="product-name">
-														<a href="#" title="">Apple iPad Air 2 32GB 9.7"<br />Tablet</a>
-													</div>
-													<div class="status">
-														Availablity: In stock
-													</div>
-													<div class="info">
-														<p>
-															The iPhone 5c replaces the iPhone 5 in the Apple stable, inheriting its internals, like the A6 processor, 4" screen...
-														</p>
-													</div>
-												</div><!-- /.box-content -->
-												<div class="box-price">
+								@foreach(var item in Model.Products)
+								{
+									<div class="product-box style3">
+										<div class="imagebox style1 v3">
+											<div class="box-image">
+												<a href="#" title="">
+													<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+												</a>
+											</div><!-- /.box-image -->
+											<div class="box-content">
+												<div class="cat-name">
+													<a href="#" title="">@item.Category.ParentCategory.Name</a>
+												</div>
+												<div class="product-name">
+													<a href="#" title="">@item.Name<br />@item.Brand.Name</a>
+												</div>
+												<div class="status">
+													Availablity: In stock
+												</div>
+												<div class="info">
+													<p>
+														@item.ShortDescription
+													</p>
+												</div>
+											</div><!-- /.box-content -->
+											<div class="box-price">
+												@if (item.DiscountPercent != null)
+												{
 													<div class="price">
-														<span class="regular">$2,999.00</span>
-														<span class="sale">$1,999.00</span>
+														<span class="regular">$@item.Price</span>
+														<span class="sale">$@(item.Price - item.Price * item.DiscountPercent / 100)</span>
 													</div>
-													<div class="btn-add-cart">
-														<a href="#" title="">
-															<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-														</a>
-													</div>
-													<div class="compare-wishlist">
-														<a href="#" class="compare" title="">
-															<img src="~/images//icons/compare.png" alt="">Compare
-														</a>
-														<a href="#" class="wishlist" title="">
-															<img src="~/images//icons/wishlist.png" alt="">Wishlist
-														</a>
-													</div>
-												</div><!-- /.box-price -->
-											</div><!-- /.imagebox -->
-										</div><!-- /.product-box -->
-										<div class="product-box style3">
-											<div class="imagebox style1 v3">
-												<div class="box-image">
+												}
+												else
+												{
+													<span class="regular">$@item.Price</span>
+												}
+												<div class="btn-add-cart">
 													<a href="#" title="">
-														<img src="~/images//product/other/01-v3.jpg" alt="">
+														<img src="~/images//icons/add-cart.png" alt="">Add to Cart
 													</a>
-												</div><!-- /.box-image -->
-												<div class="box-content">
-													<div class="cat-name">
-														<a href="#" title="">Cameras</a>
-													</div>
-													<div class="product-name">
-														<a href="#" title="">New X5C-1 2.4Ghz Gyro <br />RC Quadcopter Drone</a>
-													</div>
-													<div class="status">
-														Availablity: In stock
-													</div>
-													<div class="info">
-														<p>
-															The iPhone 5c replaces the iPhone 5 in the Apple stable, inheriting its internals, like the A6 processor, 4" screen...
-														</p>
-													</div>
-												</div><!-- /.box-content -->
-												<div class="box-price">
-													<div class="price">
-														<span class="regular">$2,999.00</span>
-														<span class="sale">$1,999.00</span>
-													</div>
-													<div class="btn-add-cart">
-														<a href="#" title="">
-															<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-														</a>
-													</div>
-													<div class="compare-wishlist">
-														<a href="#" class="compare" title="">
-															<img src="~/images//icons/compare.png" alt="">Compare
-														</a>
-														<a href="#" class="wishlist" title="">
-															<img src="~/images//icons/wishlist.png" alt="">Wishlist
-														</a>
-													</div>
-												</div><!-- /.box-price -->
-											</div><!-- /.imagebox -->
-										</div><!-- /.product-box -->
-										<div class="product-box style3">
-											<div class="imagebox style1 v3">
-												<div class="box-image">
-													<a href="#" title="">
-														<img src="~/images//product/other/02-v3.jpg" alt="">
+												</div>
+												<div class="wishlist">	
+													<a href="#" class="wishlist" title="">
+														<img src="~/images//icons/wishlist.png" alt="">Wishlist
 													</a>
-												</div><!-- /.box-image -->
-												<div class="box-content">
-													<div class="cat-name">
-														<a href="#" title="">Cameras</a>
-													</div>
-													<div class="product-name">
-														<a href="#" title="">Apple İmac Z0SC4824<br />Retina</a>
-													</div>
-													<div class="status">
-														Availablity: In stock
-													</div>
-													<div class="info">
-														<p>
-															The iPhone 5c replaces the iPhone 5 in the Apple stable, inheriting its internals, like the A6 processor, 4" screen...
-														</p>
-													</div>
-												</div><!-- /.box-content -->
-												<div class="box-price">
-													<div class="price">
-														<span class="regular">$2,999.00</span>
-														<span class="sale">$1,999.00</span>
-													</div>
-													<div class="btn-add-cart">
-														<a href="#" title="">
-															<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-														</a>
-													</div>
-													<div class="compare-wishlist">
-														<a href="#" class="compare" title="">
-															<img src="~/images//icons/compare.png" alt="">Compare
-														</a>
-														<a href="#" class="wishlist" title="">
-															<img src="~/images//icons/wishlist.png" alt="">Wishlist
-														</a>
-													</div>
-												</div><!-- /.box-price -->
-											</div><!-- /.imagebox -->
-										</div><!-- /.product-box -->
-										<div class="product-box style3">
-											<div class="imagebox style1 v3">
-												<div class="box-image">
-													<a href="#" title="">
-														<img src="~/images//product/other/03-v3.jpg" alt="">
-													</a>
-												</div><!-- /.box-image -->
-												<div class="box-content">
-													<div class="cat-name">
-														<a href="#" title="">Cameras</a>
-													</div>
-													<div class="product-name">
-														<a href="#" title="">New X5C-1 2.4Ghz Gyro <br />RC Quadcopter Drone</a>
-													</div>
-													<div class="status">
-														Availablity: In stock
-													</div>
-													<div class="info">
-														<p>
-															The iPhone 5c replaces the iPhone 5 in the Apple stable, inheriting its internals, like the A6 processor, 4" screen...
-														</p>
-													</div>
-												</div><!-- /.box-content -->
-												<div class="box-price">
-													<div class="price">
-														<span class="regular">$2,999.00</span>
-														<span class="sale">$1,999.00</span>
-													</div>
-													<div class="btn-add-cart">
-														<a href="#" title="">
-															<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-														</a>
-													</div>
-													<div class="compare-wishlist">
-														<a href="#" class="compare" title="">
-															<img src="~/images//icons/compare.png" alt="">Compare
-														</a>
-														<a href="#" class="wishlist" title="">
-															<img src="~/images//icons/wishlist.png" alt="">Wishlist
-														</a>
-													</div>
-												</div><!-- /.box-price -->
-											</div><!-- /.imagebox -->
-										</div><!-- /.product-box -->
-										<div class="product-box style3">
-											<div class="imagebox style1 v3">
-												<div class="box-image">
-													<a href="#" title="">
-														<img src="~/images//product/other/04-v3.jpg" alt="">
-													</a>
-												</div><!-- /.box-image -->
-												<div class="box-content">
-													<div class="cat-name">
-														<a href="#" title="">Cameras</a>
-													</div>
-													<div class="product-name">
-														<a href="#" title="">Apple iPad Air 2 32GB 9.7"<br />Tablet</a>
-													</div>
-													<div class="status">
-														Availablity: In stock
-													</div>
-													<div class="info">
-														<p>
-															The iPhone 5c replaces the iPhone 5 in the Apple stable, inheriting its internals, like the A6 processor, 4" screen...
-														</p>
-													</div>
-												</div><!-- /.box-content -->
-												<div class="box-price">
-													<div class="price">
-														<span class="regular">$2,999.00</span>
-														<span class="sale">$1,999.00</span>
-													</div>
-													<div class="btn-add-cart">
-														<a href="#" title="">
-															<img src="~/images//icons/add-cart.png" alt="">Add to Cart
-														</a>
-													</div>
-													<div class="compare-wishlist">
-														<a href="#" class="compare" title="">
-															<img src="~/images//icons/compare.png" alt="">Compare
-														</a>
-														<a href="#" class="wishlist" title="">
-															<img src="~/images//icons/wishlist.png" alt="">Wishlist
-														</a>
-													</div>
-												</div><!-- /.box-price -->
-											</div><!-- /.imagebox -->
-										</div><!-- /.product-box -->
+												</div>
+											</div><!-- /.box-price -->
+										</div><!-- /.imagebox -->
+									</div>
+
+									<!-- /.product-box -->
+								}
+
 										<div style="height: 9px;"></div>
 									</div>
 								</div>
@@ -1214,580 +301,42 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="owl-carousel-3 style3">
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/09.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
+					@foreach(var item in Model.Products)
+					{
+						<div class="imagebox style4">
+							<div class="box-image">
+								<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
+									<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+								</a>
+							</div><!-- /.box-image -->
+							<div class="box-content">
+								<div class="cat-name">
+									<a href="#" title="">@item.Category.ParentCategory.Name</a>
+								</div>
+								<div class="product-name">
+									<a href="#" title="">@item.Name<br />@item.Brand.Name</a>
+								</div>
+								@if (item.DiscountPercent != null)
+								{
 									<div class="price">
-										<span class="sale">$50.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/10.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$600.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/11.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Beats Pill+ Portable<br />Speaker - (PRODUCT)RED</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,023.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/12.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,489.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/13.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Beats EP On-Ear<br />Headphones - Blue</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,749.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/09.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$50.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/10.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$600.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/11.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Beats Pill+ Portable<br />Speaker - (PRODUCT)RED</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,023.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/12.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,489.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/13.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Beats EP On-Ear<br />Headphones - Blue</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,749.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/09.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$50.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/10.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$600.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/11.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Beats Pill+ Portable<br />Speaker - (PRODUCT)RED</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,023.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/12.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,489.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/13.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Beats EP On-Ear<br />Headphones - Blue</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,749.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/09.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$50.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/10.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$600.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/11.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Beats Pill+ Portable<br />Speaker - (PRODUCT)RED</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,023.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/12.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,489.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/13.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Beats EP On-Ear<br />Headphones - Blue</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,749.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/09.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$50.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/10.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$600.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/11.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Beats Pill+ Portable<br />Speaker - (PRODUCT)RED</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,023.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/12.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,489.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/13.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Beats EP On-Ear<br />Headphones - Blue</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,749.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/09.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$50.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/10.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$600.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/11.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Beats Pill+ Portable<br />Speaker - (PRODUCT)RED</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,023.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/12.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Apple iPad Mini<br />G2356</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,489.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
-							<div class="imagebox style4">
-								<div class="box-image">
-									<a href="#" title="">
-										<img src="~/images//product/other/13.jpg" alt="">
-									</a>
-								</div><!-- /.box-image -->
-								<div class="box-content">
-									<div class="cat-name">
-										<a href="#" title="">Laptops</a>
-									</div>
-									<div class="product-name">
-										<a href="#" title="">Beats EP On-Ear<br />Headphones - Blue</a>
-									</div>
-									<div class="price">
-										<span class="sale">$1,749.00</span>
-										<span class="regular">$2,999.00</span>
-									</div>
-								</div><!-- /.box-content -->
-							</div><!-- /.imagebox style4 -->
+										<span class="regular">$@item.Price</span>
+										<span class="sale">$@(item.Price - item.Price * item.DiscountPercent / 100)</span>
+									</div>
+								}
+								else
+								{
+									<span class="regular">$@item.Price</span>
+								}
+							</div><!-- /.box-content -->
+						</div>
+
+						<!-- /.imagebox style4 -->
+					}
+
 						</div><!-- /.owl-carousel-3 -->
 					</div><!-- /.col-md-12 -->
 				</div><!-- /.row -->
 			</div><!-- /.container -->
 		</section><!-- /.flat-imagebox style4 -->
 
-		
+	

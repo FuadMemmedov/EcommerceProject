@@ -16,6 +16,6 @@ public interface IFaqService
 	void SoftDelete(int id);
     void ReturnFaq(int id);
     void UpdateFaq(FaqUpdateDTO updateDTO);
-    FaqGetDTO GetFaq(Func<Faq, bool>? func = null, params string[]? includes);
-    List<FaqGetDTO> GetAllFaqs(Func<Faq, bool>? func = null, params string[]? includes);
+    FaqGetDTO GetFaq(Func<Faq, bool>? func = null);
+    List<FaqGetDTO> GetAllFaqs(Func<Faq, bool>? func = null);
 }

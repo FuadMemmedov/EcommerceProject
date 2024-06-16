@@ -80,7 +80,7 @@ namespace TechnoStore.Areas.Admin.Controllers
             ViewBag.ProductColor = _productColorService.GetAllProductColors(x => x.IsDeleted == false);
             ViewBag.Brand = _brandService.GetAllBrands(x => x.IsDeleted == false);
 
-            ProductUpdateDTO productUpdateDTO = new ProductUpdateDTO
+			ProductUpdateDTO productUpdateDTO = new ProductUpdateDTO
 			{
 				Name = existProduct.Name,
 				Price = existProduct.Price,
@@ -91,7 +91,11 @@ namespace TechnoStore.Areas.Admin.Controllers
 				CategoryId = existProduct.Category.Id,
 				ProductColorId = existProduct.ProductColor.Id,
 				BrandId = existProduct.Brand.Id,
-				ProductImages = existProduct.ProductImages
+				ProductImages = existProduct.ProductImages,
+				TechnicalSpecs = existProduct.TechnicalSpecs,
+				IsTopSelling = existProduct.IsTopSelling,
+				IsNewArrivals = existProduct.IsNewArrivals,
+				IsFeatured = existProduct.IsFeatured
 
 				
 

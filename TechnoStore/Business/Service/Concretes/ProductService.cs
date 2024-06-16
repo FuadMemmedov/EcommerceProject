@@ -219,6 +219,10 @@ public class ProductService : IProductService
         oldProduct.CategoryId = productUpdateDTO.CategoryId;
         oldProduct.ProductColorId = productUpdateDTO.ProductColorId;
         oldProduct.BrandId = productUpdateDTO.BrandId;
+        oldProduct.IsFeatured = productUpdateDTO.IsFeatured;
+        oldProduct.IsNewArrivals = productUpdateDTO.IsNewArrivals;
+        oldProduct.IsTopSelling = productUpdateDTO.IsTopSelling;
+        oldProduct.TechnicalSpecs = productUpdateDTO.TechnicalSpecs;
 
 
 

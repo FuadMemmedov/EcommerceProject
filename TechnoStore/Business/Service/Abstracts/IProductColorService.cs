@@ -15,6 +15,6 @@ public interface IProductColorService
     void SoftDelete(int id);
     void ReturnProductColor(int id);
     void UpdateProductColor(ProductColorUpdateDTO updateDTO);
-    ProductColorGetDTO GetProductColor(Func<ProductColor, bool>? func = null, params string[]? includes);
-    List<ProductColorGetDTO> GetAllProductColors(Func<ProductColor, bool>? func = null, params string[]? includes);
+    ProductColorGetDTO GetProductColor(Func<ProductColor, bool>? func = null);
+    List<ProductColorGetDTO> GetAllProductColors(Func<ProductColor, bool>? func = null);
 }

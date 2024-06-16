@@ -41,7 +41,7 @@ public class FaqService : IFaqService
         _faqRepository.Commit();
     }
 
-    public List<FaqGetDTO> GetAllFaqs(Func<Faq, bool>? func = null, params string[]? includes)
+    public List<FaqGetDTO> GetAllFaqs(Func<Faq, bool>? func = null)
     {
         var faqs = _faqRepository.GetAllEntities(func);
         List<FaqGetDTO> faqDto = _mapper.Map<List<FaqGetDTO>>(faqs);
@@ -50,7 +50,7 @@ public class FaqService : IFaqService
         return faqDto;
     }
 
-    public FaqGetDTO GetFaq(Func<Faq, bool>? func = null, params string[]? includes)
+    public FaqGetDTO GetFaq(Func<Faq, bool>? func = null)
     {
         var faq = _faqRepository.GetEntity(func);
         FaqGetDTO faqDto = _mapper.Map<FaqGetDTO>(faq);

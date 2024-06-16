@@ -15,6 +15,6 @@ public interface IBrandService
     void SoftDelete(int id);
     void ReturnBrand(int id);
     void UpdateBrand(BrandUpdateDTO updateDTO);
-    BrandGetDTO GetBrand(Func<Brand, bool>? func = null, params string[]? includes);
-    List<BrandGetDTO> GetAllBrands(Func<Brand, bool>? func = null, params string[]? includes);
+    BrandGetDTO GetBrand(Func<Brand, bool>? func = null);
+    List<BrandGetDTO> GetAllBrands(Func<Brand, bool>? func = null);
 }

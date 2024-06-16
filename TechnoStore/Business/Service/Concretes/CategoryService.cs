@@ -24,81 +24,76 @@ public class CategoryService : ICategoryService
 		_mapper = mapper;
 	}
 
-	public  async Task AddCategoryAsync(CategoryCreateDTO categoryCreateDTO)
+
+	public List<CategoryGetDTO> GetAllCategories(Func<Category, bool>? func = null)
 	{
-		if (!_categoryRepository.GetAllEntities().Any(x => x.Name == categoryCreateDTO.Name))
-		{
-			
-			Category category = _mapper.Map<Category>(categoryCreateDTO);
-
-			await _categoryRepository.AddEntityAsync(category);
-			await _categoryRepository.CommitAsync();
-		}
-		else
-		{
-			throw new DuplicateCategoryException("Category  cannot be repeated");
-		}
-	}
-
-	public void DeleteCategory(int id)
-	{
-		var existCategory = _categoryRepository.GetEntity(x => x.Id == id);
-		if (existCategory == null) throw new EntityNotFoundException("Category not found");
-
-		_categoryRepository.DeleteEntity(existCategory);
-		_categoryRepository.Commit();
-	}
-
-	public List<CategoryGetDTO> GetAllCategories(Func<Category, bool>? func = null, params string[]? includes)
-	{
-		var categories = _categoryRepository.GetAllEntities(func);
+		var categories =  _categoryRepository.GetAllEntities(func, "ParentCategory");
 		List<CategoryGetDTO> categoryGetDTOs = _mapper.Map<List<CategoryGetDTO>>(categories);
 
 		return categoryGetDTOs;
 	}
 
-	public CategoryGetDTO GetCategory(Func<Category, bool>? func = null, params string[]? includes)
+	public CategoryGetDTO GetCategory(Func<Category, bool>? func = null)
 	{
-		var categories = _categoryRepository.GetEntity(func);
-		CategoryGetDTO categoryGetDTOs = _mapper.Map<CategoryGetDTO>(categories);
-
-		return categoryGetDTOs;
+		var category =  _categoryRepository.GetEntity(func, "ParentCategory");
+		CategoryGetDTO categoryGetDTO = _mapper.Map<CategoryGetDTO>(category);
+		return categoryGetDTO;
 	}
 
-    public void ReturnCategoryd(int id)
-    {
-        var existCategory = _categoryRepository.GetEntity(x => x.Id == id);
-        if (existCategory == null) throw new EntityNotFoundException("Category not found!");
-
-
-        _categoryRepository.ReturnEntity(existCategory);
-
-        _categoryRepository.Commit();
-    }
-
-    public void SoftDelete(int id)
+	public async Task AddCategoryAsync(CategoryCreateDTO categoryDto)
 	{
-		var existCategory = _categoryRepository.GetEntity(x => x.Id == id);
-		if (existCategory == null) throw new EntityNotFoundException("Category not found!");
+		Category category = _mapper.Map<Category>(categoryDto);
+		await _categoryRepository.AddEntityAsync(category);
+		await _categoryRepository.CommitAsync();
+	}
 
-		existCategory.DeletedDate = DateTime.UtcNow.AddHours(4);
-
-		_categoryRepository.SoftDelete(existCategory);
-
-        _categoryRepository.Commit();
-    }
-
-	public void UpdateCategory(CategoryUpdateDTO updateDTO)
+	public void UpdateCategory(CategoryUpdateDTO categoryDto)
 	{
-		var existCategory = _categoryRepository.GetEntity(x => x.Id == updateDTO.Id);
-		throw new EntityNotFoundException("Category not found!");
+		var oldCategory = _categoryRepository.GetEntity(x => x.Id == categoryDto.Id);
+		if (oldCategory == null) throw new EntityNotFoundException("Category not found");
+		Category category = _mapper.Map<Category>(categoryDto);
 
-		if (!_categoryRepository.GetAllEntities().Any(x => x.Name == updateDTO.Name && x.Id != updateDTO.Id ))
-			throw new DuplicateCategoryException("Category  cannot be repeated");
+		oldCategory.Name = categoryDto.Name;
+		oldCategory.ParentCategoryId = categoryDto.ParentCategoryId;
 
-
-
+		oldCategory.UpdatedDate = DateTime.UtcNow.AddHours(4);
 
 		_categoryRepository.Commit();
+		
 	}
+
+
+	public void DeleteCategory(int id)
+	{
+        var existCategory = _categoryRepository.GetEntity(x => x.Id == id);
+        if (existCategory == null) throw new EntityNotFoundException("Category not found");
+
+		_categoryRepository.DeleteEntity(existCategory);
+		_categoryRepository.Commit();
+    }
+
+	public void SoftDelete(int id)
+	{
+        var existCategory = _categoryRepository.GetEntity(x => x.Id == id);
+        if (existCategory == null) throw new EntityNotFoundException("Category not found!");
+        existCategory.DeletedDate = DateTime.UtcNow.AddHours(4);
+
+        _categoryRepository.SoftDelete(existCategory);
+
+        _categoryRepository.Commit();
+    }
+
+	public void ReturnCategory(int id)
+	{
+        var existFaq = _categoryRepository.GetEntity(x => x.Id == id);
+        if (existFaq == null) throw new EntityNotFoundException("category not found!");
+
+        _categoryRepository.ReturnEntity(existFaq);
+
+        _categoryRepository.Commit();
+    }
 }
+
+
+
+

@@ -43,7 +43,7 @@ public class BrandService : IBrandService
         _brandRepository.Commit();
     }
 
-    public List<BrandGetDTO> GetAllBrands(Func<Brand, bool>? func = null, params string[]? includes)
+    public List<BrandGetDTO> GetAllBrands(Func<Brand, bool>? func = null)
     {
         var brands = _brandRepository.GetAllEntities(func);
         List<BrandGetDTO> brandDto = _mapper.Map<List<BrandGetDTO>>(brands);
@@ -52,7 +52,7 @@ public class BrandService : IBrandService
         return brandDto;
     }
 
-    public BrandGetDTO GetBrand(Func<Brand, bool>? func = null, params string[]? includes)
+    public BrandGetDTO GetBrand(Func<Brand, bool>? func = null)
     {
         var brand = _brandRepository.GetEntity(func);
         BrandGetDTO brandDto = _mapper.Map<BrandGetDTO>(brand);

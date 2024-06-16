@@ -39,17 +39,24 @@ namespace TechnoStore
 
 			builder.Services.AddScoped<ISliderService, SliderService>();
 			builder.Services.AddScoped<ISliderRepository, SliderRepository>();
+
             builder.Services.AddScoped<IShopSliderService, ShopSliderService>();
             builder.Services.AddScoped<IShopSliderRepository, ShopSliderRepository>();
+
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProductService, ProductService>();
+
             builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
+
             builder.Services.AddScoped<IFaqService, FaqService>();
             builder.Services.AddScoped<IFaqRepository, FaqRepository>();
+
             builder.Services.AddScoped<IProductColorRepository, ProductColorRepository>();
             builder.Services.AddScoped<IProductColorService, ProductColorService>();
+
             builder.Services.AddScoped<IBrandRepository, BrandRepository>();
             builder.Services.AddScoped<IBrandService, BrandService>();
 

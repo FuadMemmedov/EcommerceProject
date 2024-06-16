@@ -12,13 +12,12 @@ namespace TechnoStore.Controllers
     {
         private readonly ISliderService _sliderService;
         private readonly IProductService _productService;
-        private readonly IMapper _mapper;
+
         private readonly IProductRepository _productRepository;
-        public HomeController(ISliderService sliderService, IProductService productService, IMapper mapper, IProductRepository productRepository)
+        public HomeController(ISliderService sliderService, IProductService productService, IProductRepository productRepository)
         {
             _sliderService = sliderService;
             _productService = productService;
-            _mapper = mapper;
             _productRepository = productRepository;
         }
 
@@ -33,31 +32,9 @@ namespace TechnoStore.Controllers
             return View(homeVm);
         }
 
-        public IActionResult Search(string? search)
-        {
-            var products = _productService.GetAllProducts().AsQueryable();
+       
 
-            if (search != null)
-            {
-                products = products.Where(x => x.Name.ToLower().Contains(search.ToLower()));
-            }
-            List<ProductGetDTO> productGetDTOs = _mapper.Map<List<ProductGetDTO>>(products);
-
-            return View(productGetDTOs);
-        }
-
-		public IActionResult SearchPrice(decimal? minPrice,decimal? maxPrice)
-		{
-			var products = _productService.GetAllProducts().AsQueryable();
-
-			if (minPrice != null || minPrice != null)
-			{
-				products = products.Where(x => x.Price >= minPrice && x.Price <= maxPrice);
-			}
-			List<ProductGetDTO> productGetDTOs = _mapper.Map<List<ProductGetDTO>>(products);
-
-			return View(productGetDTOs);
-		}
+		
 
 
 

@@ -9,6 +9,11 @@
                     <input asp-for="Name" class="form-control" id="exampleInputEmail1">
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">ParentCategoryName</label>
+                    <select asp-for="ParentCategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.Categories,"Id","Name"))"></select>
+                    <span asp-validation-for="ParentCategoryId" class="text-danger"></span>
+                </div>
                 <button type="submit" class="btn btn-primary">Create</button>
                 <a asp-action="index" asp-controller="category" class="btn btn-danger">Cancel</a>
             </form>

@@ -1,5 +1,5 @@
 ﻿@using TechnoStore.ViewModels
-@model HomeVm
+@model ShopVm
 <section class="flat-product-detail">
 			<div class="container">
 				<div class="row">
@@ -51,11 +51,11 @@
 							@if(Model.Product.DiscountPercent != null)
 							{
 								<div class="regular">
-										$@Model.Product.Price
-									</div>
-									<div class="sale">
-								        $@(Model.Product.Price - Model.Product.Price * Model.Product.DiscountPercent / 100)
-							 </div>
+								     $@Model.Product.Price
+								</div>
+								<div class="sale">
+								     $@(Model.Product.Price - Model.Product.Price * Model.Product.DiscountPercent / 100)
+							    </div> 
 								
 							}
 							else

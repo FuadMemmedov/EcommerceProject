@@ -42,7 +42,7 @@ public class ProductColorService : IProductColorService
         _productColorRepository.Commit();
     }
 
-    public List<ProductColorGetDTO> GetAllProductColors(Func<ProductColor, bool>? func = null, params string[]? includes)
+    public List<ProductColorGetDTO> GetAllProductColors(Func<ProductColor, bool>? func = null)
     {
         var productColors = _productColorRepository.GetAllEntities(func);
         List<ProductColorGetDTO> productColorDTO = _mapper.Map<List<ProductColorGetDTO>>(productColors);
@@ -51,7 +51,7 @@ public class ProductColorService : IProductColorService
         return productColorDTO;
     }
 
-    public ProductColorGetDTO GetProductColor(Func<ProductColor, bool>? func = null, params string[]? includes)
+    public ProductColorGetDTO GetProductColor(Func<ProductColor, bool>? func = null)
     {
         var productColor = _productColorRepository.GetEntity(func);
         ProductColorGetDTO productColorDTO = _mapper.Map<ProductColorGetDTO>(productColor);
