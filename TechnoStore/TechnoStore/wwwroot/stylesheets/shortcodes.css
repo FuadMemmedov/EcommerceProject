@@ -5939,16 +5939,17 @@ table.product thead tr th:last-child {
 -------------------------------------------------------------- */
 .flat-account {
 	padding-top:30px;
-	padding-bottom:4px;
+	padding-bottom:50px;
 }
 
 .form-login,
 .form-register {
+
 	background-color:#fff;
 	border-radius:8px;
 	box-shadow:0px 2px 3px 0px rgba(234, 234, 234, 1);
 	padding:44px 50px 50px 50px;
-	height:512px;
+	height:800px;
 }
 
 .form-register {
@@ -7590,3 +7591,8 @@ position: relative;
 display: block;
 }
 .zoom img::selection { background-color: transparent; }
+
+.filter-btn{
+	padding: 0 50px;
+	border-radius: 10px;
+}

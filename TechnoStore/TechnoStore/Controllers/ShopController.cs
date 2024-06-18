@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Business.DTOs.ProductDTOs;
+using Business.Extensions;
 using Business.Service.Abstracts;
-using Data.Migrations;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using TechnoStore.ViewModels;
 
@@ -26,7 +27,7 @@ namespace TechnoStore.Controllers
 			_categoryService = categoryService;
 		}
 
-		public IActionResult Index()
+		public IActionResult Index(int page = 1)
         {
 
             ShopVm shopVm = new ShopVm
@@ -34,12 +35,16 @@ namespace TechnoStore.Controllers
                 Colors = _productColorService.GetAllProductColors(x => x.IsDeleted == false),
                 Brands = _brandService.GetAllBrands(x => x.IsDeleted == false),
                 ShopSliders =  _shopSliderService.GetAllShopSliders(x => x.IsDeleted == false),
-				Categories = _categoryService.GetAllCategories(x=>x.IsDeleted == false)
+				Categories = _categoryService.GetAllCategories(x=>x.IsDeleted == false),
+				Products = _productService.GetAllProducts(x => x.IsDeleted == false)
 						
 
 		    };
+			
 
-            return View(shopVm);
+		
+
+			return View(shopVm);
         }
 
 
@@ -64,7 +69,7 @@ namespace TechnoStore.Controllers
 
 			if (search != null)
 			{
-				products = products.Where(x => x.Name.ToLower().Contains(search.ToLower()));
+				products = products.Where(x => x.Name.ToLower().Contains(search.Trim().ToLower()) || x.Category.Name.ToLower().Contains(search.Trim().ToLower()) || x.Brand.Name.ToLower().Contains(search.Trim().ToLower()));
 			}
 
 			if (selectedBrands != null)

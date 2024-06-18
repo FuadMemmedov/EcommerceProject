@@ -7,6 +7,9 @@ using Business.Service.Concretes;
 using Core.RepositoryAbstracts;
 using Data.RepositoryConcretes;
 using Business.DTOs.SliderDTOs;
+using Core.Models;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace TechnoStore
 {
@@ -31,12 +34,27 @@ namespace TechnoStore
 
 			builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 			builder.Services.AddDbContext<AppDbContext>(opt =>
+			 
 
+			
 
-            opt.UseSqlServer(builder.Configuration.GetConnectionString("default"))
+			opt.UseSqlServer(builder.Configuration.GetConnectionString("default"))
 
             );
 
+
+			builder.Services.AddIdentity<AppUser, IdentityRole>(opt =>
+            {
+                opt.SignIn.RequireConfirmedAccount = true;
+                opt.Password.RequireDigit = true;
+                opt.Password.RequireLowercase = true;
+                opt.Password.RequireNonAlphanumeric = true;
+                opt.Password.RequireUppercase = true;
+                opt.Password.RequiredLength = 8;
+
+                opt.User.RequireUniqueEmail = false;
+
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 			builder.Services.AddScoped<ISliderService, SliderService>();
 			builder.Services.AddScoped<ISliderRepository, SliderRepository>();
 
@@ -60,7 +78,13 @@ namespace TechnoStore
             builder.Services.AddScoped<IBrandRepository, BrandRepository>();
             builder.Services.AddScoped<IBrandService, BrandService>();
 
-            var app = builder.Build();
+			builder.Services.AddScoped<ISettingRepository, SettingRepository>();
+			builder.Services.AddScoped<SettingService>();
+
+			
+
+
+			var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

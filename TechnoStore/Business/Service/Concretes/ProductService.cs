@@ -225,9 +225,9 @@ public class ProductService : IProductService
         oldProduct.TechnicalSpecs = productUpdateDTO.TechnicalSpecs;
 
 
+		oldProduct.UpdatedDate = DateTime.UtcNow.AddHours(4);
 
-
-        _productRepository.Commit();
+		_productRepository.Commit();
 
     }
 

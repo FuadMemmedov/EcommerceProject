@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col-6">
-            <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <form asp-action="Create" method="post" enctype="multipart/form-data" >
                 <div class="mb-3">
                     <label for="Name" class="form-label">Name</label>
                     <input asp-for="Name" class="form-control" id="Name">
@@ -24,7 +24,7 @@
                     <input asp-for="DiscountPercent" class="form-control" id="DiscountPercent">
                     <span asp-validation-for="DiscountPercent" class="text-danger"></span>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3">   
                     <label for="ShortDescription" class="form-label">Short Description</label>
                     <input asp-for="ShortDescription" class="form-control" id="ShortDescription">
                     <span asp-validation-for="ShortDescription" class="text-danger"></span>
@@ -39,19 +39,19 @@
                     <textarea asp-for="TechnicalSpecs" class="form-control" id="TechnicalSpecs"></textarea>
                     <span asp-validation-for="TechnicalSpecs" class="text-danger"></span>
                 </div>
-                <div class="form-check mb-3">
-                    <input type="checkbox" name="IsFeatured" class="form-check-input" id="IsFeatured">
-                    <label class="form-check-label" for="IsFeatured">Is Featured</label>
+                <div class="mb-3">
+                    <label  class="form-label">IsFeatured</label>
+                    <input asp-for="IsFeatured" class="form-control" >
                     <span asp-validation-for="IsFeatured" class="text-danger"></span>
                 </div>
-                <div class="form-check mb-3">
-                    <input type="checkbox" name="IsNewArrivals" class="form-check-input" id="IsNewArrivals">
-                    <label class="form-check-label" for="IsNewArrivals">Is New Arrivals</label>
+                <div class="mb-3">
+                    <label  class="form-label">IsNewArrivals</label>
+                    <input asp-for="IsNewArrivals" class="form-control" >
                     <span asp-validation-for="IsNewArrivals" class="text-danger"></span>
                 </div>
-                <div class="form-check mb-3">
-                    <input type="checkbox" name="IsTopSelling" class="form-check-input" id="IsTopSelling">
-                    <label class="form-check-label" for="IsTopSelling">Is Top Selling</label>
+                <div class="mb-3">
+                    <label  class="form-label">IsTopSelling</label>
+                    <input asp-for="IsTopSelling"   >
                     <span asp-validation-for="IsTopSelling" class="text-danger"></span>
                 </div>
                 <div class="mb-3">

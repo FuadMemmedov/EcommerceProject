@@ -13,8 +13,9 @@ public class CategoryCreateDTO
 {
 	public string Name { get; set; }
 	public int? ParentCategoryId { get; set; }
-	
-	
+
+	public ICollection<Category>? SubCategories { get; set; }
+
 }
 
 public class CategoryCreateDTOValidator : AbstractValidator<CategoryCreateDTO>

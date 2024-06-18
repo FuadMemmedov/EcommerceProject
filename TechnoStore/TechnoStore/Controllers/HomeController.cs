@@ -13,12 +13,11 @@ namespace TechnoStore.Controllers
         private readonly ISliderService _sliderService;
         private readonly IProductService _productService;
 
-        private readonly IProductRepository _productRepository;
-        public HomeController(ISliderService sliderService, IProductService productService, IProductRepository productRepository)
+        
+        public HomeController(ISliderService sliderService, IProductService productService)
         {
             _sliderService = sliderService;
             _productService = productService;
-            _productRepository = productRepository;
         }
 
         public IActionResult Index()

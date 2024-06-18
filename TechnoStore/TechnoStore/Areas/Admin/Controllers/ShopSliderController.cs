@@ -1,7 +1,10 @@
-﻿using Business.DTOs.SliderDTOs;
+﻿using AutoMapper;
+using Business.DTOs.SliderDTOs;
 using Business.Exceptions;
+using Business.Extensions;
 using Business.Service.Abstracts;
 using Business.Service.Concretes;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
@@ -10,16 +13,21 @@ namespace TechnoStore.Areas.Admin.Controllers
 	public class ShopSliderController : Controller
 	{
 		private readonly IShopSliderService _shopSliderService;
+		private readonly IMapper _mapper;
 
-		public ShopSliderController(IShopSliderService shopSliderService)
-		{
-			_shopSliderService = shopSliderService;
-		}
+        public ShopSliderController(IShopSliderService shopSliderService, IMapper mapper)
+        {
+            _shopSliderService = shopSliderService;
+            _mapper = mapper;
+        }
 
-		public IActionResult Index()
+        public IActionResult Index(int page = 1)
 		{
 			var sliders = _shopSliderService.GetAllShopSliders(x => x.IsDeleted == false);
-			return View(sliders);
+            List<ShopSlider> shopSliderGetDTOs = _mapper.Map<List<ShopSlider>>(sliders);
+
+            var paginatedDatas = PaginatedList<ShopSlider>.Create(shopSliderGetDTOs, 2, page);
+            return View(paginatedDatas);
 		}
 
 		public IActionResult Create()

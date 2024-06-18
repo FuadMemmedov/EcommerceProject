@@ -66,8 +66,6 @@ C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Connections.Abstractions.dll
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\refs\Microsoft.AspNetCore.CookiePolicy.dll
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Cors.dll
-C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Cryptography.Internal.dll
-C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\refs\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\refs\Microsoft.AspNetCore.DataProtection.Abstractions.dll
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\refs\Microsoft.AspNetCore.DataProtection.dll
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\refs\Microsoft.AspNetCore.DataProtection.Extensions.dll
@@ -163,8 +161,6 @@ C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\refs\Microsoft.Extensions.Hosting.Abstractions.dll
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\refs\Microsoft.Extensions.Hosting.dll
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\refs\Microsoft.Extensions.Http.dll
-C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\refs\Microsoft.Extensions.Identity.Core.dll
-C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\refs\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\refs\Microsoft.Extensions.Localization.Abstractions.dll
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\refs\Microsoft.Extensions.Localization.dll
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\refs\Microsoft.Extensions.Logging.Abstractions.dll
@@ -596,3 +592,9 @@ C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\obj\Debug\net8.0
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\obj\Debug\net8.0\TechnoSt.632C327D.Up2Date
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\obj\Debug\net8.0\TechnoStore.genruntimeconfig.cache
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\obj\Debug\net8.0\ref\TechnoStore.dll
+C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\Microsoft.Extensions.Options.dll

@@ -1,7 +1,10 @@
-﻿using Business.DTOs.BrandDTOs;
+﻿using AutoMapper;
+using Business.DTOs.BrandDTOs;
 using Business.DTOs.ProductColorDTOs;
 using Business.Exceptions;
+using Business.Extensions;
 using Business.Service.Abstracts;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
@@ -10,16 +13,22 @@ namespace TechnoStore.Areas.Admin.Controllers
     public class BrandController : Controller
     {
         private readonly IBrandService _brandService;
+        private readonly IMapper _mapper;
 
-        public BrandController(IBrandService brandService)
+        public BrandController(IBrandService brandService, IMapper mapper)
         {
             _brandService = brandService;
+            _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
+
             var brands = _brandService.GetAllBrands(x => x.IsDeleted == false);
-            return View(brands);
+            List<Brand> brandGetDTOs = _mapper.Map<List<Brand>>(brands);
+
+            var paginatedDatas = PaginatedList<Brand>.Create(brandGetDTOs, 2, page);
+            return View(paginatedDatas);
         }
 
         public IActionResult Create()

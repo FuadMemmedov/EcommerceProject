@@ -1,9 +1,13 @@
-﻿using Business.DTOs.ProductDTOs;
+﻿using AutoMapper;
+using Business.DTOs.ProductDTOs;
 using Business.DTOs.SliderDTOs;
 using Business.Exceptions;
+using Business.Extensions;
 using Business.Service.Abstracts;
 using Business.Service.Concretes;
+using Core.Models;
 using Data.DAL;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
@@ -16,25 +20,33 @@ namespace TechnoStore.Areas.Admin.Controllers
         private readonly ICategoryService _categoryService;
 		private readonly IProductColorService _productColorService;
 		private readonly IBrandService _brandService;
+		private readonly IMapper _mapper;
 
-        public ProductController(IProductService productService, ICategoryService categoryService, IProductColorService productColorService, IBrandService brandService)
+        public ProductController(IProductService productService, ICategoryService categoryService, IProductColorService productColorService, IBrandService brandService, IMapper mapper)
         {
             _productService = productService;
             _categoryService = categoryService;
             _productColorService = productColorService;
             _brandService = brandService;
+            _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string search,int page = 1)
         {
-            var products = _productService.GetAllProducts(x => x.IsDeleted == false);
+			
+            var product = search == null ? _productService.GetAllProducts(x => x.IsDeleted == false) : _productService.GetAllProducts(x => x.IsDeleted == false && x.Name.Contains(search)).ToList();
+            var datas = _productService.GetAllProducts(x => x.IsDeleted == false);
 
-            return View(products);
+            List<Product> productGetDTOs = _mapper.Map<List<Product>>(datas);
+
+            var paginatedDatas = PaginatedList<Product>.Create(productGetDTOs, 2, page);
+
+            return View(paginatedDatas);
         }
 
         public IActionResult Create()
         {
-            ViewBag.Categories = _categoryService.GetAllCategories();
+            ViewBag.Categories = _categoryService.GetAllCategories(x => x.IsDeleted == false);
 			ViewBag.ProductColor = _productColorService.GetAllProductColors(x=> x.IsDeleted == false);
             ViewBag.Brand = _brandService.GetAllBrands(x => x.IsDeleted == false);
 

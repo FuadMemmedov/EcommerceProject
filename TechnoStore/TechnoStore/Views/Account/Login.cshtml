@@ -1,0 +1,33 @@
+﻿@using TechnoStore.ViewModels
+@model MemberLoginVm
+<section class="flat-account background">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-login">
+					<div class="title">
+						<h3>Login</h3>
+					</div>
+					<form asp-action="Login"  method="post" id="form-login" accept-charset="utf-8">
+						<div asp-validation-summary="All" class="text-danger"></div>
+						<div class="form-box">
+							<label for="name-login"></label>
+							<input asp-for="Email" id="name-login"  placeholder="Ali">
+							<span asp-validation-for="Email" class="text-danger"></span>
+						</div><!-- /.form-box -->
+						<div class="form-box">
+							<label for="password-login">Password * </label>
+							<input asp-for="Password" id="password-login" placeholder="******">
+							<span asp-validation-for="Password" class="text-danger"></span>
+						</div><!-- /.form-box -->
+						<div class="form-box checkbox">
+							<input type="checkbox" id="remember" checked name="remember">
+							<label for="remember">Remember me</label>
+						</div><!-- /.form-box -->
+						<div class="form-box">
+							<button type="submit" class="login">Login</button>
+							<a asp-action="ForgetPassword" asp-controller="account" title="">Lost your password?</a>
+						</div><!-- /.form-box -->
+					</form><!-- /#form-login -->
+				</div><!-- /.form-login -->
+			</div><!-- /.col-md-6 -->

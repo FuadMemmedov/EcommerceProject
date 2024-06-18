@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Business.DTOs.SliderDTOs;
 using Business.Exceptions;
+using Business.Extensions;
 using Business.Service.Abstracts;
 using Business.Service.Concretes;
 using Core.Models;
@@ -14,17 +15,22 @@ namespace TechnoStore.Areas.Admin.Controllers
 	{
 
         private readonly ISliderService _sliderService;
-     
+        private readonly IMapper _mapper;
 
-        public SliderController(ISliderService sliderService)
+
+        public SliderController(ISliderService sliderService, IMapper mapper)
         {
             _sliderService = sliderService;
+            _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
 		{
             var sliders = _sliderService.GetAllSliders(x => x.IsDeleted == false);
-			return View(sliders);
+            List<Slider> sliderGetDTOs = _mapper.Map<List<Slider>>(sliders);
+
+            var paginatedDatas = PaginatedList<Slider>.Create(sliderGetDTOs, 2, page);
+            return View(paginatedDatas);
 		}
 
         public IActionResult Create()

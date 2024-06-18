@@ -3,6 +3,7 @@ using Business.DTOs.CategoryDTOs;
 using Business.DTOs.ProductColorDTOs;
 using Business.DTOs.ProductDTOs;
 using Business.DTOs.SliderDTOs;
+using Business.Extensions;
 using Core.Models;
 
 namespace TechnoStore.ViewModels;
@@ -15,4 +16,5 @@ public class ShopVm
 	public List<BrandGetDTO> Brands = new List<BrandGetDTO>();
 	public List<ShopSliderGetDTO> ShopSliders = new List<ShopSliderGetDTO>();
 	public List<CategoryGetDTO> Categories = new List<CategoryGetDTO>();
+	
 }

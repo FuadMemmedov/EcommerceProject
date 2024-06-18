@@ -1,8 +1,11 @@
-﻿using Business.DTOs.CategoryDTOs;
+﻿using AutoMapper;
+using Business.DTOs.CategoryDTOs;
 using Business.DTOs.FaqDTOs;
 using Business.Exceptions;
+using Business.Extensions;
 using Business.Service.Abstracts;
 using Business.Service.Concretes;
+using Core.Models;
 using Data.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,16 +16,22 @@ namespace TechnoStore.Areas.Admin.Controllers
 	public class CategoryController : Controller
 	{
 		private readonly ICategoryService _categoryService;
+        private readonly IMapper _mapper;
 
-		public CategoryController(ICategoryService categoryService)
-		{
-			_categoryService = categoryService;
-		}
+        public CategoryController(ICategoryService categoryService, IMapper mapper)
+        {
+            _categoryService = categoryService;
+            _mapper = mapper;
+        }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
             var categories = _categoryService.GetAllCategories(x => x.IsDeleted == false);
-            return View(categories);
+            List<Category> categoryGetDTOs = _mapper.Map<List<Category>>(categories);
+
+            var paginatedDatas = PaginatedList<Category>.Create(categoryGetDTOs, 2, page);
+
+            return View(paginatedDatas);
         }
 
         public IActionResult Create()

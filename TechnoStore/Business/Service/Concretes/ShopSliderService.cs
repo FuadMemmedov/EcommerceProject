@@ -103,7 +103,7 @@ public class ShopSliderService : IShopSliderService
 
 		if (updateDTO.ImageFile != null)
 		{
-			Slider slider = _mapper.Map<Slider>(updateDTO);
+			ShopSlider slider = _mapper.Map<ShopSlider>(updateDTO);
 
 			slider.ImageUrl = Helper.SaveFile(_env.WebRootPath, @"uploads/shopsliders", updateDTO.ImageFile, "shopslider");
 			Helper.DeleteFile(_env.WebRootPath, @"uploads\shopsliders", oldSlider.ImageUrl);

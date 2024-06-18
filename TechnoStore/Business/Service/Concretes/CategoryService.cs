@@ -27,7 +27,7 @@ public class CategoryService : ICategoryService
 
 	public List<CategoryGetDTO> GetAllCategories(Func<Category, bool>? func = null)
 	{
-		var categories =  _categoryRepository.GetAllEntities(func, "ParentCategory");
+		var categories =  _categoryRepository.GetAllEntities(func, "SubCategories");
 		List<CategoryGetDTO> categoryGetDTOs = _mapper.Map<List<CategoryGetDTO>>(categories);
 
 		return categoryGetDTOs;
@@ -35,14 +35,16 @@ public class CategoryService : ICategoryService
 
 	public CategoryGetDTO GetCategory(Func<Category, bool>? func = null)
 	{
-		var category =  _categoryRepository.GetEntity(func, "ParentCategory");
+		var category =  _categoryRepository.GetEntity(func, "SubCategories");
 		CategoryGetDTO categoryGetDTO = _mapper.Map<CategoryGetDTO>(category);
 		return categoryGetDTO;
 	}
 
 	public async Task AddCategoryAsync(CategoryCreateDTO categoryDto)
 	{
-		Category category = _mapper.Map<Category>(categoryDto);
+        var existBrand = _categoryRepository.GetEntity(x => x.Id == categoryDto.ParentCategoryId);
+        if (existBrand == null) throw new EntityNotFoundException("Category not found!");
+        Category category = _mapper.Map<Category>(categoryDto);
 		await _categoryRepository.AddEntityAsync(category);
 		await _categoryRepository.CommitAsync();
 	}
@@ -51,7 +53,9 @@ public class CategoryService : ICategoryService
 	{
 		var oldCategory = _categoryRepository.GetEntity(x => x.Id == categoryDto.Id);
 		if (oldCategory == null) throw new EntityNotFoundException("Category not found");
-		Category category = _mapper.Map<Category>(categoryDto);
+        var existBrand = _categoryRepository.GetEntity(x => x.Id == categoryDto.ParentCategoryId);
+        if (existBrand == null) throw new EntityNotFoundException("Category not found!");
+        Category category = _mapper.Map<Category>(categoryDto);
 
 		oldCategory.Name = categoryDto.Name;
 		oldCategory.ParentCategoryId = categoryDto.ParentCategoryId;

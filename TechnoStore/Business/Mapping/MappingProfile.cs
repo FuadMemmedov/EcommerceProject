@@ -4,6 +4,7 @@ using Business.DTOs.CategoryDTOs;
 using Business.DTOs.FaqDTOs;
 using Business.DTOs.ProductColorDTOs;
 using Business.DTOs.ProductDTOs;
+using Business.DTOs.SettingDTOs;
 using Business.DTOs.SliderDTOs;
 using Core.Models;
 using System;
@@ -47,5 +48,8 @@ public class MappingProfile:Profile
         CreateMap<Brand, BrandGetDTO>().ReverseMap();
         CreateMap<BrandUpdateDTO, Brand>().ReverseMap();
 
-    }
+		CreateMap<SettingCreateDTO, Setting>().ReverseMap();
+		CreateMap<Setting, SettingGetDTO>().ReverseMap();
+		CreateMap<SettingUpdateDTO, Setting>().ReverseMap();
+	}
 }

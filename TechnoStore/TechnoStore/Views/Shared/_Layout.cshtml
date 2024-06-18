@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Business.Service.Concretes
+@inject SettingService settingService
+@{
+	var setting = await settingService.GetSettingsAsync();
+}
+<!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
@@ -94,7 +99,7 @@
 						<div class="col-md-4">
 							<ul class="flat-infomation">
 								<li class="phone">
-									Call Us: <a href="#" title="">(888) 1234 56789</a>
+									Call Us: <a href="#" title=""></a>
 								</li>
 							</ul><!-- /.flat-infomation -->
 						</div><!-- /.col-md-4 -->

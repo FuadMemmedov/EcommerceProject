@@ -1,8 +1,11 @@
-﻿using Business.DTOs.FaqDTOs;
+﻿using AutoMapper;
+using Business.DTOs.FaqDTOs;
 using Business.DTOs.SliderDTOs;
 using Business.Exceptions;
+using Business.Extensions;
 using Business.Service.Abstracts;
 using Business.Service.Concretes;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
@@ -11,16 +14,21 @@ namespace TechnoStore.Areas.Admin.Controllers
     public class FaqController : Controller
     {
         private readonly IFaqService _faqService;
+        private readonly IMapper _mapper;
 
-        public FaqController(IFaqService faqService)
+        public FaqController(IFaqService faqService, IMapper mapper)
         {
             _faqService = faqService;
+            _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
             var faqs = _faqService.GetAllFaqs(x=> x.IsDeleted == false);
-            return View(faqs);
+            List<Faq> faqGetDTOs = _mapper.Map<List<Faq>>(faqs);
+
+            var paginatedDatas = PaginatedList<Faq>.Create(faqGetDTOs, 2, page);
+            return View(paginatedDatas);
         }
 
         public IActionResult Create()

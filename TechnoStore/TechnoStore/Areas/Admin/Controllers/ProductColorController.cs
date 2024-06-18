@@ -1,9 +1,12 @@
-﻿using Business.DTOs.FaqDTOs;
+﻿using AutoMapper;
+using Business.DTOs.FaqDTOs;
 using Business.DTOs.ProductColorDTOs;
 using Business.DTOs.ProductDTOs;
 using Business.Exceptions;
+using Business.Extensions;
 using Business.Service.Abstracts;
 using Business.Service.Concretes;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
@@ -12,16 +15,21 @@ namespace TechnoStore.Areas.Admin.Controllers
     public class ProductColorController : Controller
     {
         private readonly IProductColorService _productColorService;
+        private readonly IMapper _mapper;
 
-        public ProductColorController(IProductColorService productColorService)
+        public ProductColorController(IProductColorService productColorService, IMapper mapper)
         {
             _productColorService = productColorService;
+            _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
             var productColors = _productColorService.GetAllProductColors(x=> x.IsDeleted == false);
-            return View(productColors);
+            List<ProductColor> productColorGetDTOs = _mapper.Map<List<ProductColor>>(productColors);
+
+            var paginatedDatas = PaginatedList<ProductColor>.Create(productColorGetDTOs, 3, page);
+            return View(paginatedDatas);
         }
 
         public IActionResult Create()

@@ -20,7 +20,7 @@
 									<span>@item.Name</span>
 									<ul class="cat-child">
 										<li>
-											<a href="#" title="">@item.ParentCategory.Name</a>
+											<a href="#" title="">@item.Name</a>
 										</li>
 									</ul>
 								</li>
@@ -83,7 +83,7 @@
 
 						<div class="row">
 							<div>
-								<button type="submit" class="btn btn-outline-warning">Filter</button>
+								<button type="submit" class="filter-btn btn btn-outline-warning">Filter</button>
 							</div>
 						</div>
 					</form>
@@ -157,12 +157,12 @@
 												</div><!-- /.box-image -->
 												<div class="box-content">
 													<div class="cat-name">
-														<a href="#" title="">@item.Category.ParentCategory.Name</a>
+														<a href="#" title="">@item.Category.Name</a>
 													</div>
 													<div class="product-name">
 														<a href="#" title="">@item.Name<br />@item.Brand.Name</a>
 													</div>
-													@if (item.DiscountPercent != null)
+													@if (item.DiscountPercent != 0)
 													{
 														<div class="price">
 															<span class="regular">$@item.Price</span>
@@ -171,7 +171,9 @@
 													}
 													else
 													{
-														<span class="regular">$@item.Price</span>
+														<div class="price">
+															<span class="sale">$@item.Price</span>
+														</div>
 													}
 												</div><!-- /.box-content -->
 												<div class="box-bottom">
@@ -206,7 +208,7 @@
 											</div><!-- /.box-image -->
 											<div class="box-content">
 												<div class="cat-name">
-													<a href="#" title="">@item.Category.ParentCategory.Name</a>
+													<a href="#" title="">@item.Category.Name</a>
 												</div>
 												<div class="product-name">
 													<a href="#" title="">@item.Name<br />@item.Brand.Name</a>
@@ -221,7 +223,7 @@
 												</div>
 											</div><!-- /.box-content -->
 											<div class="box-price">
-												@if (item.DiscountPercent != null)
+												@if (item.DiscountPercent != 0)
 												{
 													<div class="price">
 														<span class="regular">$@item.Price</span>
@@ -230,7 +232,9 @@
 												}
 												else
 												{
-													<span class="regular">$@item.Price</span>
+													<div class="price">
+														<span class="sale">$@item.Price</span>
+													</div>
 												}
 												<div class="btn-add-cart">
 													<a href="#" title="">
@@ -253,36 +257,31 @@
 									</div>
 								</div>
 							</div><!-- /.wrap-imagebox -->
-							<div class="blog-pagination">
+							@* <div class="blog-pagination">
 								<span>
 									Showing 1–15 of 20 results
 								</span>
+						<nav aria-label="...">
 								<ul class="flat-pagination style1">
 									<li class="prev">
-										<a href="#" title="">
-											<img src="~/images//icons/left-1.png" alt="">Prev Page
+								<a asp-action="Index" asp-route-page="@(Model.ActivePage - 1)" title="">
+											<img src="~/images//icons/left-1.png"  alt="">Prev Page
 										</a>
 									</li>
-									<li>
-										<a href="#" class="waves-effect" title="">01</a>
-									</li>
-									<li>
-										<a href="#" class="waves-effect" title="">02</a>
-									</li>
-									<li class="active">
-										<a href="#" class="waves-effect" title="">03</a>
-									</li>
-									<li>
-										<a href="#" class="waves-effect" title="">04</a>
-									</li>
+
+						       	@for (int i = 1; i <= Model.TotalPageCount; i++)
+						     	{
+								<li class="waves-effect" @(Model.ActivePage == i ? "active" : "")"><a class="page-link" asp-action="Index" asp-route-page="@i">@i</a></li>
+							    }
 									<li class="next">
-										<a href="#" title="">
+								        <a  asp-action="Index" asp-route-page="@(Model.ActivePage + 1)" title="">
 											Next Page<img src="~/images//icons/right-1.png" alt="">
 										</a>
 									</li>
 								</ul>
+								</nav>
 								<div class="clearfix"></div>
-							</div><!-- /.blog-pagination -->
+							</div><!-- /.blog-pagination --> *@
 						</div><!-- /.main-shop -->
 					</div><!-- /.col-lg-9 col-md-8 -->
 				</div><!-- /.row -->
@@ -311,12 +310,12 @@
 							</div><!-- /.box-image -->
 							<div class="box-content">
 								<div class="cat-name">
-									<a href="#" title="">@item.Category.ParentCategory.Name</a>
+									<a href="#" title="">@item.Category.Name</a>
 								</div>
 								<div class="product-name">
 									<a href="#" title="">@item.Name<br />@item.Brand.Name</a>
 								</div>
-								@if (item.DiscountPercent != null)
+								@if (item.DiscountPercent != 0)
 								{
 									<div class="price">
 										<span class="regular">$@item.Price</span>
@@ -325,7 +324,9 @@
 								}
 								else
 								{
-									<span class="regular">$@item.Price</span>
+									<div class="price">
+										<span class="sale">$@item.Price</span>
+									</div>
 								}
 							</div><!-- /.box-content -->
 						</div>

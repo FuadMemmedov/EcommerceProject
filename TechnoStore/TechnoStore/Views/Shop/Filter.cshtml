@@ -181,7 +181,7 @@
 
 						<div class="row">
 							<div>
-								<button type="submit" class="btn btn-outline-warning">Filter</button>
+								<button type="submit" class="filter-btn btn btn-outline-warning">Filter</button>
 							</div>
 						</div>
 					</form>
@@ -340,14 +340,14 @@
 										<div class="product-box">
 											<div class="imagebox">
 												<div class="box-image owl-carousel-1">
-													<a href="#" title="">
-														<img asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" src="@Url.Content("~/uploads/products/"+item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+													<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
+														<img src="@Url.Content("~/uploads/products/"+item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
 													</a>
-													<a href="#" title="">
-														<img asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" src="@Url.Content("~/uploads/products/"+item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+													<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
+														<img  src="@Url.Content("~/uploads/products/"+item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
 													</a>
-													<a href="#" title="">
-														<img asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" src="@Url.Content("~/uploads/products/"+item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+													<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
+														<img src="@Url.Content("~/uploads/products/"+item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
 													</a>
 												</div><!-- /.box-image -->
 												<div class="box-content">
@@ -357,7 +357,7 @@
 													<div class="product-name">
 														<a href="#" title="">@item.Name<br />@item.Brand.Name</a>
 													</div>
-													@if(item.DiscountPercent != null)
+													@if(item.DiscountPercent != 0)
 													{
 														<div class="price">
 															<span class="regular">$@item.Price</span>
@@ -367,7 +367,7 @@
 													else
 													{
 														<div class="price">
-															<span class="regular">$@item.Price</span>
+															<span class="sale">$@item.Price</span>
 														</div>
 													}
 												</div><!-- /.box-content -->
