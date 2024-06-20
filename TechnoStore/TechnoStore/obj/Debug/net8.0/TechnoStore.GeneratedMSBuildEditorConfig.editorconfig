@@ -30,6 +30,22 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/Blog/Archive.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmxvZ1xBcmNoaXZlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/Blog/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmxvZ1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/Blog/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmxvZ1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/Blog/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmxvZ1xVcGRhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/Brand/Archive.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQnJhbmRcQXJjaGl2ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -60,6 +76,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/Category/Update.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2F0ZWdvcnlcVXBkYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/ContactInfo/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ29udGFjdEluZm9cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/ContactInfo/Reply.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ29udGFjdEluZm9cUmVwbHkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/Dashboard/Index.cshtml]
@@ -176,6 +200,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/Slider/Update.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2xpZGVyXFVwZGF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/Team/Archive.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGVhbVxBcmNoaXZlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/Team/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGVhbVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/Team/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGVhbVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/Team/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGVhbVxVcGRhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/User/Index.cshtml]

@@ -80,7 +80,7 @@ namespace TechnoStore.Controllers
             };
 
             mailMessage.Body = body.Replace("{{link}}", url);
-            mailMessage.IsBodyHtml = true;
+            
                
           
             
@@ -142,6 +142,12 @@ namespace TechnoStore.Controllers
             }
 
             var result = await _signInManager.PasswordSignInAsync(user, memberLoginVm.Password, memberLoginVm.RememberMe, true);
+
+            if (!user.EmailConfirmed)
+            {
+                ModelState.AddModelError("Verify", "Waiting for confirm");
+                return View();
+            }
 
             if (result.IsLockedOut)
             {

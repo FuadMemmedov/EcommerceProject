@@ -78,6 +78,15 @@ namespace TechnoStore
             builder.Services.AddScoped<IBrandRepository, BrandRepository>();
             builder.Services.AddScoped<IBrandService, BrandService>();
 
+            builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+            builder.Services.AddScoped<ITeamService, TeamService>();
+
+			builder.Services.AddScoped<IContactPostRepository, ContactPostRepository>();
+			builder.Services.AddScoped<IContactPostService, ContactPostService>();
+
+			builder.Services.AddScoped<IBlogRepository, BlogRepository>();
+			builder.Services.AddScoped<IBlogService, BlogService>();
+
 			builder.Services.AddScoped<ISettingRepository, SettingRepository>();
 			builder.Services.AddScoped<SettingService>();
 

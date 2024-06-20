@@ -1,9 +1,13 @@
 ﻿using AutoMapper;
+using Business.DTOs.FaqDTOs;
 using Business.DTOs.ProductDTOs;
 using Business.Extensions;
 using Business.Service.Abstracts;
 using Core.Models;
+using Data.DAL;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
+using System.Xml.Linq;
 using TechnoStore.ViewModels;
 
 namespace TechnoStore.Controllers
@@ -16,33 +20,60 @@ namespace TechnoStore.Controllers
         private readonly IBrandService _brandService;
 		private readonly IMapper _mapper;
 		private readonly ICategoryService _categoryService;
+		private readonly AppDbContext _appDbContext;
 
-		public ShopController(IShopSliderService shopSliderService, IProductService productService, IProductColorService productColorService, IBrandService brandService, IMapper mapper, ICategoryService categoryService)
-		{
-			_shopSliderService = shopSliderService;
-			_productService = productService;
-			_productColorService = productColorService;
-			_brandService = brandService;
-			_mapper = mapper;
-			_categoryService = categoryService;
-		}
-
-		public IActionResult Index(int page = 1)
+        public ShopController(IShopSliderService shopSliderService, IProductService productService, IProductColorService productColorService, IBrandService brandService, IMapper mapper, ICategoryService categoryService, AppDbContext appDbContext)
         {
+            _shopSliderService = shopSliderService;
+            _productService = productService;
+            _productColorService = productColorService;
+            _brandService = brandService;
+            _mapper = mapper;
+            _categoryService = categoryService;
+            _appDbContext = appDbContext;
+        }
 
-            ShopVm shopVm = new ShopVm
-            {
-                Colors = _productColorService.GetAllProductColors(x => x.IsDeleted == false),
-                Brands = _brandService.GetAllBrands(x => x.IsDeleted == false),
-                ShopSliders =  _shopSliderService.GetAllShopSliders(x => x.IsDeleted == false),
-				Categories = _categoryService.GetAllCategories(x=>x.IsDeleted == false),
-				Products = _productService.GetAllProducts(x => x.IsDeleted == false)
-						
+        public IActionResult Index(int? order,int page = 1)
+        {
+			var products = _productService.GetAllProducts(x => x.IsDeleted == false).AsQueryable();
+			List<Product> productGetDTOs = _mapper.Map<List<Product>>(products);
+			var paginatedDatas = PaginatedList<Product>.Create(productGetDTOs, 1, page);
+
+			ShopVm shopVm  = new ShopVm
+			{
+				Colors = _productColorService.GetAllProductColors(x => x.IsDeleted == false),
+				Brands = _brandService.GetAllBrands(x => x.IsDeleted == false),
+				ShopSliders = _shopSliderService.GetAllShopSliders(x => x.IsDeleted == false),
+				Categories = _categoryService.GetAllCategories(x => x.IsDeleted == false),
+				Products = _productService.GetAllProducts(x => x.IsDeleted == false),
+				PaginatedProducts = paginatedDatas,
+				
 
 		    };
-			
 
-		
+			if(order != null)
+			{
+				switch (order)
+				{
+					case 1:
+						products = products.OrderBy(x => x.Price);
+						break;
+					case 2:
+						products = products.OrderBy(x => x.Name);
+						break;
+					case 3:
+						products = products.OrderByDescending(x => x.Price);
+						break;
+					case 4:
+						products = products.OrderByDescending(x => x.Name);
+						break;
+					default:
+						break;
+				}
+			}
+
+
+
 
 			return View(shopVm);
         }
@@ -55,8 +86,9 @@ namespace TechnoStore.Controllers
 
                 Product = _productService.GetProduct(x => x.Id == id && x.IsDeleted == false),
                 Colors = _productColorService.GetAllProductColors(x => x.IsDeleted == false),
+				Comments = _appDbContext.Comments.ToList()
 
-            };
+			};
 
             return View(shopVm);
         }
@@ -115,5 +147,25 @@ namespace TechnoStore.Controllers
 			};
 			return View(shopVm);
 		}
-	}
+
+
+        [HttpPost]
+        public IActionResult Detail(string userName, string content)
+        {
+            if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(content))
+            {
+                var comment = new Comment
+                {
+                    FullName = userName,
+                    Content = content,
+                    CreatedDate = DateTime.Now
+                };
+
+                _appDbContext.Comments.Add(comment);
+				_appDbContext.SaveChanges();
+            }
+
+			return RedirectToAction("index");
+        }
+    }
 }

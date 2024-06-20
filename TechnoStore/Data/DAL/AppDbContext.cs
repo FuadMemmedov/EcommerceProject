@@ -21,6 +21,10 @@ public class AppDbContext : IdentityDbContext
 	public DbSet<Brand> Brands { get; set; }
 	public DbSet<Setting> Settings { get; set; }
 	public DbSet<AppUser> AppUsers { get; set; }
+	public DbSet<Team> Teams { get; set; }
+	public DbSet<ContactPost> ContactPosts { get; set; }
+	public DbSet<Blog> Blogs { get; set; }
+	public DbSet<Comment> Comments { get; set; }
     public AppDbContext(DbContextOptions options) : base(options) {}
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)

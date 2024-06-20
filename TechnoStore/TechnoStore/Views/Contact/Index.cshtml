@@ -1,26 +1,6 @@
-﻿<section class="flat-breadcrumb">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<ul class="breadcrumbs">
-							<li class="trail-item">
-								<a href="#" title="">Home</a>
-								<span><img src="~/images//icons/arrow-right.png" alt=""></span>
-							</li>
-							<li class="trail-item">
-								<a href="#" title="">Shop</a>
-								<span><img src="~/images//icons/arrow-right.png" alt=""></span>
-							</li>
-							<li class="trail-end">
-								<a href="#" title="">Smartphones</a>
-							</li>
-						</ul><!-- /.breacrumbs -->
-					</div><!-- /.col-md-12 -->
-				</div><!-- /.row -->
-			</div><!-- /.container -->
-		</section><!-- /.flat-breadcrumb -->
-
-		<section class="flat-map">
+﻿@using Core.Models
+@model ContactPost
+<section class="flat-map">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
@@ -156,22 +136,16 @@
 								</p>
 							</div><!-- /.form-contact-header -->
 							<div class="form-contact-content">
-								<form action="#" method="get" id="form-contact" accept-charset="utf-8">
-									<div class="form-box one-half name-contact">
-										<label for="name-contact">First name*</label>
-										<input type="text" id="name-contact" name="name-contact" placeholder="Ali">
-									</div>
-									<div class="form-box one-half password-contact">
-										<label for="password-contact">Last name*</label>
-										<input type="text" id="password-contact" name="password-contact" placeholder="Ali">
-									</div>
+								<form asp-action="Index"  method="post" id="form-contact" accept-charset="utf-8">
+							<div class="form-box one-half name-contact">
+								        <input id="name-contact" asp-for="Name" placeholder="First name">
+									</div><br />
 									<div class="form-box">
-										<label for="subject-contact">Subject</label>
-										<input type="text" id="subject-contact" name="subject-contact" placeholder="Ali">
+								     <input id="subject-contact" asp-for="Email" placeholder="Please Enter Email">
 									</div>
 									<div class="form-box">
 										<label for="comment-contact">Comment</label>
-										<textarea id="comment-contact"></textarea>
+								        <textarea asp-for="Comment" id="comment-contact"></textarea>
 									</div>
 									<div class="form-box">
 										<button type="submit" class="contact">Send</button>

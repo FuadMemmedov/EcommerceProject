@@ -25,7 +25,6 @@
 									</ul>
 								</li>
 							}
-
 								</ul><!-- /.cat-list -->
 							</div><!-- /.widget-categories -->
 					<form asp-action="Filter" asp-controller="Shop" method="get">
@@ -55,7 +54,7 @@
 									{
 										<li class="check-box">
 											<input type="checkbox" id="brand_@item.Id" name="selectedBrands" value="@item.Id">
-											<label for="brand_@item.Id">@item.Name</label>
+											<label for="brand_@item.Id">@item.Name</label><span></span>
 										</li>
 									}
 								</ul>
@@ -127,11 +126,11 @@
 									</ul>
 									<div class="sort">
 										<div class="popularity">
-											<select name="popularity">
-												<option value="">Sort by popularity</option>
-												<option value="">Sort by popularity</option>
-												<option value="">Sort by popularity</option>
-												<option value="">Sort by popularity</option>
+											<select name="order" id="order">
+												<option value="4">Sort by popularity</option>
+												<option value="3">Sort by popularity</option>
+												<option value="2">Sort by popularity</option>
+												<option value="1">Sort by popularity</option>
 											</select>
 										</div>
 									</div>
@@ -139,7 +138,7 @@
 								</div>
 								<div class="tab-product">
 									<div class="row sort-box">
-								@foreach(var item in Model.Products)
+								@foreach(var item in Model.PaginatedProducts)
 								{
 									<div class="col-lg-4 col-sm-6">
 										<div class="product-box">
@@ -197,7 +196,7 @@
 
 									</div>
 									<div class="sort-box">
-								@foreach(var item in Model.Products)
+								@foreach(var item in Model.PaginatedProducts)
 								{
 									<div class="product-box style3">
 										<div class="imagebox style1 v3">
@@ -257,31 +256,33 @@
 									</div>
 								</div>
 							</div><!-- /.wrap-imagebox -->
-							@* <div class="blog-pagination">
+							<div class="blog-pagination">
 								<span>
 									Showing 1–15 of 20 results
 								</span>
 						<nav aria-label="...">
-								<ul class="flat-pagination style1">
-									<li class="prev">
-								<a asp-action="Index" asp-route-page="@(Model.ActivePage - 1)" title="">
-											<img src="~/images//icons/left-1.png"  alt="">Prev Page
-										</a>
-									</li>
+						<ul class="flat-pagination style1">
+						<li class="prev">
+						<a asp-action="Index" asp-route-page="@(Model.PaginatedProducts.ActivePage - 1)" title="">
+						<img src="~/images/icons/left-1.png"  alt="">Prev Page
+						</a>
+						</li>
 
-						       	@for (int i = 1; i <= Model.TotalPageCount; i++)
-						     	{
-								<li class="waves-effect" @(Model.ActivePage == i ? "active" : "")"><a class="page-link" asp-action="Index" asp-route-page="@i">@i</a></li>
-							    }
-									<li class="next">
-								        <a  asp-action="Index" asp-route-page="@(Model.ActivePage + 1)" title="">
-											Next Page<img src="~/images//icons/right-1.png" alt="">
-										</a>
-									</li>
-								</ul>
-								</nav>
+						@for (int i = 1; i <= Model.PaginatedProducts.TotalPageCount; i++)
+						{
+							<li class=" @(Model.PaginatedProducts.ActivePage == i ? "active" : "")">
+								<a class="waves-effect" asp-action="Index" asp-route-page="@i">@i</a>
+							</li>
+						}
+						<li class="next">
+						<a asp-action="Index" asp-route-page="@(Model.PaginatedProducts.ActivePage + 1)" title="">
+						Next Page<img src="~/images/icons/right-1.png" alt="">
+						</a>
+						</li>
+						</ul>
+						</nav>
 								<div class="clearfix"></div>
-							</div><!-- /.blog-pagination --> *@
+							</div><!-- /.blog-pagination -->
 						</div><!-- /.main-shop -->
 					</div><!-- /.col-lg-9 col-md-8 -->
 				</div><!-- /.row -->

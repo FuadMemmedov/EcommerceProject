@@ -342,15 +342,15 @@
 								<i class="fa fa-star" aria-hidden="true"></i>
 								<i class="fa fa-star" aria-hidden="true"></i>
 							</div>
-							<form action="#" method="get" accept-charset="utf-8">
+							<form asp-action="Detail" method="post" accept-charset="utf-8">
 								<div class="review-form-name">
-									<input type="text" name="name-author" value="" placeholder="Name">
+							<input type="text" name="userName" value="" placeholder="Name">
 								</div>
 								<div class="review-form-email">
-									<input type="text" name="email-author" value="" placeholder="Email">
+							<input type="text"  value="" placeholder="Email">
 								</div>
 								<div class="review-form-comment">
-									<textarea name="review-text" placeholder="Your Name"></textarea>
+							  <textarea name="content" placeholder="Your Name"></textarea>
 								</div>
 								<div class="btn-submit">
 									<button type="submit">Add Review</button>
@@ -1011,3 +1011,14 @@
 			</div><!-- /.container -->
 		</section><!-- /.flat-imagebox style4 -->
 
+
+<h3>Posted Comments</h3>
+<ul>
+	@foreach (var comment in Model.Comments)
+	{
+		<li>
+			<strong>@comment.FullName</strong> (@comment.CreatedDate):
+			<p>@comment.Content</p>
+		</li>
+	}
+</ul>

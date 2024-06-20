@@ -10,6 +10,9 @@
 					</div>
 					<form asp-action="Login"  method="post" id="form-login" accept-charset="utf-8">
 						<div asp-validation-summary="All" class="text-danger"></div>
+						<p>
+							@Html.ValidationMessage("Verify");
+						</p>
 						<div class="form-box">
 							<label for="name-login"></label>
 							<input asp-for="Email" id="name-login"  placeholder="Ali">

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Business.DTOs.BlogDTOs;
 using Business.DTOs.BrandDTOs;
 using Business.DTOs.CategoryDTOs;
 using Business.DTOs.FaqDTOs;
@@ -6,6 +7,7 @@ using Business.DTOs.ProductColorDTOs;
 using Business.DTOs.ProductDTOs;
 using Business.DTOs.SettingDTOs;
 using Business.DTOs.SliderDTOs;
+using Business.DTOs.TeamDTOs;
 using Core.Models;
 using System;
 using System.Collections.Generic;
@@ -51,5 +53,13 @@ public class MappingProfile:Profile
 		CreateMap<SettingCreateDTO, Setting>().ReverseMap();
 		CreateMap<Setting, SettingGetDTO>().ReverseMap();
 		CreateMap<SettingUpdateDTO, Setting>().ReverseMap();
+
+		CreateMap<TeamCreateDTO, Team>().ReverseMap();
+		CreateMap<Team, TeamGetDTO>().ReverseMap();
+		CreateMap<TeamUpdateDTO, Team>().ReverseMap();
+
+		CreateMap<BlogCreateDTO, Blog>().ReverseMap();
+		CreateMap<Blog, BlogGetDTO>().ReverseMap();
+		CreateMap<BlogUpdateDTO, Blog>().ReverseMap();
 	}
 }

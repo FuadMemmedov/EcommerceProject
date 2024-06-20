@@ -1,195 +1,74 @@
-﻿<section class="flat-breadcrumb">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<ul class="breadcrumbs">
-							<li class="trail-item">
-								<a href="#" title="">Home</a>
-								<span><img src="~/images/icons/arrow-right.png" alt=""></span>
-							</li>
-							<li class="trail-item">
-								<a href="#" title="">Shop</a>
-								<span><img src="~/images/icons/arrow-right.png" alt=""></span>
-							</li>
-							<li class="trail-end">
-								<a href="#" title="">Smartphones</a>
-							</li>
-						</ul><!-- /.breacrumbs -->
-					</div><!-- /.col-md-12 -->
-				</div><!-- /.row -->
-			</div><!-- /.container -->
-		</section><!-- /.flat-breadcrumb -->
-
-		<section class="main-blog">
+﻿@using Business.Extensions
+@using Core.Models
+@model PaginatedList<Blog>
+<section class="main-blog">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-8 col-lg-9">
 						<div class="post-wrap">
-							<article class="main-post style1">
-								<div class="featured-post">
-									<a href="#" title="">
-										<img src="~/images/blog/01.jpg" alt="">
-									</a>
-								</div><!-- /.featured-post -->
-								<div class="content-post">
-									<h3 class="title-post">
-										<a href="#" title="">Lorem Ipsum is simply dummy text</a>
-									</h3>
-									<ul class="meta-post">
-										<li class="comment">
-											<a href="#" title="">
-												2 Comments
-											</a>
-										</li>
-										<li class="date">
-											<a href="#" title="">
-												February 20, 2017
-											</a>
-										</li>
-									</ul>
-									<div class="entry-post">
-										<p>This is a Rebel that surrendered to us. Although he denies it, I believe there may be more of them, and I request permission to conduct a further search of the area. He was armed only with this. Good work, Commander. Leave us. Conduct your search and bring his</p>
-										<div class="more-link">
-											<a href="#" title="">
-												Read More
-												<span>
-													<img src="~/images/icons/right-2.png" alt="">
-												</span>
-											</a>
-										</div>
+					@foreach(var item in Model)
+					{
+						<article class="main-post style1">
+							<div class="featured-post">
+								<a href="#" title="">
+									<img src="~/uploads/blogs/@item.ImageUrl" alt="">
+								</a>
+							</div><!-- /.featured-post -->
+							<div class="content-post">
+								<h3 class="title-post">
+									<a href="#" title="">@item.Title</a>
+								</h3>
+								<ul class="meta-post">
+									<li class="comment">
+										<a href="#" title="">
+											2 Comments
+										</a>
+									</li>
+									<li class="date">
+										<a href="#" title="">
+											@item.CreatedDate
+										</a>
+									</li>
+								</ul>
+								<div class="entry-post">
+									<p>@item.Description</p>
+									<div class="more-link">
+										<a href="#" title="">
+											Read More
+											<span>
+												<img src="~/images/icons/right-2.png" alt="">
+											</span>
+										</a>
 									</div>
-								</div><!-- /.content-post -->
-							</article><!-- /.main-post style1 -->
-							<article class="main-post style1">
-								<div class="featured-post">
-									<a href="#" title="">
-										<img src="~/images/blog/02.jpg" alt="">
-									</a>
-								</div><!-- /.featured-post -->
-								<div class="content-post">
-									<h3 class="title-post">
-										<a href="#" title="">Lorem Ipsum is simply dummy text</a>
-									</h3>
-									<ul class="meta-post">
-										<li class="comment">
-											<a href="#" title="">
-												2 Comments
-											</a>
-										</li>
-										<li class="date">
-											<a href="#" title="">
-												February 20, 2017
-											</a>
-										</li>
-									</ul>
-									<div class="entry-post">
-										<p>This is a Rebel that surrendered to us. Although he denies it, I believe there may be more of them, and I request permission to conduct a further search of the area. He was armed only with this. Good work, Commander. Leave us. Conduct your search and bring his</p>
-										<div class="more-link">
-											<a href="#" title="">
-												Read More
-												<span>
-													<img src="~/images/icons/right-2.png" alt="">
-												</span>
-											</a>
-										</div>
-									</div>
-								</div><!-- /.content-post -->
-							</article><!-- /.main-post style1 -->
-							<article class="main-post style1">
-								<div class="featured-post">
-									<a href="#" title="">
-										<img src="~/images/blog/03.jpg" alt="">
-									</a>
-								</div><!-- /.featured-post -->
-								<div class="content-post">
-									<h3 class="title-post">
-										<a href="#" title="">Many desktop publishing</a>
-									</h3>
-									<ul class="meta-post">
-										<li class="comment">
-											<a href="#" title="">
-												2 Comments
-											</a>
-										</li>
-										<li class="date">
-											<a href="#" title="">
-												February 20, 2017
-											</a>
-										</li>
-									</ul>
-									<div class="entry-post">
-										<p>This is a Rebel that surrendered to us. Although he denies it, I believe there may be more of them, and I request permission to conduct a further search of the area. He was armed only with this. Good work, Commander. Leave us. Conduct your search and bring his</p>
-										<div class="more-link">
-											<a href="#" title="">
-												Read More
-												<span>
-													<img src="~/images/icons/right-2.png" alt="">
-												</span>
-											</a>
-										</div>
-									</div>
-								</div><!-- /.content-post -->
-							</article><!-- /.main-post style1 -->
-							<article class="main-post style1">
-								<div class="featured-post">
-									<a href="#" title="">
-										<img src="~/images/blog/04.jpg" alt="">
-									</a>
-								</div><!-- /.featured-post -->
-								<div class="content-post">
-									<h3 class="title-post">
-										<a href="#" title="">There are many variations of passages</a>
-									</h3>
-									<ul class="meta-post">
-										<li class="comment">
-											<a href="#" title="">
-												2 Comments
-											</a>
-										</li>
-										<li class="date">
-											<a href="#" title="">
-												February 20, 2017
-											</a>
-										</li>
-									</ul>
-									<div class="entry-post">
-										<p>This is a Rebel that surrendered to us. Although he denies it, I believe there may be more of them, and I request permission to conduct a further search of the area. He was armed only with this. Good work, Commander. Leave us. Conduct your search and bring his</p>
-										<div class="more-link">
-											<a href="#" title="">
-												Read More
-												<span>
-													<img src="~/images/icons/right-2.png" alt="">
-												</span>
-											</a>
-										</div>
-									</div>
-								</div><!-- /.content-post -->
-							</article><!-- /.main-post style1 -->
+								</div>
+							</div><!-- /.content-post -->
+						</article>
+
+						<!-- /.main-post style1 -->
+					}
+
 						</div><!-- /.post-wrap -->
 						<div class="blog-pagination style2">
 							<ul class="flat-pagination">
+						<nav aria-label="...">
+							<ul class="flat-pagination style1">
 								<li class="prev">
-									<a href="#" title="">
+									<a asp-action="Index" asp-route-page="@(Model.ActivePage - 1)" title="">
 										<img src="~/images/icons/left-1.png" alt="">Prev Page
 									</a>
 								</li>
-								<li>
-									<a href="#" class="waves-effect" title="">01</a>
-								</li>
-								<li>
-									<a href="#" class="waves-effect" title="">02</a>
-								</li>
-								<li class="active">
-									<a href="#" class="waves-effect" title="">03</a>
-								</li>
-								<li>
-									<a href="#" class="waves-effect" title="">04</a>
-								</li>
+
+								@for (int i = 1; i <= Model.TotalPageCount; i++)
+								{
+									<li class=" @(Model.ActivePage == i  ? "active" : "")"><a class="waves-effect" asp-action="Index" asp-route-page="@i">@i</a></li>
+								}
 								<li class="next">
-									<a href="#" title="">
+									<a asp-action="Index" asp-route-page="@(Model.ActivePage + 1)" title="">
 										Next Page<img src="~/images/icons/right-1.png" alt="">
 									</a>
 								</li>
+							</ul>
+						</nav>
 							</ul><!-- /.flat-pagination -->
 						</div><!-- /.blog-pagination style2 -->
 					</div><!-- /.col-md-8 col-lg-9 -->

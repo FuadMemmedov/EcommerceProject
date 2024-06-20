@@ -1,0 +1,46 @@
+﻿@using Business.DTOs.TeamDTOs
+@model List<TeamGetDTO>
+@{
+    int counter = 1;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <a asp-action="index" asp-controller="Team" class="btn btn-primary">Index</a>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">Fullname</th>
+                        <th scope="col">Designation</th>
+                        <th scope="col">ImageUrl</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@(counter++)</th>
+                            <td>@item.Id</td>
+                            <td>@item.FullName</td>
+                            <td>@item.Designation</td> 
+                            <td><img src="~/uploads//sliders/@item.ImageUrl" /></td>
+                            <td>
+                                <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning">Update</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger  item-delete">Delete</a>
+                                <a asp-action="Return" asp-route-id="@item.Id" class="btn btn-info">Recover</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
