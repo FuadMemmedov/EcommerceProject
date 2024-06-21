@@ -48,7 +48,7 @@
 							</div><!-- /.header-detail -->
 							<div class="content-detail">
 								<div class="price">
-							@if(Model.Product.DiscountPercent != null)
+							@if(Model.Product.DiscountPercent != 0)
 							{
 								<div class="regular">
 								     $@Model.Product.Price
@@ -60,7 +60,7 @@
 							}
 							else
 							{
-							<div class="regular">
+								<div class="sale">
 								$@Model.Product.Price
 							</div>
 							}
@@ -92,7 +92,7 @@
 								</div><!-- /.quanlity-box -->
 								<div class="box-cart style2">
 									<div class="btn-add-cart">
-										<a href="#" title=""><img src="images/icons/add-cart.png" alt="">Add to Cart</a>
+								<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@Model.Product.Id" title=""><img src="images/icons/add-cart.png" alt="">Add to Cart</a>
 									</div>
 									<div class="compare-wishlist">
 										<a href="compare.html" class="compare" title=""><img src="images/icons/compare.png" alt="">Compare</a>
@@ -1011,14 +1011,3 @@
 			</div><!-- /.container -->
 		</section><!-- /.flat-imagebox style4 -->
 
-
-<h3>Posted Comments</h3>
-<ul>
-	@foreach (var comment in Model.Comments)
-	{
-		<li>
-			<strong>@comment.FullName</strong> (@comment.CreatedDate):
-			<p>@comment.Content</p>
-		</li>
-	}
-</ul>

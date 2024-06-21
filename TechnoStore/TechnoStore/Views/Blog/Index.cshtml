@@ -10,7 +10,7 @@
 					{
 						<article class="main-post style1">
 							<div class="featured-post">
-								<a href="#" title="">
+								<a asp-action="detail" asp-route-id="@item.Id" asp-controller="blog" title="">
 									<img src="~/uploads/blogs/@item.ImageUrl" alt="">
 								</a>
 							</div><!-- /.featured-post -->
@@ -33,7 +33,7 @@
 								<div class="entry-post">
 									<p>@item.Description</p>
 									<div class="more-link">
-										<a href="#" title="">
+										<a asp-action="detail" asp-route-id="@item.Id" asp-controller="blog" title="">
 											Read More
 											<span>
 												<img src="~/images/icons/right-2.png" alt="">

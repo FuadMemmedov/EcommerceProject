@@ -8273,6 +8273,10 @@
       "PackagePath": "staticwebassets\\images\\testimonial\\01.jpg"
     },
     {
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\basket.js",
+      "PackagePath": "staticwebassets\\javascript\\basket.js"
+    },
+    {
       "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\javascript\\bootstrap.min.js"
     },
@@ -8449,8 +8453,8 @@
       "PackagePath": "staticwebassets\\template\\htmlpage.html"
     },
     {
-      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\blogs\\blog-b8b49ef3-0bc7-4003-b9d2-69bf632181ca.jpg",
-      "PackagePath": "staticwebassets\\uploads\\blogs\\blog-b8b49ef3-0bc7-4003-b9d2-69bf632181ca.jpg"
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\blogs\\blog-1956212c-a6ae-40d7-853e-06d86a065837.jpg",
+      "PackagePath": "staticwebassets\\uploads\\blogs\\blog-1956212c-a6ae-40d7-853e-06d86a065837.jpg"
     },
     {
       "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\blogs\\blog-e5dc6de0-8da5-4571-be39-d31691be15d3.jpg",

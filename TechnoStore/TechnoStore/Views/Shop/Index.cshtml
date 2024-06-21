@@ -177,8 +177,8 @@
 												</div><!-- /.box-content -->
 												<div class="box-bottom">
 													<div class="btn-add-cart">
-														<a href="#" title="">
-															<img src="~/images//icons/add-cart.png" alt="">Add to Cart
+														<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" title="">
+															<img src="~/images//icons/add-cart.png" alt="">
 														</a>
 													</div>
 													<div class="compare-wishlist">
@@ -236,8 +236,8 @@
 													</div>
 												}
 												<div class="btn-add-cart">
-													<a href="#" title="">
-														<img src="~/images//icons/add-cart.png" alt="">Add to Cart
+													<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" title="">
+														<img src="~/images//icons/add-cart.png" alt="">
 													</a>
 												</div>
 												<div class="wishlist">	

@@ -63,8 +63,8 @@ public class BlogService : IBlogService
 
 	public BlogGetDTO GetBlog(Func<Blog, bool>? func = null)
 	{
-		var blogs = _blogRepository.GetAllEntities(func);
-		BlogGetDTO blogGetDTOs = _mapper.Map<BlogGetDTO>(blogs);
+		var blog = _blogRepository.GetEntity(func);
+		BlogGetDTO blogGetDTOs = _mapper.Map<BlogGetDTO>(blog);
 
 
 		return blogGetDTOs;

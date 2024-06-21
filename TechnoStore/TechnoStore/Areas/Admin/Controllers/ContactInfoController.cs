@@ -41,7 +41,7 @@ namespace TechnoStore.Areas.Admin.Controllers
 			_contactPost.UpdateContactPost(contactPost);
 
             MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress("memmedovfuad75@gmail.com","TechnStore");
+            mailMessage.From = new MailAddress("memmedovfuad75@gmail.com","TechnoStore");
             mailMessage.To.Add(new MailAddress($"{contactPost.Email}"));
             mailMessage.Subject = $"Reply to {contactPost.Name}";
             mailMessage.Body = "Comment: " + $"\"{contactPost.Comment}\"" + "-" + " Answer:" + contactPost.Answer;

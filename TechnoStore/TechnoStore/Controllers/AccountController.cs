@@ -69,7 +69,7 @@ namespace TechnoStore.Controllers
                 token
             }, Request.Scheme, Request.Host.ToString());
             MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress("memmedovfuad75@gmail.com", "TechnStore");
+            mailMessage.From = new MailAddress("memmedovfuad75@gmail.com", "TechnoStore");
             mailMessage.To.Add(new MailAddress(appUser.Email));
             mailMessage.Subject = "Verify Email";
             string body = string.Empty;
@@ -216,7 +216,7 @@ namespace TechnoStore.Controllers
             }, Request.Scheme, Request.Host.ToString());
 
             MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress("memmedovfuad75@gmail.com", "TechnStore");
+            mailMessage.From = new MailAddress("memmedovfuad75@gmail.com", "TechnoStore");
             mailMessage.To.Add(new MailAddress(appUser.Email));
             mailMessage.Subject = "Reset Password";
             mailMessage.Body = $"< a href={link}>Please click Here</a>";

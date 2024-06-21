@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "6z+EuEW6d8Pxaf3J+iF5t9JLNJilg+3YRGSFgNgZnYI=",
+  "Hash": "HaHv/ut2N3epiXhcwOkwTcacNLGWmWoQmOCMfZWviz4=",
   "Source": "TechnoStore",
   "BasePath": "_content/TechnoStore",
   "Mode": "Default",
@@ -39328,6 +39328,25 @@
       "OriginalItemSpec": "wwwroot\\images\\testimonial\\01.jpg"
     },
     {
+      "Identity": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\basket.js",
+      "SourceId": "TechnoStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\",
+      "BasePath": "_content/TechnoStore",
+      "RelativePath": "javascript/basket.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\javascript\\basket.js"
+    },
+    {
       "Identity": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\bootstrap.min.js",
       "SourceId": "TechnoStore",
       "SourceType": "Discovered",
@@ -40164,12 +40183,12 @@
       "OriginalItemSpec": "wwwroot\\template\\htmlpage.html"
     },
     {
-      "Identity": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\blogs\\blog-b8b49ef3-0bc7-4003-b9d2-69bf632181ca.jpg",
+      "Identity": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\blogs\\blog-1956212c-a6ae-40d7-853e-06d86a065837.jpg",
       "SourceId": "TechnoStore",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\",
       "BasePath": "_content/TechnoStore",
-      "RelativePath": "uploads/blogs/blog-b8b49ef3-0bc7-4003-b9d2-69bf632181ca.jpg",
+      "RelativePath": "uploads/blogs/blog-1956212c-a6ae-40d7-853e-06d86a065837.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -40180,7 +40199,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\blogs\\blog-b8b49ef3-0bc7-4003-b9d2-69bf632181ca.jpg"
+      "OriginalItemSpec": "wwwroot\\uploads\\blogs\\blog-1956212c-a6ae-40d7-853e-06d86a065837.jpg"
     },
     {
       "Identity": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\blogs\\blog-e5dc6de0-8da5-4571-be39-d31691be15d3.jpg",

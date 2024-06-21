@@ -147,7 +147,7 @@
 							</div><!-- /.box-content -->
 							<div class="box-bottom">
 								<div class="btn-add-cart">
-									<a href="#" title="">
+										<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" title="">
 										<img src="~/images/icons/add-cart.png" alt="">Add to Cart
 									</a>
 								</div>
@@ -216,12 +216,12 @@
 								</div><!-- /.box-content -->
 								<div class="box-bottom">
 									<div class="btn-add-cart">
-										<a href="#" title="">
+										<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" title="">
 											<img src="~/images/icons/add-cart.png" alt="">Add to Cart
 										</a>
 									</div>
 									<div class="compare-wishlist">
-										<a href="#" class="wishlist" title="">
+										<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" class="wishlist" title="">
 											<img src="~/images/icons/wishlist.png" alt="">Wishlist
 										</a>
 									</div>
@@ -283,7 +283,7 @@
 								</div><!-- /.box-content -->
 								<div class="box-bottom">
 									<div class="btn-add-cart">
-										<a href="#" title="">
+										<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" title="">
 											<img src="~/images/icons/add-cart.png" alt="">Add to Cart
 										</a>
 									</div>
@@ -357,7 +357,7 @@
 										</a>
 									</div>
 									<div class="btn-add-cart">
-										<a href="#" title="">
+										<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" class="add-to-basket" title="">
 											Add to Cart
 										</a>
 									</div>
