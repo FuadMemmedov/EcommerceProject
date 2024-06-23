@@ -87,7 +87,11 @@ namespace TechnoStore
 			builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 			builder.Services.AddScoped<IBlogService, BlogService>();
 
-			builder.Services.AddScoped<ISettingRepository, SettingRepository>();
+
+            builder.Services.AddScoped<IBasketItemRepository, BasketItemRepository>();
+            builder.Services.AddScoped<IBasketItemService, BasketItemService>();
+
+            builder.Services.AddScoped<ISettingRepository, SettingRepository>();
 			builder.Services.AddScoped<SettingService>();
 
 			

@@ -1,0 +1,59 @@
+﻿@using Core.Models
+@model Order
+@{
+    int counter = 0;
+}
+<h1>Detail</h1>
+
+
+<div class="container-fluid">
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title"><span class="fw-bold text-danger">Id</span>   @Model.Id</h5>
+            <p class="card-text"><span class="fw-bold text-danger">Fullname</span>     @(Model.Name + " " + Model.Surname)</p>
+            <p class="card-text"><span class="fw-bold text-danger">Email</span>     @Model.Email</p>
+            <p class="card-text"><span class="fw-bold text-danger">Phone</span>      @Model.Phone</p>
+            <p class="card-text"><span class="fw-bold text-danger">Addres</span>      @Model.Address</p>
+            <p class="card-text"><span class="fw-bold text-danger">ZipCoe</span>     @Model.ZipCode</p>
+            <p class="card-text"><span class="fw-bold text-danger">Note</span>     @Model.Note</p>
+            <p class="card-text"><span class="fw-bold text-danger">TotalPrice</span>      @Model.TotalPrice AZN</p>
+
+
+
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Discount Percent</th>
+                        <th scope="col">Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderItems)
+                    {
+                        <tr>
+                            <th scope="row">@(counter++)</th>
+                            <td>@item.ProductName</td>
+                            <td>@item.Price</td>
+                            <td>@item.DiscountPercent</td>
+                            <td>@item.Count</td>
+                            </tr>
+
+                            
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <div class="card-body">
+            <a asp-action="accept" asp-controller="order" asp-route-id="@Model.Id" class="btn btn-succes">Accept</a>
+            <a asp-action="reject" asp-controller="order" asp-route-id="@Model.Id" class="btn btn-danger">Reject</a>
+            <a asp-action="index" asp-controller="order" asp-route-id="@Model.Id" class="btn btn-primary">Go back</a>
+        </div>
+    </div>
+</div>

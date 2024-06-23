@@ -1,7 +1,9 @@
 ﻿using Business.Enums;
 using Core.Models;
+using Data.DAL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Net.Mail;
 using TechnoStore.ViewModels;
@@ -13,14 +15,16 @@ namespace TechnoStore.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _roleManager = roleManager;
-        }
+        private readonly AppDbContext _appDbContext;
+		public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager, AppDbContext appDbContext)
+		{
+			_userManager = userManager;
+			_signInManager = signInManager;
+			_roleManager = roleManager;
+			_appDbContext = appDbContext;
+		}
 
-        public IActionResult Register()
+		public IActionResult Register()
         {
             return View();
         }
@@ -254,6 +258,25 @@ namespace TechnoStore.Controllers
             return RedirectToAction("Login");
         }
 
+		public async Task<IActionResult> Profile()
+		{
+			AppUser appUser = null;
 
-    }
+			if (HttpContext.User.Identity.IsAuthenticated)
+			{
+				appUser = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+			}
+
+			List<Order> orders = await _appDbContext.Orders
+													.Where(x => x.AppUserId == appUser.Id)
+													.ToListAsync();
+
+
+			return View(orders);
+
+
+		}
+
+
+	}
 }

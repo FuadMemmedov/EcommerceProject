@@ -1,5 +1,5 @@
 ﻿@using TechnoStore.ViewModels
- @model List<CheckOutVm> 
+ @model OrderVm
 @{
 	decimal totalAmount = 0;
 	decimal itemAmount = 0;
@@ -13,7 +13,7 @@
 							<div class="checkout-login">
 								Returning customer? <a href="#" title="">Click here to login</a>
 							</div>
-							<form action="#" method="get" class="checkout" accept-charset="utf-8">
+					            <form asp-action="CheckOut" method="post" id="orderForm" accept-charset="utf-8">
 								<div class="billing-fields">
 									<div class="fields-title">
 										<h3>Billing details</h3>
@@ -24,132 +24,52 @@
 										<div class="field-row">
 											<p class="field-one-half">
 												<label for="first-name">First Name *</label>
-												<input type="text" id="first-name" name="first-name" placeholder="Ali">
+										        <input asp-for="@Model.Name" id="first-name" placeholder="Ali">
 											</p>
 											<p class="field-one-half">
 												<label for="last-name">Last Name *</label>
-												<input type="text" id="last-name" name="last-name" placeholder="Tufan">
+												<input asp-for="@Model.Surname"  id="last-name"  placeholder="Tufan">
 											</p>
 											<div class="clearfix"></div>
 										</div>
 										<div class="field-row">
-											<label for="company-name">Company Name</label>
-											<input type="text" id="company-name" name="company-name">
-										</div>
-										<div class="field-row">
 											<p class="field-one-half">
-												<label for="email-address">Email Address *</label>
-												<input type="email" id="email-address" name="email-address">
+												<label for="email-address">Email Address</label>
+												<input asp-for="@Model.Email" id="email-address" >
 											</p>
 											<p class="field-one-half">
-												<label for="phone">Phone *</label>
-												<input type="text" id="phone" name="phone">
+												<label for="phone">Phone</label>
+												<input asp-for="@Model.Phone" id="phone">
 											</p>
 											<div class="clearfix"></div>
 										</div>
 										<div class="field-row">
-											<label>Country *</label>
-											<select name="country">
-												<option value="">Australia</option>
-												<option value="">USA State</option>
-												<option value="">Spanish</option>
-												<option value="">Viet Nam</option>
-											</select>
+											<label>Country</label>
+											<input asp-for="@Model.Country" />
 										</div>
 										<div class="field-row">
-											<label for="address">Address *</label>
-											<input type="text" id="address" name="address" placeholder="Street address">
-											<input type="text" id="address-2" name="address" placeholder="Apartment, suite, unit etc. (optional)">
-										</div>
-										<div class="field-row">
-											<label for="town-city">Town / City *</label>
-											<input type="text" id="town-city" name="town-city">
+											<label for="address">Address</label>
+											<input asp-for="@Model.Address" id="address"  placeholder="Street address">
 										</div>
 										<div class="field-row">
 											<p class="field-one-half">
-												<label for="state-country">State / County *</label>
-												<input type="text" id="state-country" name="state-country">
-											</p>
-											<p class="field-one-half">
-												<label for="post-code">Postcode / ZIP *</label>
-												<input type="text" id="post-code" name="post-code">
+												<label for="post-code">Postcode / ZIP </label>
+												<input asp-for="@Model.ZipCode" id="post-code" n>
 											</p>
 											<div class="clearfix"></div>
 										</div>
-										<div class="checkbox">
-											<input type="checkbox" id="create-account" name="create-account" checked>
-											<label for="create-account">Create an account?</label>
-										</div>
+								      <div class="field-row">
+									      <label for="notes">Order Notes</label>
+									      <textarea asp-for="@Model.Note" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+								       </div>
 									</div><!-- /.fields-content -->
 								</div><!-- /.billing-fields -->
-								<div class="shipping-address-fields">
-									<div class="fields-title">
-										<h3>Shipping Address</h3>
-										<span></span>
-										<div class="clearfix"></div>
-									</div><!-- /.fields-title -->
-									<div class="fields-content">
-										<div class="checkbox">
-											<input type="checkbox" id="create-account-2" name="create-account-2" checked>
-											<label for="create-account-2">Ship to a different address ?</label>
-										</div>
-										<div class="field-row">
-											<p class="field-one-half">
-												<label for="first-name-2">First Name *</label>
-												<input type="text" id="first-name-2" name="first-name-2" placeholder="Ali">
-											</p>
-											<p class="field-one-half">
-												<label for="last-name-2">Last Name *</label>
-												<input type="text" id="last-name-2" name="last-name-2" placeholder="Tufan">
-											</p>
-											<div class="clearfix"></div>
-										</div>
-										<div class="field-row">
-											<label for="company-name-2">Company Name</label>
-											<input type="text" id="company-name-2" name="company-name-2">
-										</div>
-										<div class="field-row">
-											<label>Country *</label>
-											<select name="country-2">
-												<option value="">Australia</option>
-												<option value="">USA State</option>
-												<option value="">Spanish</option>
-												<option value="">Viet Nam</option>
-											</select>
-										</div>
-										<div class="field-row">
-											<label for="address-3">Address *</label>
-											<input type="text" id="address-3" name="address-3" placeholder="Street address">
-											<input type="text" id="address-4" name="address2" placeholder="Apartment, suite, unit etc. (optional)">
-										</div>
-										<div class="field-row">
-											<label for="town-city-2">Town / City *</label>
-											<input type="text" id="town-city-2" name="town-city-2">
-										</div>
-										<div class="field-row">
-											<p class="field-one-half">
-												<label for="state-country-2">State / County *</label>
-												<input type="text" id="state-country-2" name="state-country-2">
-											</p>
-											<p class="field-one-half">
-												<label for="post-code-2">Postcode / ZIP *</label>
-												<input type="text" id="post-code-2" name="post-code-2">
-											</p>
-											<div class="clearfix"></div>
-										</div>
-										<div class="field-row">
-											<label for="notes">Order Notes</label>
-											<textarea id="notes" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-										</div>
-									</div><!-- /.fields-content -->
-								</div><!-- /.shipping-address-fields -->
 							</form><!-- /.checkout -->
 						</div><!-- /.box-checkout -->
 					</div><!-- /.col-md-7 -->
 					<div class="col-md-5">
 						<div class="cart-totals style2">
 							<h3>Your Order</h3>
-							<form action="#" method="get" accept-charset="utf-8">
 								<table class="product">
 									<thead>
 										<tr>
@@ -158,10 +78,10 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach(var item in Model)
+										@foreach(var item in Model.CheckOutVms)
 									{
 									  <tr>
-										<td>@item.Product.Name x @item.Count<br />@item.Product.Brand.Name</td>
+										<td>@item.Product.Name x @item.Count</td>
 										@if(item.Product.DiscountPercent != null)
 										{
 											<td>$@(itemAmount =((item.Product.Price - item.Product.Price * item.Product.DiscountPercent / 100) * @item.Count))</td>
@@ -230,9 +150,8 @@
 									<label for="checked-order">I’ve read and accept the terms & conditions *</label>
 								</div><!-- /.checkbox -->
 								<div class="btn-order">
-									<a href="#" class="order" title="">Place Order</a>
+							     <button form="orderForm" type="submit" class="btn btn-danger" >Place Order</button>
 								</div><!-- /.btn-order -->
-							</form>
 						</div><!-- /.cart-totals style2 -->
 					</div><!-- /.col-md-5 -->
 				</div><!-- /.row -->

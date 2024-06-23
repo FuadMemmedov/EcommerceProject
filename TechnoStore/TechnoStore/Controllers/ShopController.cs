@@ -5,6 +5,7 @@ using Business.Extensions;
 using Business.Service.Abstracts;
 using Core.Models;
 using Data.DAL;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Linq.Expressions;
@@ -21,9 +22,11 @@ namespace TechnoStore.Controllers
         private readonly IBrandService _brandService;
 		private readonly IMapper _mapper;
 		private readonly ICategoryService _categoryService;
-		
+		private readonly UserManager<AppUser> _userManager;
+		private readonly IBasketItemService _basketItemService;
+		private readonly AppDbContext _appDbContext;
 
-        public ShopController(IShopSliderService shopSliderService, IProductService productService, IProductColorService productColorService, IBrandService brandService, IMapper mapper, ICategoryService categoryService)
+        public ShopController(IShopSliderService shopSliderService, IProductService productService, IProductColorService productColorService, IBrandService brandService, IMapper mapper, ICategoryService categoryService, UserManager<AppUser> userManager, IBasketItemService basketItemService, AppDbContext appDbContext)
         {
             _shopSliderService = shopSliderService;
             _productService = productService;
@@ -31,7 +34,9 @@ namespace TechnoStore.Controllers
             _brandService = brandService;
             _mapper = mapper;
             _categoryService = categoryService;
-           
+            _userManager = userManager;
+            _basketItemService = basketItemService;
+            _appDbContext = appDbContext;
         }
 
         public IActionResult Index(int? order,int page = 1)
@@ -148,128 +153,271 @@ namespace TechnoStore.Controllers
 			return View(shopVm);
 		}
 
-
-		//     [HttpPost]
-		//     public IActionResult Detail(string userName, string content)
-		//     {
-		//         if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(content))
-		//         {
-		//             var comment = new Comment
-		//             {
-		//                 FullName = userName,
-		//                 Content = content,
-		//                 CreatedDate = DateTime.Now
-		//             };
-
-		//             _appDbContext.Comments.Add(comment);
-		//	_appDbContext.SaveChanges();
-		//         }
-
-		//return RedirectToAction("index");
-		//     }
-
-
-		public IActionResult AddToBasket(int productId)
+		public async Task<IActionResult> AddToBasket(int productId)
 		{
+          
+   //         List<BasketItemVm> basketItems = new List<BasketItemVm>();
+
+			//BasketItemVm basketItem = new BasketItemVm()
+			//{
+			//	ProductId = productId,
+			//	Count = 1
+			//};
+
 			ProductGetDTO product = _productService.GetProduct(x => x.Id == productId);
+
 			if (product == null) return NotFound();
 
-			List<BasketItemVm> basketItemVms = new List<BasketItemVm>();
-			BasketItemVm basketItemVm = null;
+			List<BasketItemVm> BasketItemViewModels = new List<BasketItemVm>();
+			BasketItemVm BasketItemViewModel = null;
+			BasketItem userBasketItem = null;
+			AppUser user = null;
 
-			string basketItemsStr = HttpContext.Request.Cookies["BasketItems"];
-
-			// Ensure the cookie is a JSON array
-			if (string.IsNullOrEmpty(basketItemsStr))
+			if (HttpContext.User.Identity.IsAuthenticated)
 			{
-				basketItemVms = new List<BasketItemVm>();
+				user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+			}
+
+			if (user == null)
+			{
+				string basketItemsStr = HttpContext.Request.Cookies["BasketItems"];
+
+				if (string.IsNullOrEmpty(basketItemsStr))
+				{
+					BasketItemViewModels = new List<BasketItemVm>();
+				}
+				else
+				{
+					try
+					{
+						BasketItemViewModels = JsonConvert.DeserializeObject<List<BasketItemVm>>(basketItemsStr);
+					}
+					catch (JsonSerializationException ex)
+					{
+						Console.WriteLine("Error deserializing cookie: " + ex.Message);
+						return BadRequest("Invalid cookie format");
+					}
+				}
+
+				BasketItemViewModel = BasketItemViewModels.FirstOrDefault(x => x.ProductId == productId);
+
+                if (BasketItemViewModel != null)
+                {
+                    BasketItemViewModel.Count++;
+                }
+                else
+                {
+                    BasketItemViewModel = new BasketItemVm()
+                    {
+                        ProductId = productId,
+                        Count = 1
+                    };
+                    BasketItemViewModels.Add(BasketItemViewModel);
+                }
+
+                    basketItemsStr = JsonConvert.SerializeObject(BasketItemViewModels);
+
+				HttpContext.Response.Cookies.Append("BasketItems", basketItemsStr);
 			}
 			else
 			{
-				try
+				userBasketItem = _basketItemService.GetBasketItem(x => x.ProductId == productId &&
+				x.UserId == user.Id && !x.IsDeleted);
+				if (userBasketItem != null)
 				{
-					basketItemVms = JsonConvert.DeserializeObject<List<BasketItemVm>>(basketItemsStr);
+					userBasketItem.Counter++;
 				}
-				catch (JsonSerializationException ex)
+				else
 				{
-					// Log the exception and return an error response
-					Console.WriteLine("Error deserializing cookie: " + ex.Message);
-					return BadRequest("Invalid cookie format");
+					userBasketItem = new BasketItem
+					{
+						ProductId = productId,
+						Counter = 1,
+						UserId = user.Id,
+						IsDeleted = false
+					};
+					await _basketItemService.AddBasketItem(userBasketItem);
 				}
+
 			}
 
-			basketItemVm = basketItemVms.FirstOrDefault(x => x.ProductId == productId);
 
-			if (basketItemVm != null)
-			{
-				basketItemVm.Count++;
-			}
-			else
-			{
-				basketItemVm = new BasketItemVm()
-				{
-					ProductId = productId,
-					Count = 1
-				};
 
-				basketItemVms.Add(basketItemVm);
-			}
-
-			basketItemsStr = JsonConvert.SerializeObject(basketItemVms);
-
-			HttpContext.Response.Cookies.Append("BasketItems", basketItemsStr);
 
 			return Ok();
+
 		}
 
 
-		//public IActionResult GetBasketItems()
-		//{
-		//	List<BasketItemVm> basketItemVms = new List<BasketItemVm>();
+	
+	
 
-		//	string basketItemsStr = HttpContext.Request.Cookies["BasketItems"];
+        public async Task<IActionResult> CheckOut()
+        {
 
-		//	if(basketItemsStr != null)
-		//	{
-		//		basketItemVms = JsonConvert.DeserializeObject<List<BasketItemVm>>(basketItemsStr);
-		//	}
+            List<CheckOutVm> checkOutVms = new List<CheckOutVm>();
+            List<BasketItemVm> basketItemVms = new List<BasketItemVm>();
+            List<BasketItem> userBasketItems = new List<BasketItem>();
+            CheckOutVm checkOutVm = null;
+            AppUser user = null;
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+            }
+
+            if (user == null)
+            {
+                string basketItemsStr = HttpContext.Request.Cookies["BasketItems"];
+
+                if (basketItemsStr != null)
+                {
+                    basketItemVms = JsonConvert.DeserializeObject<List<BasketItemVm>>(basketItemsStr);
+
+                    foreach (var item in basketItemVms)
+                    {
+                        checkOutVm = new CheckOutVm
+                        {
+                            Product = _productService.GetProduct(x => x.Id == item.ProductId),
+                            Count = item.Count
+                        };
+
+                        checkOutVms.Add(checkOutVm);
+                    }
+                }
+            }
+            else
+            {
+                userBasketItems = _basketItemService.GetAllBasketItems(x => x.UserId ==
+                user.Id && !x.IsDeleted).ToList();
+
+                foreach (var item in userBasketItems)
+                {
+                    checkOutVm = new CheckOutVm
+                    {
+                        Product = _mapper.Map<ProductGetDTO>(item.Product),
+                        Count = item.Counter
+                    };
+                    checkOutVms.Add(checkOutVm);
+                }
+            }
+
+            OrderVm orderViewModel = new OrderVm
+            {
+                CheckOutVms = checkOutVms,
+                Name = user?.Name,
+                Surname = user?.Surname,
+            };
+
+            return View(orderViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CheckOut(OrderVm orderViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            List<CheckOutVm> checkOutVms = new List<CheckOutVm>();
+            List<BasketItemVm> basketItemVms = new List<BasketItemVm>();
+            List<BasketItem> userBasketItems = new List<BasketItem>();
+            CheckOutVm checkOutVm = null;
+            OrderItem orderItem = null;
+            AppUser user = null;
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+            }
+
+            Order order = new Order
+            {
+                Name = orderViewModel.Name,
+                Surname = orderViewModel.Surname,
+                Address = orderViewModel.Address,
+                Country = orderViewModel.Country,
+                Email = orderViewModel.Email,
+                Phone = orderViewModel.Phone,
+                ZipCode = orderViewModel.ZipCode,
+                Note = orderViewModel.Note,
+                OrderItems = new List<OrderItem>(),
+                AppUserId = user?.Id,
+                CreatedDate = DateTime.UtcNow.AddHours(4)
+            };
+
+            order.OrderItems = new List<OrderItem>();
+
+            if (user == null)
+            {
+                string basketItemsStr = HttpContext.Request.Cookies["BasketItems"];
+
+                if (basketItemsStr != null)
+                {
+                    basketItemVms = JsonConvert.DeserializeObject<List<BasketItemVm>>(basketItemsStr);
+
+                    foreach (var item in basketItemVms)
+                    {
+                        //RoomGetDTO roomGetDTO = _roomService.GetRoom(x => x.Id == item.RoomId);
+                        //Room room = _mapper.Map<Room>(roomGetDTO);
+                        Product product = _appDbContext.Products.FirstOrDefault(x => x.Id == item.ProductId);
 
 
-		//	return Json(basketItemVms);
-		//}
+                        orderItem = new OrderItem
+                        {
+                            Product = product,
+                            ProductName = product.Name,
+                            DiscountPercent = product.DiscountPercent,
+                            Price = product.Price - product.Price * product.DiscountPercent / 100,  
+                            Count = 2, 
+                            Order = order
+                        };
 
-		public IActionResult CheckOut()
-		{
-			List<CheckOutVm> checkOutVms = new List<CheckOutVm>();
-			List<BasketItemVm> basketItemVms = new List<BasketItemVm>();
+                        order.TotalPrice += orderItem.Price * orderItem.Count;
 
-			CheckOutVm checkOutVm = null;
+                        order.OrderItems.Add(orderItem);
 
-			string basketItemsStr = HttpContext.Request.Cookies["BasketItems"];
+                    }
+                }
+            }
+            else
+            {
+                userBasketItems = _basketItemService.GetAllBasketItems(x => x.UserId ==
+                    user.Id).ToList();
 
-			if(basketItemsStr != null)
-			{
-				basketItemVms = JsonConvert.DeserializeObject<List<BasketItemVm>>(basketItemsStr);
+                foreach (var item in userBasketItems)
+                {
+                   
 
-				foreach(var item in basketItemVms)
-				{
-					checkOutVm = new CheckOutVm
-					{
-						Product = _productService.GetProduct(x => x.Id == item.ProductId),
-						Count = item.Count
-					};
-
-					checkOutVms.Add(checkOutVm);
-				}
-
-				 //basketItemVms.Select(x=> new CheckOutVm() {Product = x.ProductId})
-
-			}
+                    Product product = _appDbContext.Products.FirstOrDefault(x => x.Id == item.ProductId);
 
 
+                    orderItem = new OrderItem
+                    {
+                        Product = product,
+                        ProductName = product.Name,
+                        DiscountPercent = product.DiscountPercent,
+                        Price = product.Price - product.Price * product.DiscountPercent / 100,  
+                        Count = 1, 
+                        Order = order
+                    };
 
-			return View(checkOutVms);
-		}
-		 
+
+                    order.TotalPrice += orderItem.Price * orderItem.Count;
+                    order.OrderItems.Add(orderItem);
+
+                    item.IsDeleted = true;
+                }
+            }
+
+            //TODO Stripe
+
+
+
+            await _appDbContext.Orders.AddAsync(order);
+            await _appDbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }
