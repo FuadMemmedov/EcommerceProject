@@ -25,14 +25,15 @@ public class BasketItemService:IBasketItemService
 		await _basketItemRepository.CommitAsync();
 	}
 
-	public void DeleteBasketItem(int id)
+	public void DeleteBasketItem(int id,string userId)
 	{
-		var existBasketItem = _basketItemRepository.GetEntity(x => x.Id == id);
+		var existBasketItem = _basketItemRepository.GetEntity(x => x.ProductId == id && x.UserId == userId);
 
 		if (existBasketItem == null)
 			throw new EntityNotFoundException("Basket not found!");
 
 		_basketItemRepository.DeleteEntity(existBasketItem);
+		_basketItemRepository.Commit();
 	}
 
 	public List<BasketItem> GetAllBasketItems(Func<BasketItem, bool>? func = null)

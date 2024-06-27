@@ -4,6 +4,7 @@ using Business.DTOs.ProductDTOs;
 using Business.Extensions;
 using Business.Service.Abstracts;
 using Core.Models;
+using Core.RepositoryAbstracts;
 using Data.DAL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -25,21 +26,23 @@ namespace TechnoStore.Controllers
 		private readonly UserManager<AppUser> _userManager;
 		private readonly IBasketItemService _basketItemService;
 		private readonly AppDbContext _appDbContext;
+		private readonly IBasketItemRepository _basketItemRepository;
 
-        public ShopController(IShopSliderService shopSliderService, IProductService productService, IProductColorService productColorService, IBrandService brandService, IMapper mapper, ICategoryService categoryService, UserManager<AppUser> userManager, IBasketItemService basketItemService, AppDbContext appDbContext)
-        {
-            _shopSliderService = shopSliderService;
-            _productService = productService;
-            _productColorService = productColorService;
-            _brandService = brandService;
-            _mapper = mapper;
-            _categoryService = categoryService;
-            _userManager = userManager;
-            _basketItemService = basketItemService;
-            _appDbContext = appDbContext;
-        }
+		public ShopController(IShopSliderService shopSliderService, IProductService productService, IProductColorService productColorService, IBrandService brandService, IMapper mapper, ICategoryService categoryService, UserManager<AppUser> userManager, IBasketItemService basketItemService, AppDbContext appDbContext, IBasketItemRepository basketItemRepository)
+		{
+			_shopSliderService = shopSliderService;
+			_productService = productService;
+			_productColorService = productColorService;
+			_brandService = brandService;
+			_mapper = mapper;
+			_categoryService = categoryService;
+			_userManager = userManager;
+			_basketItemService = basketItemService;
+			_appDbContext = appDbContext;
+			_basketItemRepository = basketItemRepository;
+		}
 
-        public IActionResult Index(int? order,int page = 1)
+		public IActionResult Index(int? order,int page = 1)
         {
 			var products = _productService.GetAllProducts(x => x.IsDeleted == false).AsQueryable();
 			List<Product> productGetDTOs = _mapper.Map<List<Product>>(products);
@@ -100,70 +103,60 @@ namespace TechnoStore.Controllers
 
 
 
-		public IActionResult Filter(string? search,decimal? minPrice, decimal? maxPrice, List<int> selectedBrands, List<int> selectedColors)
+        public IActionResult Filter(string? search, decimal? minPrice, decimal? maxPrice, List<int> selectedBrands, List<int> selectedColors,int page = 1)
         {
-			var products = _productService.GetAllProducts(x => x.IsDeleted == false).AsQueryable();
+            var products = _productService.GetAllProducts(x => x.IsDeleted == false).AsQueryable();
 
-			if (search != null)
-			{
-				products = products.Where(x => x.Name.ToLower().Contains(search.Trim().ToLower()) || x.Category.Name.ToLower().Contains(search.Trim().ToLower()) || x.Brand.Name.ToLower().Contains(search.Trim().ToLower()));
-			}
+            if (!string.IsNullOrEmpty(search))
+            {
+                products = products.Where(x => x.Name.ToLower().Contains(search.Trim().ToLower()) ||
+                                               x.Category.Name.ToLower().Contains(search.Trim().ToLower()) ||
+                                               x.Brand.Name.ToLower().Contains(search.Trim().ToLower()));
+            }
 
-			if (selectedBrands != null)
-			{
-				foreach(var item in selectedBrands)
-				{
-					products = products.Where(x => x.Brand.Id == item);
-				}
-				
-			}
+            if (selectedBrands != null && selectedBrands.Any())
+            {
+                products = products.Where(x => selectedBrands.Contains(x.Brand.Id));
+            }
 
-			if (selectedColors != null)
-			{
-				foreach (var item in selectedColors)
-				{
-					products = products.Where(x => x.ProductColor.Id == item);
-				}
-			}
+            if (selectedColors != null && selectedColors.Any())
+            {
+                products = products.Where(x => selectedColors.Contains(x.ProductColor.Id));
+            }
 
-			if(minPrice != null)
-			{
-				products = products = products.Where(x => x.Price >= minPrice); 
-			}
+            if (minPrice.HasValue)
+            {
+                products = products.Where(x => x.Price >= minPrice);
+            }
 
+            if (maxPrice.HasValue)
+            {
+                products = products.Where(x => x.Price <= maxPrice);
+            }
 
-			if (maxPrice != null)
-			{
-				products = products = products.Where(x => x.Price <= maxPrice); ;
-			}
-
-
-
-			List<ProductGetDTO> productGetDTOs = _mapper.Map<List<ProductGetDTO>>(products);
+			
+			List<Product> productGetDTOs = _mapper.Map<List<Product>>(products);
+			var paginatedDatas = PaginatedList<Product>.Create(productGetDTOs, 12, page);
 
 			ShopVm shopVm = new ShopVm
 			{
-
-				Brands = _brandService.GetAllBrands(x=> x.IsDeleted == false),
 				Colors = _productColorService.GetAllProductColors(x => x.IsDeleted == false),
-				Products = productGetDTOs
+				Brands = _brandService.GetAllBrands(x => x.IsDeleted == false),
+				ShopSliders = _shopSliderService.GetAllShopSliders(x => x.IsDeleted == false),
+				Categories = _categoryService.GetAllCategories(x => x.IsDeleted == false),
+				Products = _productService.GetAllProducts(x => x.IsDeleted == false),
+				PaginatedProducts = paginatedDatas,
 
 
 			};
-			return View(shopVm);
-		}
 
-		public async Task<IActionResult> AddToBasket(int productId)
+			return View(shopVm);
+        }
+
+
+        public async Task<IActionResult> AddToBasket(int productId)
 		{
           
-   //         List<BasketItemVm> basketItems = new List<BasketItemVm>();
-
-			//BasketItemVm basketItem = new BasketItemVm()
-			//{
-			//	ProductId = productId,
-			//	Count = 1
-			//};
-
 			ProductGetDTO product = _productService.GetProduct(x => x.Id == productId);
 
 			if (product == null) return NotFound();
@@ -226,6 +219,7 @@ namespace TechnoStore.Controllers
 				if (userBasketItem != null)
 				{
 					userBasketItem.Counter++;
+					await _basketItemRepository.CommitAsync();
 				}
 				else
 				{
@@ -288,6 +282,7 @@ namespace TechnoStore.Controllers
             }
             else
             {
+                
                 userBasketItems = _basketItemService.GetAllBasketItems(x => x.UserId ==
                 user.Id && !x.IsDeleted).ToList();
 
@@ -357,8 +352,7 @@ namespace TechnoStore.Controllers
 
                     foreach (var item in basketItemVms)
                     {
-                        //RoomGetDTO roomGetDTO = _roomService.GetRoom(x => x.Id == item.RoomId);
-                        //Room room = _mapper.Map<Room>(roomGetDTO);
+
                         Product product = _appDbContext.Products.FirstOrDefault(x => x.Id == item.ProductId);
 
 
@@ -368,7 +362,7 @@ namespace TechnoStore.Controllers
                             ProductName = product.Name,
                             DiscountPercent = product.DiscountPercent,
                             Price = product.Price - product.Price * product.DiscountPercent / 100,  
-                            Count = 2, 
+                            Count = item.Count, 
                             Order = order
                         };
 
@@ -390,16 +384,31 @@ namespace TechnoStore.Controllers
 
                     Product product = _appDbContext.Products.FirstOrDefault(x => x.Id == item.ProductId);
 
-
-                    orderItem = new OrderItem
+                    if(product.DiscountPercent != 0)
                     {
-                        Product = product,
-                        ProductName = product.Name,
-                        DiscountPercent = product.DiscountPercent,
-                        Price = product.Price - product.Price * product.DiscountPercent / 100,  
-                        Count = 1, 
-                        Order = order
-                    };
+                        orderItem = new OrderItem
+                        {
+                            Product = product,
+                            ProductName = product.Name,
+                            DiscountPercent = product.DiscountPercent,
+                            Price = product.Price - product.Price * product.DiscountPercent / 100,
+                            Count = item.Counter,
+                            Order = order
+                        };
+                    }
+                    else
+                    {
+                        orderItem = new OrderItem
+                        {
+                            Product = product,
+                            ProductName = product.Name,
+                            DiscountPercent = product.DiscountPercent,
+                            Price = product.Price,
+                            Count = item.Counter,
+                            Order = order
+                        };
+                    }
+                   
 
 
                     order.TotalPrice += orderItem.Price * orderItem.Count;
@@ -409,7 +418,6 @@ namespace TechnoStore.Controllers
                 }
             }
 
-            //TODO Stripe
 
 
 
@@ -419,5 +427,246 @@ namespace TechnoStore.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public async Task<IActionResult> ShopCart()
+        {
+			List<CheckOutVm> checkOutVms = new List<CheckOutVm>();
+			List<BasketItemVm> basketItemVms = new List<BasketItemVm>();
+			List<BasketItem> userBasketItems = new List<BasketItem>();
+			CheckOutVm checkOutVm = null;
+			AppUser user = null;
+
+			if (HttpContext.User.Identity.IsAuthenticated)
+			{
+				user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+			}
+
+			if (user == null)
+			{
+				string basketItemsStr = HttpContext.Request.Cookies["BasketItems"];
+
+				if (basketItemsStr != null)
+				{
+					basketItemVms = JsonConvert.DeserializeObject<List<BasketItemVm>>(basketItemsStr);
+
+					foreach (var item in basketItemVms)
+					{
+						checkOutVm = new CheckOutVm
+						{
+							Product = _productService.GetProduct(x => x.Id == item.ProductId),
+							Count = item.Count
+						};
+
+						checkOutVms.Add(checkOutVm);
+					}
+				}
+			}
+			else
+			{
+				userBasketItems = _basketItemService.GetAllBasketItems(x => x.UserId ==
+				user.Id && !x.IsDeleted).ToList();
+
+				foreach (var item in userBasketItems)
+				{
+					checkOutVm = new CheckOutVm
+					{
+						Product = _mapper.Map<ProductGetDTO>(item.Product),
+						Count = item.Counter
+					};
+					checkOutVms.Add(checkOutVm);
+				}
+			}
+
+			OrderVm orderViewModel = new OrderVm
+			{
+				CheckOutVms = checkOutVms,
+				Name = user?.Name,
+				Surname = user?.Surname,
+			};
+
+			return View(orderViewModel);
+		}
+
+
+		public async Task<IActionResult> ShowBasket()
+		{
+			List<BasketItemVm> products = new();
+			AppUser user = null;
+
+			if (HttpContext.User.Identity.IsAuthenticated)
+			{
+				user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+			}
+
+			if (user == null)
+			{
+				var baskets = HttpContext.Request.Cookies["BasketItems"];
+				if (baskets != null)
+				{
+					products = JsonConvert.DeserializeObject<List<BasketItemVm>>(baskets);
+					foreach (var item in products)
+					{
+						var existProduct = _productService.GetProduct(x => x.Id == item.ProductId);
+						if (existProduct != null)
+						{
+							item.Name = existProduct.Name;
+							item.Price = existProduct.Price;
+							item.ImageUrl = existProduct.ProductImages.FirstOrDefault(x => x.IsPoster)?.ImageUrl;
+						}
+					}
+				}
+			}
+			else
+			{
+				
+				var basketItems = _basketItemService.GetAllBasketItems(x => x.UserId ==
+			 user.Id && !x.IsDeleted);
+
+				if (basketItems != null)
+				{
+					foreach (var basketItem in basketItems)
+					{
+						var existProduct = _productService.GetProduct(x => x.Id == basketItem.ProductId);
+						if (existProduct != null)
+						{
+							products.Add(new BasketItemVm
+							{
+								ProductId = basketItem.ProductId,
+								Count = basketItem.Counter,
+								Name = existProduct.Name,
+								Price = existProduct.Price,
+								ImageUrl = existProduct.ProductImages.FirstOrDefault(x => x.IsPoster)?.ImageUrl
+							});
+						}
+					}
+				}
+			}
+
+			return View(products);
+		}
+        [HttpPost]
+        public async Task<IActionResult> RemoveItem(int productId)
+		{
+			AppUser user = null;
+		
+
+			if (HttpContext.User.Identity.IsAuthenticated)
+			{
+				user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+			}
+
+			if (user == null)
+			{
+				// Unauthenticated user
+				var baskets = HttpContext.Request.Cookies["BasketItems"];
+				if (baskets != null)
+				{
+					var products = JsonConvert.DeserializeObject<List<BasketItemVm>>(baskets);
+					var itemToRemove = products.FirstOrDefault(x => x.ProductId == productId);
+					if (itemToRemove != null)
+					{
+						products.Remove(itemToRemove);
+						var updatedBasket = JsonConvert.SerializeObject(products);
+						HttpContext.Response.Cookies.Append("BasketItems", updatedBasket);
+					}
+				}
+			}
+			else
+			{
+
+				_basketItemService.DeleteBasketItem(productId,user.Id);
+				
+			}
+
+			return RedirectToAction("ShowBasket");
+		}
+		[HttpPost]
+		public async Task<IActionResult> IncreaseItem(int productId)
+		{
+            AppUser user = null;
+            BasketItem basketItem = null;
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+            }
+
+            if (user == null)
+            {
+                
+                var baskets = HttpContext.Request.Cookies["BasketItems"];
+                if (baskets != null)
+                {
+                    var products = JsonConvert.DeserializeObject<List<BasketItemVm>>(baskets);
+                    var itemToUpdate = products.FirstOrDefault(x => x.ProductId == productId);
+                    if (itemToUpdate != null)
+                    {
+                        itemToUpdate.Count++;
+                        var updatedBasket = JsonConvert.SerializeObject(products);
+                        HttpContext.Response.Cookies.Append("BasketItems", updatedBasket);
+                    }
+                }
+				
+            }
+            else
+            {
+                basketItem = _basketItemService.GetBasketItem(x => x.UserId ==
+                  user.Id && x.ProductId == productId && !x.IsDeleted);
+
+				if(basketItem != null)
+				{
+					basketItem.Counter++;
+					_basketItemRepository.Commit();
+				}
+
+            }
+
+			return Ok();
+        }
+        [HttpPost]
+        public async Task<IActionResult> DecreaseItem(int productId)
+        {
+            AppUser user = null;
+            BasketItem basketItem = null;
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+            }
+
+            if (user == null)
+            {
+
+                var baskets = HttpContext.Request.Cookies["BasketItems"];
+                if (baskets != null)
+                {
+                    var products = JsonConvert.DeserializeObject<List<BasketItemVm>>(baskets);
+                    var itemToUpdate = products.FirstOrDefault(x => x.ProductId == productId);
+                    if (itemToUpdate != null && itemToUpdate.Count > 1)
+                    {
+                        itemToUpdate.Count--;
+                        var updatedBasket = JsonConvert.SerializeObject(products);
+                        HttpContext.Response.Cookies.Append("BasketItems", updatedBasket);
+                    }
+                }
+
+            }
+            else
+            {
+                basketItem = _basketItemService.GetBasketItem(x => x.UserId ==
+                  user.Id && x.ProductId == productId && !x.IsDeleted);
+
+                if (basketItem != null && basketItem.Counter > 1)
+                {
+                    basketItem.Counter--;
+                    _basketItemRepository.Commit();
+                }
+
+            }
+
+            return Ok();
+        }
+
+
     }
+
 }

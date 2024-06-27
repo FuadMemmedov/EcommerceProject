@@ -13,9 +13,9 @@ public class ProductUpdateDTO
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public bool? IsNewArrivals { get; set; }
-    public bool? IsFeatured { get; set; }
-    public bool? IsTopSelling { get; set; }
+    public bool IsNewArrivals { get; set; }
+    public bool IsFeatured { get; set; }
+    public bool IsTopSelling { get; set; }
     public string TechnicalSpecs { get; set; }
 
     public string Description { get; set; }

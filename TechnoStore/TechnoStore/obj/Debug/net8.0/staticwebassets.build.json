@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HaHv/ut2N3epiXhcwOkwTcacNLGWmWoQmOCMfZWviz4=",
+  "Hash": "XOuC9V6qFrF5aahdmU8rTMRPQzwGgMh/MpZii/xyTNg=",
   "Source": "TechnoStore",
   "BasePath": "_content/TechnoStore",
   "Mode": "Default",
@@ -39385,6 +39385,25 @@
       "OriginalItemSpec": "wwwroot\\javascript\\easing.js"
     },
     {
+      "Identity": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\filter.js",
+      "SourceId": "TechnoStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\",
+      "BasePath": "_content/TechnoStore",
+      "RelativePath": "javascript/filter.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\javascript\\filter.js"
+    },
+    {
       "Identity": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\gmap3.min.js",
       "SourceId": "TechnoStore",
       "SourceType": "Discovered",
@@ -39611,6 +39630,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\javascript\\owl.carousel.js"
+    },
+    {
+      "Identity": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\shopcart.js",
+      "SourceId": "TechnoStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\",
+      "BasePath": "_content/TechnoStore",
+      "RelativePath": "javascript/shopcart.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\javascript\\shopcart.js"
     },
     {
       "Identity": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\smoothscroll.js",
@@ -40732,25 +40770,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\products\\product-9462ff82-0e17-4449-b281-236f5b749f7b.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\products\\product-a3e44d86-e714-4704-9ac5-74785023f1a7.jpg",
-      "SourceId": "TechnoStore",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\",
-      "BasePath": "_content/TechnoStore",
-      "RelativePath": "uploads/products/product-a3e44d86-e714-4704-9ac5-74785023f1a7.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\products\\product-a3e44d86-e714-4704-9ac5-74785023f1a7.jpg"
     },
     {
       "Identity": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\products\\product-a693f3c6-87af-447e-a09b-1e4bd4738b98.jpg",

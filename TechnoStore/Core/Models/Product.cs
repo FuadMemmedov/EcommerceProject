@@ -12,9 +12,10 @@ public class Product:BaseEntity
 	public string ShortDescription { get; set; }
 	public string Description { get; set; }
 	public decimal Price { get; set; }
-	public bool? IsNewArrivals { get; set; }
-    public bool? IsFeatured { get; set; }
-    public bool? IsTopSelling { get; set; }
+	public bool IsNewArrivals { get; set; }
+    public bool  IsFeatured { get; set; }
+    public bool IsTopSelling { get; set; }
+	public bool IsAvaibily { get; set; }
     public string TechnicalSpecs { get; set; }
     public int? DiscountPercent { get; set; }
 	public decimal CostPrice { get; set; }

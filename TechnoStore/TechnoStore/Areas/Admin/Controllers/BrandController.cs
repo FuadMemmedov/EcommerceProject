@@ -56,7 +56,6 @@ namespace TechnoStore.Areas.Admin.Controllers
 
             BrandUpdateDTO brandUpdateDTO = new BrandUpdateDTO
             {
-                Id = existBrand.Id,
                 Name = existBrand.Name
             };
 

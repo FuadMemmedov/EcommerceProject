@@ -8285,6 +8285,10 @@
       "PackagePath": "staticwebassets\\javascript\\easing.js"
     },
     {
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\filter.js",
+      "PackagePath": "staticwebassets\\javascript\\filter.js"
+    },
+    {
       "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\gmap3.min.js",
       "PackagePath": "staticwebassets\\javascript\\gmap3.min.js"
     },
@@ -8331,6 +8335,10 @@
     {
       "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\owl.carousel.js",
       "PackagePath": "staticwebassets\\javascript\\owl.carousel.js"
+    },
+    {
+      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\shopcart.js",
+      "PackagePath": "staticwebassets\\javascript\\shopcart.js"
     },
     {
       "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\smoothscroll.js",
@@ -8567,10 +8575,6 @@
     {
       "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\products\\product-9462ff82-0e17-4449-b281-236f5b749f7b.jpg",
       "PackagePath": "staticwebassets\\uploads\\products\\product-9462ff82-0e17-4449-b281-236f5b749f7b.jpg"
-    },
-    {
-      "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\products\\product-a3e44d86-e714-4704-9ac5-74785023f1a7.jpg",
-      "PackagePath": "staticwebassets\\uploads\\products\\product-a3e44d86-e714-4704-9ac5-74785023f1a7.jpg"
     },
     {
       "Id": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\uploads\\products\\product-a693f3c6-87af-447e-a09b-1e4bd4738b98.jpg",

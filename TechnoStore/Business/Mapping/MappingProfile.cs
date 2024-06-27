@@ -7,6 +7,7 @@ using Business.DTOs.ProductColorDTOs;
 using Business.DTOs.ProductDTOs;
 using Business.DTOs.SettingDTOs;
 using Business.DTOs.SliderDTOs;
+using Business.DTOs.TagDTOs;
 using Business.DTOs.TeamDTOs;
 using Core.Models;
 using System;
@@ -61,5 +62,9 @@ public class MappingProfile:Profile
 		CreateMap<BlogCreateDTO, Blog>().ReverseMap();
 		CreateMap<Blog, BlogGetDTO>().ReverseMap();
 		CreateMap<BlogUpdateDTO, Blog>().ReverseMap();
-	}
+
+        CreateMap<TagCreateDTO, Tag>().ReverseMap();
+        CreateMap<Tag, TagGetDTO>().ReverseMap();
+        CreateMap<TagUpdateDTO, Tag>().ReverseMap();
+    }
 }

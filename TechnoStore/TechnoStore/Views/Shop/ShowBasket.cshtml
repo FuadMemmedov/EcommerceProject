@@ -1,0 +1,250 @@
+﻿@using TechnoStore.ViewModels
+@model List<BasketItemVm>
+
+<section class="flat-shop-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="flat-row-title style1">
+                    <h3>Shopping Cart</h3>
+                </div>
+                <div class="table-cart">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-items">
+                            @foreach (var item in Model)
+                            {
+                                <tr class="basket-item" data-product-id="@item.ProductId">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="img-product">
+                                                <img src="~/uploads/products/@item.ImageUrl" alt="">
+                                            </div>
+                                            <div class="ms-3">
+                                                <div class="name-product">@item.Name</div>
+                                                <div class="price">$@item.Price</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="quantity">
+                                            <button class="btn-change-quantity" data-action="decrease" title="Decrease Quantity">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                            <input type="number" name="number" value="@item.Count" min="1" max="100" placeholder="Quantity">
+                                            <button class="btn-change-quantity" data-action="increase" title="Increase Quantity">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="total">$@(item.Price * item.Count)</div>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm remove-item-btn" title="Remove">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- /.table-cart -->
+            </div><!-- /.col-lg-8 -->
+            <div class="col-lg-4">
+                <div class="cart-totals">
+                    <h3>Cart Totals</h3>
+                    <form action="#" method="get" accept-charset="utf-8">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Subtotal</td>
+                                    <td class="subtotal">$@Model.Sum(item => item.Price * item.Count)</td>
+                                </tr>
+                                <tr>
+                                    <td>Shipping</td>
+                                    <td class="btn-radio">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="flat-rate" checked name="radio-flat-rate">
+                                            <label class="form-check-label" for="flat-rate">Flat Rate: <span>$3.00</span></label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="free-shipping" name="radio-flat-rate">
+                                            <label class="form-check-label" for="free-shipping">Free Shipping</label>
+                                        </div>
+                                        <div class="btn-shipping mt-2">
+                                            <a href="#" title="">Calculate Shipping</a>
+                                        </div>
+                                    </td><!-- /.btn-radio -->
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td class="price-total">$@(Model.Sum(item => item.Price * item.Count) + 3)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="btn-cart-totals">
+                            <a href="#" class="btn btn-primary update" title="">Update Cart</a>
+                            <a href="#" class="btn btn-success checkout" title="">Proceed to Checkout</a>
+                        </div><!-- /.btn-cart-totals -->
+                    </form><!-- /form -->
+                </div><!-- /.cart-totals -->
+            </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section><!-- /.flat-shop-cart -->
+
+<section class="flat-row flat-iconbox style3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="iconbox style1">
+                    <div class="box-header">
+                        <div class="image">
+                            <img src="~/images/icons/car.png" alt="">
+                        </div>
+                        <div class="box-title">
+                            <h3>Worldwide Shipping</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><!-- /.box-header -->
+                </div><!-- /.iconbox -->
+            </div><!-- /.col-lg-3 col-md-6 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="iconbox style1">
+                    <div class="box-header">
+                        <div class="image">
+                            <img src="~/images/icons/order.png" alt="">
+                        </div>
+                        <div class="box-title">
+                            <h3>Order Online Service</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><!-- /.box-header -->
+                </div><!-- /.iconbox -->
+            </div><!-- /.col-lg-3 col-md-6 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="iconbox style1">
+                    <div class="box-header">
+                        <div class="image">
+                            <img src="~/images/icons/payment.png" alt="">
+                        </div>
+                        <div class="box-title">
+                            <h3>Payment</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><!-- /.box-header -->
+                </div><!-- /.iconbox -->
+            </div><!-- /.col-lg-3 col-md-6 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="iconbox style1">
+                    <div class="box-header">
+                        <div class="image">
+                            <img src="~/images/icons/return.png" alt="">
+                        </div>
+                        <div class="box-title">
+                            <h3>Return 30 Days</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><!-- /.box-header -->
+                </div><!-- /.iconbox -->
+            </div><!-- /.col-lg-3 col-md-6 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section><!-- /.flat-iconbox -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Handle remove item button click
+        $('.remove-item-btn').click(function (e) {
+            e.preventDefault();
+
+            var $item = $(this).closest('.basket-item');
+            var productId = $item.data('product-id');
+
+            $.ajax({
+                url: '@Url.Action("RemoveItem", "Shop")',
+                type: 'POST',
+                data: { productId: productId },
+                success: function () {
+                    $item.remove();
+                    updateCartTotals();
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error removing item:', error);
+                    alert('There was an error removing the item. Please try again.');
+                }
+            });
+        });
+
+        // Handle quantity change button click
+        $('.btn-change-quantity').click(function (e) {
+            e.preventDefault();
+
+            var $item = $(this).closest('.basket-item');
+            var $input = $item.find('input[name="number"]');
+            var action = $(this).data('action');
+            var newVal = parseInt($input.val());
+
+            if (action === 'increase') {
+                newVal++;
+            } else if (action === 'decrease' && newVal > 1) {
+                newVal--;
+            }
+
+            var productId = $item.data('product-id');
+
+            $.ajax({
+                url: action === 'increase' ? '@Url.Action("IncreaseItem", "Shop")' : '@Url.Action("DecreaseItem", "Shop")',
+                type: 'POST',
+                data: { productId: productId },
+                success: function () {
+                    $input.val(newVal);
+                    updateItemTotal($item);
+                    updateCartTotals();
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error updating item quantity:', error);
+                    alert('There was an error updating the quantity. Please try again.');
+                }
+            });
+        });
+
+        // Update item total
+        function updateItemTotal($item) {
+            var price = parseFloat($item.find('.price').text().replace('$', ''));
+            var quantity = parseInt($item.find('input[name="number"]').val());
+            var total = price * quantity;
+            $item.find('.total').text('$' + total.toFixed(2));
+        }
+
+        // Update cart totals
+        function updateCartTotals() {
+            var subtotal = 0;
+            $('#cart-items .basket-item').each(function () {
+                var price = parseFloat($(this).find('.price').text().replace('$', ''));
+                var quantity = parseInt($(this).find('input[name="number"]').val());
+                subtotal += price * quantity;
+            });
+
+            var shippingCost = $('input[name="radio-flat-rate"]:checked').attr('id') === 'flat-rate' ? 3.00 : 0.00;
+            var total = subtotal + shippingCost;
+
+            $('.subtotal').text('$' + subtotal.toFixed(2));
+            $('.price-total').text('$' + total.toFixed(2));
+        }
+
+        // Handle shipping option change
+        $('input[name="radio-flat-rate"]').change(function () {
+            updateCartTotals();
+        });
+    });
+</script>

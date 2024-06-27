@@ -72,7 +72,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 23, 2, 35, 43, 164, DateTimeKind.Utc).AddTicks(8743));
+                        .HasDefaultValue(new DateTime(2024, 6, 24, 9, 37, 29, 473, DateTimeKind.Utc).AddTicks(7814));
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -100,6 +100,41 @@ namespace Data.Migrations
                     b.ToTable("Blogs");
                 });
 
+            modelBuilder.Entity("Core.Models.BlogTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("BlogTag");
+                });
+
             modelBuilder.Entity("Core.Models.Brand", b =>
                 {
                     b.Property<int>("Id")
@@ -111,7 +146,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 23, 2, 35, 43, 165, DateTimeKind.Utc).AddTicks(1865));
+                        .HasDefaultValue(new DateTime(2024, 6, 24, 9, 37, 29, 474, DateTimeKind.Utc).AddTicks(650));
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -142,7 +177,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 23, 2, 35, 43, 165, DateTimeKind.Utc).AddTicks(4342));
+                        .HasDefaultValue(new DateTime(2024, 6, 24, 9, 37, 29, 474, DateTimeKind.Utc).AddTicks(2936));
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -273,7 +308,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 23, 2, 35, 43, 166, DateTimeKind.Utc).AddTicks(9137));
+                        .HasDefaultValue(new DateTime(2024, 6, 24, 9, 37, 29, 475, DateTimeKind.Utc).AddTicks(6483));
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -428,7 +463,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 23, 2, 35, 43, 167, DateTimeKind.Utc).AddTicks(5932));
+                        .HasDefaultValue(new DateTime(2024, 6, 24, 9, 37, 29, 476, DateTimeKind.Utc).AddTicks(1924));
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -440,16 +475,19 @@ namespace Data.Migrations
                     b.Property<int?>("DiscountPercent")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsAvaibily")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsFeatured")
+                    b.Property<bool>("IsFeatured")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsNewArrivals")
+                    b.Property<bool>("IsNewArrivals")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsTopSelling")
+                    b.Property<bool>("IsTopSelling")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -495,7 +533,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 23, 2, 35, 43, 167, DateTimeKind.Utc).AddTicks(2153));
+                        .HasDefaultValue(new DateTime(2024, 6, 24, 9, 37, 29, 475, DateTimeKind.Utc).AddTicks(9179));
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -570,7 +608,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 23, 2, 35, 43, 167, DateTimeKind.Utc).AddTicks(8893));
+                        .HasDefaultValue(new DateTime(2024, 6, 24, 9, 37, 29, 476, DateTimeKind.Utc).AddTicks(4082));
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -605,7 +643,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 23, 2, 35, 43, 168, DateTimeKind.Utc).AddTicks(1429));
+                        .HasDefaultValue(new DateTime(2024, 6, 24, 9, 37, 29, 476, DateTimeKind.Utc).AddTicks(6086));
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -641,7 +679,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 23, 2, 35, 43, 168, DateTimeKind.Utc).AddTicks(4228));
+                        .HasDefaultValue(new DateTime(2024, 6, 24, 9, 37, 29, 476, DateTimeKind.Utc).AddTicks(8227));
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -676,6 +714,37 @@ namespace Data.Migrations
                     b.ToTable("Sliders");
                 });
 
+            modelBuilder.Entity("Core.Models.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 6, 24, 9, 37, 29, 476, DateTimeKind.Utc).AddTicks(9995));
+
+                    b.Property<DateTime>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
+                });
+
             modelBuilder.Entity("Core.Models.Team", b =>
                 {
                     b.Property<int>("Id")
@@ -687,7 +756,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 23, 2, 35, 43, 168, DateTimeKind.Utc).AddTicks(6871));
+                        .HasDefaultValue(new DateTime(2024, 6, 24, 9, 37, 29, 477, DateTimeKind.Utc).AddTicks(1770));
 
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -956,6 +1025,25 @@ namespace Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Core.Models.BlogTag", b =>
+                {
+                    b.HasOne("Core.Models.Blog", "Blog")
+                        .WithMany()
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Models.Tag", "Tag")
+                        .WithMany("BlogTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Blog");
+
+                    b.Navigation("Tag");
+                });
+
             modelBuilder.Entity("Core.Models.Category", b =>
                 {
                     b.HasOne("Core.Models.Category", "ParentCategory")
@@ -1129,6 +1217,11 @@ namespace Data.Migrations
             modelBuilder.Entity("Core.Models.ProductColor", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Core.Models.Tag", b =>
+                {
+                    b.Navigation("BlogTags");
                 });
 
             modelBuilder.Entity("Core.Models.AppUser", b =>

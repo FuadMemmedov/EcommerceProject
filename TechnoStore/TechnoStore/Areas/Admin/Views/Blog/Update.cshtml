@@ -19,7 +19,11 @@
                     <input asp-for="ImageFile" class="form-control" id="exampleInputEmail1">
                     <span asp-validation-for="ImageFile" class="text-danger"></span>
                 </div>
-
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Tags</label>
+                    <select asp-for="TagIds" class="form-control" asp-items="@(new SelectList(ViewBag.Tags,"Id","Name"))"></select>
+                    <span asp-validation-for="TagIds" class="text-danger"></span>
+                </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>

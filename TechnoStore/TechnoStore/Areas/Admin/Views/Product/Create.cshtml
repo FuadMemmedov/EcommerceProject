@@ -39,19 +39,19 @@
                     <textarea asp-for="TechnicalSpecs" class="form-control" id="TechnicalSpecs"></textarea>
                     <span asp-validation-for="TechnicalSpecs" class="text-danger"></span>
                 </div>
-                <div class="mb-3">
-                    <label  class="form-label">IsFeatured</label>
-                    <input asp-for="IsFeatured" class="form-control" >
+                <div class="form-check mb-3">
+                    <input asp-for="IsFeatured" class="form-check-input" id="IsFeatured">
+                    <label class="form-check-label" for="IsFeatured">Is Featured</label>
                     <span asp-validation-for="IsFeatured" class="text-danger"></span>
                 </div>
-                <div class="mb-3">
-                    <label  class="form-label">IsNewArrivals</label>
-                    <input asp-for="IsNewArrivals" class="form-control" >
+                <div class="form-check mb-3">
+                    <input asp-for="IsNewArrivals" class="form-check-input" id="IsNewArrivals">
+                    <label class="form-check-label" for="IsNewArrivals">Is New Arrivals</label>
                     <span asp-validation-for="IsNewArrivals" class="text-danger"></span>
                 </div>
-                <div class="mb-3">
-                    <label  class="form-label">IsTopSelling</label>
-                    <input asp-for="IsTopSelling"   >
+                <div class="form-check mb-3">
+                    <input asp-for="IsTopSelling" class="form-check-input" id="IsTopSelling">
+                    <label class="form-check-label" for="IsTopSelling">Is Top Selling</label>
                     <span asp-validation-for="IsTopSelling" class="text-danger"></span>
                 </div>
                 <div class="mb-3">

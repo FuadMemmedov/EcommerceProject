@@ -12,6 +12,7 @@ public class Blog:BaseEntity
 	public string Description { get; set; }
 
 	public string ImageUrl { get; set; }
+    public List<Comment> Comments { get; set; }
 
-	public List<Comment> Comments { get; set; }
+    public List<BlogTag> BlogTags = new List<BlogTag>();
 }

@@ -4,6 +4,7 @@ using Business.Exceptions;
 using Business.Extensions;
 using Business.Service.Abstracts;
 using Core.Models;
+using Data.DAL;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
@@ -13,15 +14,17 @@ namespace TechnoStore.Areas.Admin.Controllers
 	{
 		private readonly IBlogService _blogService;
 		private readonly IMapper _mapper;
+		private readonly ITagService _tagService;
 
 
-		public BlogController(IBlogService blogService, IMapper mapper)
-		{
-			_blogService = blogService;
-			_mapper = mapper;
-		}
+        public BlogController(IBlogService blogService, IMapper mapper, ITagService tagService)
+        {
+            _blogService = blogService;
+            _mapper = mapper;
+            _tagService = tagService;
+        }
 
-		public IActionResult Index(int page = 1)
+        public IActionResult Index(int page = 1)
 		{
 			var blogs = _blogService.GetAllBlogs(x => x.IsDeleted == false);
 			List<Blog> blogGetDTOs = _mapper.Map<List<Blog>>(blogs);
@@ -32,13 +35,16 @@ namespace TechnoStore.Areas.Admin.Controllers
 
 		public IActionResult Create()
 		{
-			return View();
+            ViewBag.Tags = _tagService.GetAllTags(x=> x.IsDeleted == false);
+            return View();
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> Create(BlogCreateDTO blogCreateDTO)
 		{
-			if (!ModelState.IsValid)
+
+            ViewBag.Tags = _tagService.GetAllTags(x => x.IsDeleted == false);
+            if (!ModelState.IsValid)
 				return View();
 
 			try
@@ -81,16 +87,18 @@ namespace TechnoStore.Areas.Admin.Controllers
 				Description = existBlog.Description
 			};
 
+            ViewBag.Tags = _tagService.GetAllTags(x => x.IsDeleted == false);
 
 
-
-			return View(blogUpdateDTO);
+            return View(blogUpdateDTO);
 		}
 
 		[HttpPost]
 		public IActionResult Update(BlogUpdateDTO blogUpdateDTO)
 		{
-			if (!ModelState.IsValid)
+
+            ViewBag.Tags = _tagService.GetAllTags(x => x.IsDeleted == false);
+            if (!ModelState.IsValid)
 				return View();
 
 			try

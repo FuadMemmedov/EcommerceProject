@@ -108,20 +108,28 @@
 								<li class="account">
 									<a href="#" title="">My Account<i class="fa fa-angle-down" aria-hidden="true"></i></a>
 									<ul class="unstyled">
+										@if (User.Identity.IsAuthenticated)
+										{
+											
+											<li>
+												<a asp-action="logout" asp-controller="account" title="">Signout</a>
+											</li>
+										}
+										else
+										{
+											<li>
+												<a asp-action="register" asp-controller="account" title="">Register</a>
+											</li>
+											<li>
+												<a asp-action="login" asp-controller="account" title="">Login</a>
+											</li>
+											
+										}
 										<li>
-											<a href="#" title="">Login</a>
+											<a asp-action="showbasket" asp-controller="shop" title="">My Cart</a>
 										</li>
 										<li>
-											<a href="wishlist.html" title="">Wishlist</a>
-										</li>
-										<li>
-											<a href="shop-cart.html" title="">My Cart</a>
-										</li>
-										<li>
-											<a href="my-account.html" title="">My Account</a>
-										</li>
-										<li>
-											<a href="shop-checkout.html" title="">Checkout</a>
+											<a asp-action="checkout" asp-controller="shop" title="">Checkout</a>
 										</li>
 									</ul><!-- /.unstyled -->
 								</li>
@@ -1333,9 +1341,9 @@
 	<script type="text/javascript" src="~/javascript/gmap3.min.js"></script>
 	<script type="text/javascript" src="~/javascript/waves.min.js"></script>
 	<script type="text/javascript" src="~/javascript/jquery.countdown.js"></script>
-
 	<script type="text/javascript" src="~/javascript/main.js"></script>
 	<script type="text/javascript" src="~/javascript/basket.js"></script>
+
 
 </body>
 
