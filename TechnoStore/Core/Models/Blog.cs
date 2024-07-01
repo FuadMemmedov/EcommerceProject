@@ -15,4 +15,6 @@ public class Blog:BaseEntity
     public List<Comment> Comments { get; set; }
 
     public List<BlogTag> BlogTags = new List<BlogTag>();
+	public int BlogCategoryId { get; set; }
+	public BlogCategory BlogCategory { get; set; }
 }

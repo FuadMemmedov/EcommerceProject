@@ -42,8 +42,8 @@ public class CategoryService : ICategoryService
 
 	public async Task AddCategoryAsync(CategoryCreateDTO categoryDto)
 	{
-        var existBrand = _categoryRepository.GetEntity(x => x.Id == categoryDto.ParentCategoryId);
-        if (existBrand == null) throw new EntityNotFoundException("Category not found!");
+        //var existBrand = _categoryRepository.GetEntity(x => x.Id == categoryDto.ParentCategoryId);
+        //if (existBrand == null) throw new EntityNotFoundException("Category not found!");
         Category category = _mapper.Map<Category>(categoryDto);
 		await _categoryRepository.AddEntityAsync(category);
 		await _categoryRepository.CommitAsync();

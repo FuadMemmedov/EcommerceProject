@@ -22,7 +22,7 @@
 									<div class="price">
 										<span class="sale">$@item.DiscountPrice</span>
 										<span class="btn-shop">
-											<a href="#" title="">@item.RedirectUrl <img src="~/images/icons/right-2.png" alt=""></a>
+											<a asp-action="index" asp-controller="shop" title="">@item.RedirectUrl <img src="~/images/icons/right-2.png" alt=""></a>
 										</span>
 										<div class="clearfix"></div>
 									</div>
@@ -56,7 +56,7 @@
 										<div class="price">
 											<span class="sale">$@item.DiscountPrice</span>
 											<span class="btn-shop">
-												<a href="#" title="">@item.RedirectUrl <img src="~/images/icons/right-2.png" alt=""></a>
+												<a asp-action="index" asp-controller="shop" title="">@item.RedirectUrl <img src="~/images/icons/right-2.png" alt=""></a>
 											</span>
 											<div class="clearfix"></div>
 										</div>
@@ -98,7 +98,7 @@
 		</div><!-- /.row -->
 		<div class="box-product">
 			
-				<div class="row">
+		  <div class="row">
 			@foreach(var item in Model.Products.Where(x=> x.IsNewArrivals == true))
 			{
 					<div class="col-lg-3 col-sm-6">
@@ -147,13 +147,8 @@
 							</div><!-- /.box-content -->
 							<div class="box-bottom">
 								<div class="btn-add-cart">
-										<a asp-action="AddToBasket" asp-controller="shop" asp-route-productId="@item.Id" title="">
+										<a asp-action="AddToBasket" asp-controller="shop" asp-route-productId="@item.Id" class="add-to-basket" title="">
 										<img src="~/images/icons/add-cart.png" alt="">Add to Cart
-									</a>
-								</div>
-								<div class="compare-wishlist">
-									<a href="#" class="wishlist" title="">
-										<img src="~/images/icons/wishlist.png" alt="">Wishlist
 									</a>
 								</div>
 							</div><!-- /.box-bottom -->
@@ -167,7 +162,7 @@
 				
 				</div>
 			
-	  <div class="row">
+	      <div class="row">
 			@foreach (var item in Model.Products.Where(x => x.IsFeatured == true))
 			{
 					<div class="col-lg-3 col-sm-6">
@@ -216,13 +211,8 @@
 								</div><!-- /.box-content -->
 								<div class="box-bottom">
 									<div class="btn-add-cart">
-										<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" title="">
+										<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" class="add-to-basket" title="">
 											<img src="~/images/icons/add-cart.png" alt="">Add to Cart
-										</a>
-									</div>
-									<div class="compare-wishlist">
-										<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" class="wishlist" title="">
-											<img src="~/images/icons/wishlist.png" alt="">Wishlist
 										</a>
 									</div>
 								</div><!-- /.box-bottom -->
@@ -233,7 +223,7 @@
 			}
 	 </div><!-- /.row -->
 
-		<div class="row">
+		  <div class="row">
 		
 			@foreach (var item in Model.Products.Where(x => x.IsTopSelling == true))
 			{
@@ -283,13 +273,8 @@
 								</div><!-- /.box-content -->
 								<div class="box-bottom">
 									<div class="btn-add-cart">
-										<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" title="">
+										<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" class="add-to-basket" title="">
 											<img src="~/images/icons/add-cart.png" alt="">Add to Cart
-										</a>
-									</div>
-									<div class="compare-wishlist">
-										<a href="#" class="wishlist" title="">
-											<img src="~/images/icons/wishlist.png" alt="">Wishlist
 										</a>
 									</div>
 								</div><!-- /.box-bottom -->

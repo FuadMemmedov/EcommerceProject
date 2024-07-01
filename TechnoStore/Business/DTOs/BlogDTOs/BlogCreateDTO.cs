@@ -15,6 +15,7 @@ public class BlogCreateDTO
 	public string Title { get; set; }
 	public string Description { get; set; }
 	public IFormFile ImageFile { get; set; }
+	public int BlogCategoryId { get; set; }
     public List<int> TagIds { get; set; }
 
 }

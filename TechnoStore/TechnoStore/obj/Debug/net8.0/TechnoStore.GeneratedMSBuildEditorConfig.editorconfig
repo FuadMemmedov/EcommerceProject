@@ -30,6 +30,22 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/BlogCategory/Archive.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmxvZ0NhdGVnb3J5XEFyY2hpdmUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/BlogCategory/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmxvZ0NhdGVnb3J5XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/BlogCategory/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmxvZ0NhdGVnb3J5XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/BlogCategory/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmxvZ0NhdGVnb3J5XFVwZGF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Areas/Admin/Views/Blog/Archive.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmxvZ1xBcmNoaXZlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -288,6 +304,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Views/Contact/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Views/ErrorPage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JQYWdlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/memme/Desktop/EcommerceProject/TechnoStore/TechnoStore/Views/Faq/Index.cshtml]

@@ -25,19 +25,23 @@ public class BlogService : IBlogService
 	private readonly IMapper _mapper;
 	private readonly IBlogTagRepository _blogTagRepository;
 	private readonly ITagRepository _tagRepository;
+	private readonly IBlogCategoryRepository _blogCategory;
 
-    public BlogService(IBlogRepository blogRepository, IWebHostEnvironment env, IMapper mapper, IBlogTagRepository blogTagRepository, ITagRepository tagRepository)
-    {
-        _blogRepository = blogRepository;
-        _env = env;
-        _mapper = mapper;
-        _blogTagRepository = blogTagRepository;
-        _tagRepository = tagRepository;
-    }
+	public BlogService(IBlogRepository blogRepository, IWebHostEnvironment env, IMapper mapper, IBlogTagRepository blogTagRepository, ITagRepository tagRepository, IBlogCategoryRepository blogCategory)
+	{
+		_blogRepository = blogRepository;
+		_env = env;
+		_mapper = mapper;
+		_blogTagRepository = blogTagRepository;
+		_tagRepository = tagRepository;
+		_blogCategory = blogCategory;
+	}
 
-    public async Task AddBlogAsync(BlogCreateDTO blogCreateDTO)
+	public async Task AddBlogAsync(BlogCreateDTO blogCreateDTO)
     {
 		Blog blog = _mapper.Map<Blog>(blogCreateDTO);
+		var existBlogCategory = _blogCategory.GetEntity(x => x.Id == blogCreateDTO.BlogCategoryId);
+		if (existBlogCategory == null) throw new EntityNotFoundException("BlogCategory not found!");
 
         if (blogCreateDTO.TagIds != null)
         {
@@ -80,7 +84,7 @@ public class BlogService : IBlogService
 
 	public List<BlogGetDTO> GetAllBlogs(Func<Blog, bool>? func = null)
 	{
-		var blogs = _blogRepository.GetAllEntities(func,"BlogTags");
+		var blogs = _blogRepository.GetAllEntities(func);
 		List<BlogGetDTO> blogGetDTOs = _mapper.Map<List<BlogGetDTO>>(blogs);
 
 
@@ -138,6 +142,7 @@ public class BlogService : IBlogService
 
 		oldBlog.Title = updateDTO.Title;
 		oldBlog.Description = updateDTO.Description;
+		oldBlog.BlogCategoryId = updateDTO.BlogCategoryId;
 		oldBlog.UpdatedDate = DateTime.UtcNow.AddHours(4);
 
 

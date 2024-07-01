@@ -24,6 +24,11 @@
                     <select asp-for="TagIds" class="form-control" asp-items="@(new SelectList(ViewBag.Tags,"Id","Name"))"></select>
                     <span asp-validation-for="TagIds" class="text-danger"></span>
                 </div>
+                <div class="mb-3">
+                    <label for="BlogCategoryId" class="form-label">Category Name</label>
+                    <select asp-for="BlogCategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.BlogCategories, "Id", "Name"))" id="BlogCategoryId"></select>
+                    <span asp-validation-for="BlogCategoryId" class="text-danger"></span>
+                </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>

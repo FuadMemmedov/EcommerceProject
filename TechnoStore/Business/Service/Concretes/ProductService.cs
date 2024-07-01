@@ -223,6 +223,7 @@ public class ProductService : IProductService
         oldProduct.IsNewArrivals = productUpdateDTO.IsNewArrivals;
         oldProduct.IsTopSelling = productUpdateDTO.IsTopSelling;
         oldProduct.TechnicalSpecs = productUpdateDTO.TechnicalSpecs;
+        oldProduct.IsAvaibily = productUpdateDTO.IsAvaibily;
 
 
 		oldProduct.UpdatedDate = DateTime.UtcNow.AddHours(4);

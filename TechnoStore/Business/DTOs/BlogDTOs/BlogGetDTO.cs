@@ -15,4 +15,5 @@ public class BlogGetDTO
 	public string Description { get; set; }
 	public string ImageUrl { get; set; }
 	public List<BlogTag> BlogTags { get; set; }
+	public BlogCategory BlogCategory { get; set; }
 }

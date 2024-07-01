@@ -14,20 +14,46 @@
 									<h3>Categories<span></span></h3>
 								</div>
 								<ul class="cat-list style1 widget-content">
-							@foreach(var item in Model.Categories)
-							{
-								<li>
-									<span>@item.Name</span>
-									<ul class="cat-child">
-										<li>
-											<a href="#" title="">@item.Name</a>
-										</li>
-									</ul>
-								</li>
-							}
+							<ul class="category-list">
+								@* @foreach (var category in Model.Categories)
+								{
+									<li>
+										<span>@category.Name</span>
+										@if (category.ParentCategory != null)
+										{
+											<ul class="cat-parent">
+												<li>
+													<a href="#" title="">@category.ParentCategory.Name</a>
+												</li>
+											</ul>
+										}
+										@if (category.SubCategories != null)
+										{
+											@foreach (var subCategory in category.SubCategories)
+											{
+											    <ul class="cat-child">
+													<li>
+
+														@if (subCategory.ParentCategory != null)
+														{
+															<ul class="cat-parent">
+																<li>
+																	<a href="#" title="">@subCategory.ParentCategory.Name</a>
+																</li>
+															</ul>
+														}
+														<!-- Add further nesting or actions as needed -->
+													</li>
+											   </ul>
+											}
+										}
+									</li>
+								} *@
+							</ul>
+
 								</ul><!-- /.cat-list -->
 							</div><!-- /.widget-categories -->
-					<form asp-action="Filter" asp-controller="Shop" method="get">
+					<form asp-action="index" asp-controller="Shop" method="get">
 						<div class="widget widget-price">
 							<div class="widget-title">
 								<h3>Price<span></span></h3>
@@ -124,16 +150,20 @@
 											<img src="~/images//icons/list-2.png" alt="">
 										</li>
 									</ul>
-									<div class="sort">
-										<div class="popularity">
-											<select name="order" id="order">
-												<option value="4">Sort by popularity</option>
-												<option value="3">Sort by popularity</option>
-												<option value="2">Sort by popularity</option>
-												<option value="1">Sort by popularity</option>
-											</select>
-										</div>
-									</div>
+							<div class="sort">
+								<div class="popularity">
+									<select name="order" id="order">
+										<option value="4">Sort by popularity</option>
+										<option value="3">Sort by price descending</option>
+										<option value="2">Sort by name ascending</option>
+										<option value="1">Sort by price ascending</option>
+									</select>
+								</div>
+							</div>
+							<div id="products-container">
+								<!-- This div will be updated with the sorted products -->
+							</div>
+
 									<div class="clearfix"></div>
 								</div>
 								<div class="tab-product">
@@ -177,13 +207,8 @@
 												</div><!-- /.box-content -->
 												<div class="box-bottom">
 													<div class="btn-add-cart">
-														<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" title="">
+														<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" class="add-to-basket" title="">
 															<img src="~/images//icons/add-cart.png" alt="">
-														</a>
-													</div>
-													<div class="compare-wishlist">
-														<a href="#" class="wishlist" title="">
-															<img src="~/images//icons/wishlist.png" alt="">Wishlist
 														</a>
 													</div>
 												</div><!-- /.box-bottom -->
@@ -236,13 +261,8 @@
 													</div>
 												}
 												<div class="btn-add-cart">
-													<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" title="">
+													<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" class="add-to-basket" title="">
 														<img src="~/images//icons/add-cart.png" alt="">
-													</a>
-												</div>
-												<div class="wishlist">	
-													<a href="#" class="wishlist" title="">
-														<img src="~/images//icons/wishlist.png" alt="">Wishlist
 													</a>
 												</div>
 											</div><!-- /.box-price -->
@@ -341,4 +361,8 @@
 			</div><!-- /.container -->
 		</section><!-- /.flat-imagebox style4 -->
 
-	
+
+
+
+
+

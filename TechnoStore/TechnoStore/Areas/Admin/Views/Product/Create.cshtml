@@ -38,6 +38,10 @@
                     <label for="TechnicalSpecs" class="form-label">Technical Specs</label>
                     <textarea asp-for="TechnicalSpecs" class="form-control" id="TechnicalSpecs"></textarea>
                     <span asp-validation-for="TechnicalSpecs" class="text-danger"></span>
+                </div><div class="form-check mb-3">
+                    <input asp-for="IsAvaibily" class="form-check-input" id="IsAvaibily">
+                    <label class="form-check-label" for="IsAvaibily">Is Avaibily</label>
+                    <span asp-validation-for="IsAvaibily" class="text-danger"></span>
                 </div>
                 <div class="form-check mb-3">
                     <input asp-for="IsFeatured" class="form-check-input" id="IsFeatured">

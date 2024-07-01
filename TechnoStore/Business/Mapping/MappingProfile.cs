@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Business.DTOs.BlogCategoryDTOs;
 using Business.DTOs.BlogDTOs;
 using Business.DTOs.BrandDTOs;
 using Business.DTOs.CategoryDTOs;
@@ -42,7 +43,6 @@ public class MappingProfile:Profile
         CreateMap<Faq, FaqGetDTO>().ReverseMap();
         CreateMap<FaqUpdateDTO, Faq>().ReverseMap();
 
-
         CreateMap<ProductColorCreateDTO, ProductColor>().ReverseMap();
         CreateMap<ProductColor, ProductColorGetDTO>().ReverseMap();
         CreateMap<ProductColorUpdateDTO, ProductColor>().ReverseMap();
@@ -66,5 +66,9 @@ public class MappingProfile:Profile
         CreateMap<TagCreateDTO, Tag>().ReverseMap();
         CreateMap<Tag, TagGetDTO>().ReverseMap();
         CreateMap<TagUpdateDTO, Tag>().ReverseMap();
-    }
+
+		CreateMap<BlogCategoryCreateDTO, BlogCategory>().ReverseMap();
+		CreateMap<BlogCategory, BlogCategoryGetDTO>().ReverseMap();
+		CreateMap<BlogCategoryUpdateDTO, BlogCategory>().ReverseMap();
+	}
 }

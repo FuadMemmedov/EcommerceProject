@@ -15,7 +15,8 @@ public class ProductCreateDTO
     public string Description { get; set; }
 	public string ShortDescription { get; set; }
 	public decimal Price { get; set; }
-    public bool IsNewArrivals { get; set; } 
+	public bool IsAvaibily { get; set; }
+	public bool IsNewArrivals { get; set; } 
     public bool IsFeatured { get; set; } 
     public bool IsTopSelling { get; set; } 
     public string TechnicalSpecs { get; set; }

@@ -31,10 +31,10 @@ namespace TechnoStore.Areas.Admin.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index(string search,int page = 1)
+        public IActionResult Index(int page = 1)
         {
 			
-            var product = search == null ? _productService.GetAllProducts(x => x.IsDeleted == false) : _productService.GetAllProducts(x => x.IsDeleted == false && x.Name.Contains(search)).ToList();
+ 
             var datas = _productService.GetAllProducts(x => x.IsDeleted == false);
 
             List<Product> productGetDTOs = _mapper.Map<List<Product>>(datas);
@@ -107,8 +107,8 @@ namespace TechnoStore.Areas.Admin.Controllers
 				TechnicalSpecs = existProduct.TechnicalSpecs,
 				IsTopSelling = existProduct.IsTopSelling,
 				IsNewArrivals = existProduct.IsNewArrivals,
-				IsFeatured = existProduct.IsFeatured
-
+				IsFeatured = existProduct.IsFeatured,
+				IsAvaibily = existProduct.IsAvaibily
 				
 
 			};

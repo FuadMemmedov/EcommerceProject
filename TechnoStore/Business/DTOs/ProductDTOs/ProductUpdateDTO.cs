@@ -17,8 +17,8 @@ public class ProductUpdateDTO
     public bool IsFeatured { get; set; }
     public bool IsTopSelling { get; set; }
     public string TechnicalSpecs { get; set; }
-
-    public string Description { get; set; }
+	public bool IsAvaibily { get; set; }
+	public string Description { get; set; }
 	public string ShortDescription { get; set; }
     public int BrandId { get; set; }
 	public decimal Price { get; set; }

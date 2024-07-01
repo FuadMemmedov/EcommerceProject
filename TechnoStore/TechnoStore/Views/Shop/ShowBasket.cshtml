@@ -29,7 +29,7 @@
                                             </div>
                                             <div class="ms-3">
                                                 <div class="name-product">@item.Name</div>
-                                                <div class="price">$@item.Price</div>
+                                                <div class="price">$@(item.Price - item.Price * item.DiscountPercent / 100)</div>
                                             </div>
                                         </div>
                                     </td>
@@ -45,7 +45,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="total">$@(item.Price * item.Count)</div>
+                                        <div class="total">$@(item.Price - item.Price * item.DiscountPercent / 100 * item.Count)</div>
                                     </td>
                                     <td>
                                         <button class="btn btn-danger btn-sm remove-item-btn" title="Remove">
@@ -66,7 +66,7 @@
                             <tbody>
                                 <tr>
                                     <td>Subtotal</td>
-                                    <td class="subtotal">$@Model.Sum(item => item.Price * item.Count)</td>
+                                    <td class="subtotal">$@Model.Sum(item => item.Price - item.Price * item.DiscountPercent / 100 * item.Count)</td>
                                 </tr>
                                 <tr>
                                     <td>Shipping</td>
@@ -79,20 +79,16 @@
                                             <input class="form-check-input" type="radio" id="free-shipping" name="radio-flat-rate">
                                             <label class="form-check-label" for="free-shipping">Free Shipping</label>
                                         </div>
-                                        <div class="btn-shipping mt-2">
-                                            <a href="#" title="">Calculate Shipping</a>
-                                        </div>
                                     </td><!-- /.btn-radio -->
                                 </tr>
                                 <tr>
                                     <td>Total</td>
-                                    <td class="price-total">$@(Model.Sum(item => item.Price * item.Count) + 3)</td>
+                                    <td class="price-total">$@(Model.Sum(item => item.Price - item.Price * item.DiscountPercent / 100 * item.Count) + 3)</td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="btn-cart-totals">
-                            <a href="#" class="btn btn-primary update" title="">Update Cart</a>
-                            <a href="#" class="btn btn-success checkout" title="">Proceed to Checkout</a>
+                            <a asp-action="checkout" asp-controller="shop" class="btn btn-success checkout" title="">Proceed to Checkout</a>
                         </div><!-- /.btn-cart-totals -->
                     </form><!-- /form -->
                 </div><!-- /.cart-totals -->

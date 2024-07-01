@@ -3,6 +3,7 @@ using Business.DTOs.BlogDTOs;
 using Business.Exceptions;
 using Business.Extensions;
 using Business.Service.Abstracts;
+using Business.Service.Concretes;
 using Core.Models;
 using Data.DAL;
 using Microsoft.AspNetCore.Mvc;
@@ -15,16 +16,18 @@ namespace TechnoStore.Areas.Admin.Controllers
 		private readonly IBlogService _blogService;
 		private readonly IMapper _mapper;
 		private readonly ITagService _tagService;
+		private readonly IBlogCategoryService _blogCategoryService;
 
 
-        public BlogController(IBlogService blogService, IMapper mapper, ITagService tagService)
-        {
-            _blogService = blogService;
-            _mapper = mapper;
-            _tagService = tagService;
-        }
+		public BlogController(IBlogService blogService, IMapper mapper, ITagService tagService, IBlogCategoryService blogCategoryService)
+		{
+			_blogService = blogService;
+			_mapper = mapper;
+			_tagService = tagService;
+			_blogCategoryService = blogCategoryService;
+		}
 
-        public IActionResult Index(int page = 1)
+		public IActionResult Index(int page = 1)
 		{
 			var blogs = _blogService.GetAllBlogs(x => x.IsDeleted == false);
 			List<Blog> blogGetDTOs = _mapper.Map<List<Blog>>(blogs);
@@ -36,7 +39,8 @@ namespace TechnoStore.Areas.Admin.Controllers
 		public IActionResult Create()
 		{
             ViewBag.Tags = _tagService.GetAllTags(x=> x.IsDeleted == false);
-            return View();
+			ViewBag.BlogCategories = _blogCategoryService.GetAllBlogCategories(x => x.IsDeleted == false);
+			return View();
 		}
 
 		[HttpPost]
@@ -44,7 +48,8 @@ namespace TechnoStore.Areas.Admin.Controllers
 		{
 
             ViewBag.Tags = _tagService.GetAllTags(x => x.IsDeleted == false);
-            if (!ModelState.IsValid)
+			ViewBag.BlogCategories = _blogCategoryService.GetAllBlogCategories(x => x.IsDeleted == false);
+			if (!ModelState.IsValid)
 				return View();
 
 			try
@@ -84,13 +89,15 @@ namespace TechnoStore.Areas.Admin.Controllers
 			{
 				Id = existBlog.Id,
 				Title = existBlog.Title,
-				Description = existBlog.Description
+				Description = existBlog.Description,
+				BlogCategoryId = existBlog.BlogCategory.Id
 			};
 
             ViewBag.Tags = _tagService.GetAllTags(x => x.IsDeleted == false);
+			ViewBag.BlogCategories = _blogCategoryService.GetAllBlogCategories(x => x.IsDeleted == false);
 
 
-            return View(blogUpdateDTO);
+			return View(blogUpdateDTO);
 		}
 
 		[HttpPost]
@@ -98,7 +105,8 @@ namespace TechnoStore.Areas.Admin.Controllers
 		{
 
             ViewBag.Tags = _tagService.GetAllTags(x => x.IsDeleted == false);
-            if (!ModelState.IsValid)
+			ViewBag.BlogCategories = _blogCategoryService.GetAllBlogCategories(x => x.IsDeleted == false);
+			if (!ModelState.IsValid)
 				return View();
 
 			try

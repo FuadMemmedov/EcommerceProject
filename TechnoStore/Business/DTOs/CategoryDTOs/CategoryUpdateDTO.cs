@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Core.Models;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ public class CategoryUpdateDTO
 	public string Name { get; set; }
     public int? ParentCategoryId { get; set; }
 
+	public ICollection<Category>? SubCategories { get; set; }
 }
 
 public class CategoryUpdateDTOValidator : AbstractValidator<CategoryUpdateDTO>

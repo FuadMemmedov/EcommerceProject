@@ -14,6 +14,7 @@ public class CategoryGetDTO
 
 	public Category? ParentCategory { get; set; }
 
-	
+	public ICollection<Category>? SubCategories { get; set; }
+
 
 }

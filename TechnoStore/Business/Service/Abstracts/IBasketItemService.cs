@@ -1,4 +1,5 @@
 ﻿using Core.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,4 @@ public interface IBasketItemService
 	List<BasketItem> GetAllBasketItems(Func<BasketItem, bool>? func = null);
 	BasketItem GetBasketItem(Func<BasketItem, bool>? func = null);
 	void UpdateBasketItem(int id, BasketItem newBasketItem);
-
 }

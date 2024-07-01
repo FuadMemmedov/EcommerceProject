@@ -3,6 +3,7 @@
 @{
 	decimal totalAmount = 0;
 	decimal itemAmount = 0;
+	List<CheckOutVm> checkout = ViewBag.CheckOutViewModel;
 }
          <section class="flat-checkout">
 			<div class="container">
@@ -23,12 +24,14 @@
 									<div class="fields-content">
 										<div class="field-row">
 											<p class="field-one-half">
-												<label for="first-name">First Name *</label>
+												<label for="first-name">First Name </label>
 										        <input asp-for="@Model.Name" id="first-name" placeholder="Ali">
+												<span asp-validation-for="@Model.Name" class="text-danger"></span>
 											</p>
 											<p class="field-one-half">
-												<label for="last-name">Last Name *</label>
+												<label for="last-name">Last Name </label>
 												<input asp-for="@Model.Surname"  id="last-name"  placeholder="Tufan">
+										        <span asp-validation-for="@Model.Surname" class="text-danger"></span>
 											</p>
 											<div class="clearfix"></div>
 										</div>
@@ -36,25 +39,30 @@
 											<p class="field-one-half">
 												<label for="email-address">Email Address</label>
 												<input asp-for="@Model.Email" id="email-address" >
+										        <span asp-validation-for="@Model.Email" class="text-danger"></span>
 											</p>
 											<p class="field-one-half">
 												<label for="phone">Phone</label>
 												<input asp-for="@Model.Phone" id="phone">
+										        <span asp-validation-for="@Model.Phone" class="text-danger"></span>
 											</p>
 											<div class="clearfix"></div>
 										</div>
 										<div class="field-row">
 											<label>Country</label>
 											<input asp-for="@Model.Country" />
+									        <span asp-validation-for="@Model.Country" class="text-danger"></span>
 										</div>
 										<div class="field-row">
 											<label for="address">Address</label>
 											<input asp-for="@Model.Address" id="address"  placeholder="Street address">
+									        <span asp-validation-for="@Model.Address" class="text-danger"></span>
 										</div>
 										<div class="field-row">
 											<p class="field-one-half">
 												<label for="post-code">Postcode / ZIP </label>
 												<input asp-for="@Model.ZipCode" id="post-code" n>
+										        <span asp-validation-for="@Model.ZipCode" class="text-danger"></span>
 											</p>
 											<div class="clearfix"></div>
 										</div>
@@ -78,7 +86,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach(var item in Model.CheckOutVms)
+										@foreach(var item in checkout)
 									{
 									  <tr>
 										<td>@item.Product.Name x @item.Count</td>

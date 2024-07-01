@@ -19,7 +19,8 @@ public class ProductGetDTO
     public bool IsNewArrivals { get; set; }
     public bool IsFeatured { get; set; }
     public bool IsTopSelling { get; set; }
-    public string TechnicalSpecs { get; set; }
+	public bool IsAvaibily { get; set; }
+	public string TechnicalSpecs { get; set; }
     public DateTime CreatedDate { get; set; }
     public decimal Price { get; set; }
 	public int DiscountPercent { get; set; }

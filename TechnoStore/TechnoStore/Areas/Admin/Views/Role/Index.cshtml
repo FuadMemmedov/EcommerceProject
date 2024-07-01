@@ -27,31 +27,12 @@
                             <th scope="row">@(counter++)</th>
                             <td>@item.Id</td>
                             <td>@item.Name</td>
-                            <td>
-                               <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning">Update</a>
-                               <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger item-delete">Delete</a>
-                            </td>
+                            
                         </tr>
                     }
                 </tbody>
             </table>
-          @*   <nav aria-label="...">
-                <ul class="pagination">
-                    <li class="page-item @(Model.HasPrev == true ? "" : "disabled")">
-                        <a class="page-link" asp-action="Index" asp-route-page="@(Model.ActivePage - 1)" tabindex="-1" aria-disabled="true">Previous</a>
-                    </li>
-
-
-                    @for (int i = 1; i <= Model.TotalPageCount; i++)
-                    {
-                        <li class="page-item @(Model.ActivePage == i ? "active" : "")"><a class="page-link" asp-action="Index" asp-route-page="@i">@i</a></li>
-                    }
-
-                    <li class="page-item  @(Model.HasNext == true ? "" : "disabled")">
-                        <a class="page-link" asp-action="Index" asp-route-page="@(Model.ActivePage + 1)">Next</a>
-                    </li>
-                </ul>
-            </nav> *@
+        
         </div>
     </div>
 </div>

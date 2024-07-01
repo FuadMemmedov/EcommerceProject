@@ -9,6 +9,7 @@ using Data.RepositoryConcretes;
 using Business.DTOs.SliderDTOs;
 using Core.Models;
 using Microsoft.AspNetCore.Identity;
+using TechnoStore.ViewService;
 
 
 namespace TechnoStore
@@ -97,10 +98,14 @@ namespace TechnoStore
 
             builder.Services.AddScoped<IBlogTagRepository, BlogTagRepository>();
 
-            builder.Services.AddScoped<ISettingRepository, SettingRepository>();
+			builder.Services.AddScoped<IBlogCategoryRepository, BlogCategoryRepository>();
+			builder.Services.AddScoped<IBlogCategoryService, BlogCategoryService>();
+
+			builder.Services.AddScoped<ISettingRepository, SettingRepository>();
 			builder.Services.AddScoped<SettingService>();
 
-			
+			builder.Services.AddScoped<LayoutService>();
+
 
 
 			var app = builder.Build();
