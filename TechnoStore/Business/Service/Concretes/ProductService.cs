@@ -61,17 +61,20 @@ public class ProductService : IProductService
         };
         _productImageRepository.AddEntityAsync(productImage);
 
-        foreach (var item in productCreateDTO.ImageFiles)
+       if(productCreateDTO.ImageFiles != null)
         {
-            ProductImage productImage1 = new ProductImage
-            {
-                Product = product,
-                ImageUrl = Helper.SaveFile(_env.WebRootPath, @"uploads/products", item, "product"),
-                IsPoster = false
-            };
-            _productImageRepository.AddEntityAsync(productImage1);
+			foreach (var item in productCreateDTO.ImageFiles)
+			{
+				ProductImage productImage1 = new ProductImage
+				{
+					Product = product,
+					ImageUrl = Helper.SaveFile(_env.WebRootPath, @"uploads/products", item, "product"),
+					IsPoster = false
+				};
+				_productImageRepository.AddEntityAsync(productImage1);
 
-        }
+			}
+		}
 
        
        
@@ -155,17 +158,26 @@ public class ProductService : IProductService
 
         Product product = _mapper.Map<Product>(productUpdateDTO);
 
-
-        foreach (var imgd in oldProduct.ProductImages.Where(bi => !productUpdateDTO.ProductImageIds.Contains(bi.Id) && bi.IsPoster != true))
+        if(productUpdateDTO.ProductImageIds != null)
         {
-            Helper.DeleteFile(_env.WebRootPath, @"uploads\products", imgd.ImageUrl);
-        }
 
+			foreach (var imgd in oldProduct.ProductImages.Where(bi => !productUpdateDTO.ProductImageIds.Contains(bi.Id) && bi.IsPoster != true))
+			{
+				Helper.DeleteFile(_env.WebRootPath, @"uploads\products", imgd.ImageUrl);
+			}
         oldProduct.ProductImages.RemoveAll(bi => !productUpdateDTO.ProductImageIds.Contains(bi.Id) && bi.IsPoster != true);
+		}
+
 
 
         if (productUpdateDTO.ProductPosterImageFile is not null)
         {
+            foreach (var item in oldProduct.ProductImages.Where(x => x.IsPoster == true))
+            {
+                Helper.DeleteFile(_env.WebRootPath, @"uploads\products", item.ImageUrl);
+            }
+
+            oldProduct.ProductImages.Remove(oldProduct.ProductImages.Where(x => x.IsPoster == true).FirstOrDefault());
 
             ProductImage productImage = new ProductImage()
             {
@@ -174,18 +186,13 @@ public class ProductService : IProductService
                 IsPoster = true
             };
 
-            foreach (var item in oldProduct.ProductImages.Where(x => x.IsPoster == true))
-            {
-                Helper.DeleteFile(_env.WebRootPath, @"uploads\products", item.ImageUrl);
-            }
 
-            oldProduct.ProductImages.Remove(oldProduct.ProductImages.Where(x => x.IsPoster == true).FirstOrDefault());
 
 
             oldProduct.ProductImages.Add(productImage);
          }
 
-            if (productUpdateDTO.ImageFiles is not null)
+            if (productUpdateDTO.ImageFiles != null)
             {
              
 
@@ -222,7 +229,8 @@ public class ProductService : IProductService
         oldProduct.IsFeatured = productUpdateDTO.IsFeatured;
         oldProduct.IsNewArrivals = productUpdateDTO.IsNewArrivals;
         oldProduct.IsTopSelling = productUpdateDTO.IsTopSelling;
-        oldProduct.TechnicalSpecs = productUpdateDTO.TechnicalSpecs;
+        oldProduct.IsBestSellers = productUpdateDTO.IsBestSellers;
+        oldProduct.IsHotSale = productUpdateDTO.IsHotSale;
         oldProduct.IsAvaibily = productUpdateDTO.IsAvaibily;
 
 

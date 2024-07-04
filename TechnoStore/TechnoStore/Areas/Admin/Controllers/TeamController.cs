@@ -4,11 +4,13 @@ using Business.Exceptions;
 using Business.Extensions;
 using Business.Service.Abstracts;
 using Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize(Roles = "SuperAdmin")]
 	public class TeamController : Controller
 	{
 		private readonly ITeamService _teamService;

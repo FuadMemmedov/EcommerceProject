@@ -6,15 +6,12 @@
 				<div class="col-md-6">
 					<div class="flexslider">
 						<ul class="slides">
-						<li data-thumb="@Url.Content("~/uploads/products/"+@Model.Product.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)">
-								<a href='#' id="zoom" class='zoom'><img src="~/uploads/products/@Model.Product.ProductImages?.Where(x=> x.IsPoster = true).FirstOrDefault()?.ImageUrl" alt='' width='400' height='300' /></a>
-								<span>NEW</span>
-						</li>
 						@foreach(var img in Model.Product.ProductImages.Where(x => x.IsPoster == false))
 						{
 
 							<li data-thumb="@Url.Content("~/uploads/products/" + @img.ImageUrl)">
 								<a href='#' id="zoom1" class='zoom'><img src="~/uploads/products/@img.ImageUrl" alt='' width='400' height='300' /></a>
+								
 							</li>
 						}
 						</ul><!-- /.slides -->
@@ -81,7 +78,7 @@
 								</div><!-- /.quanlity-box -->
 								<div class="box-cart style2">
 									<div class="btn-add-cart">
-								<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@Model.Product.Id" class="add-to-basket" title=""><img src="images/icons/add-cart.png" alt="">Add to Cart</a>
+								<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@Model.Product.Id" class="add-to-basket" title=""><img src="~/images/icons/add-cart.png" alt="">Add to Cart</a>
 									</div>
 								</div><!-- /.box-cart -->
 							</div><!-- /.footer-detail -->
@@ -94,61 +91,18 @@
 		<section class="flat-product-content">
 			<ul class="product-detail-bar">
 				<li class="active">Description</li>
-				<li>Tecnical Specs</li>
 			</ul><!-- /.product-detail-bar -->
 			<div class="container">
 				<div class="row">
-					<div class="col-md-6">
-						<div class="description-text">
-							<div class="box-text">
-								<p>@Model.Product.Description.</p>
-							</div>
-						</div><!-- /.description-text -->
-					</div><!-- /.col-md-6 -->
-					
-					
+			<div class="container">
+				<div class="description">
+					@Model.Product.Description
+				</div>
+			</div>
+
+
 				</div><!-- /.row -->
-				@* <div class="row">
-					<div class="col-md-12">
-						<div class="tecnical-specs">
-							<h4 class="name">
-								Warch 42 mm Smart Watches
-							</h4>
-							<table>
-								<tbody>
-									<tr>
-										<td>Height</td>
-										<td>38.6mm</td>
-									</tr>
-									<tr>
-										<td>Meterial</td>
-										<td>Stainless Stee</td>
-									</tr>
-									<tr>
-										<td>Case</td>
-										<td>40g</td>
-									</tr>
-									<tr>
-										<td>Color</td>
-										<td>blue, gray, green, light blue, lime, purple, red, yellow</td>
-									</tr>
-									<tr>
-										<td>Depth</td>
-										<td>10.5mm</td>
-									</tr>
-									<tr>
-										<td>Width</td>
-										<td>33.3mm</td>
-									</tr>
-									<tr>
-										<td>Size</td>
-										<td>Large, Medium, Small</td>
-									</tr>
-								</tbody>
-							</table><!-- /.table -->
-						</div><!-- /.tecnical-specs -->
-					</div><!-- /.col-md-12 -->
-				</div><!-- /.row --> *@
+			
 			</div><!-- /.container -->
 		</section><!-- /.flat-product-content -->
 

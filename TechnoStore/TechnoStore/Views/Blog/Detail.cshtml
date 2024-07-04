@@ -8,7 +8,7 @@
 						<article class="main-post single">
 							<div class="featured-post">
 								<a href="#" title="">
-									<img src="~/uploads/blogs/@Model.Blog.ImageUrl"  alt="">
+									<img src="~/uploads/blogs/@Model.Blog.ImageUrl" width="800" alt="">
 								</a>
 							</div><!-- /.featured-post -->
 							<div class="divider25"></div>
@@ -17,14 +17,9 @@
 									<a href="#" title="">@Model.Blog.Title</a>
 								</h3>
 								<ul class="meta-post">
-									<li class="comment">
-										<a href="#" title="">
-											2 Comments
-										</a>
-									</li>
 									<li class="date">
 										<a href="#" title="">
-											February 20, 2017
+										@Model.Blog.CreatedDate.ToString("MMMM d, yyyy")
 										</a>
 									</li>
 								</ul><!-- /.meta-post -->
@@ -51,7 +46,7 @@
 										<li>Reprehenderit sed do eiusmod tempor inci.</li>
 									</ul> *@
 								</div><!-- /.entry-post -->
-								<div class="social-single">
+							@* 	<div class="social-single">
 									<span>SHARE</span>
 									<ul class="social-list style2">
 										<li>
@@ -85,7 +80,7 @@
 											</a>
 										</li>
 									</ul>
-								</div><!-- /.social-single -->
+								</div><!-- /.social-single --> *@
 							</div><!-- /.content-post -->
 						</article><!-- /.main-post single -->
 					</div>
@@ -105,7 +100,7 @@
 								</li>
 							</ul><!-- /.flat-pagination style2 -->
 						</div><!-- /.blog-pagination single --> *@
-						<div class="comment-area">
+			@* 			<div class="comment-area">
 							<h2 class="comment-title">3 Comment</h2>
 							<ol class="comment-list">
 								<li class="comment">
@@ -210,143 +205,37 @@
 									</form><!-- /.form -->
 								</div><!-- /.form-comment -->
 							</div><!-- /.comment-respond -->
-						</div><!-- /.comment-area -->
+						</div><!-- /.comment-area --> *@
 					</div><!-- /.col-md-8 col-lg-9 -->
 					<div class="col-md-4 col-lg-3">
 						<div class="sidebar left">
 							<div class="widget widget-search">
-								<form action="#" method="get" accept-charset="utf-8">
-									<input type="text" name="widget-search" placeholder="Search">
-								</form>
 							</div><!-- /.widget widget-search -->
 							<div class="widget widget-categories">
 								<div class="widget-title">
 									<h3>Categories</h3>
 								</div>
 								<ul class="cat-list">
-									<li>
-										<a href="#" title="">Accessories<span>(03)</span></a>
-									</li>
-									<li>
-										<a href="#" title="">Cameras<span>(19)</span></a>
-									</li>
-									<li>
-										<a href="#" title="">Computers<span>(56)</span></a>
-									</li>
-									<li>
-										<a href="#" title="">Laptops<span>(03)</span></a>
-									</li>
-									<li>
-										<a href="#" title="">Networking<span>(03)</span></a>
-									</li>
-									<li>
-										<a href="#" title="">Old Products<span>(89)</span></a>
-									</li>
-									<li>
-										<a href="#" title="">Smartphones<span>(90)</span></a>
-									</li>
-									<li>
-										<a href="#" title="">Software<span>(23)</span></a>
-									</li>
+							@foreach (var item in Model.BlogCategories)
+							{
+								<li>
+									<a asp-action="index" asp-controller="Blog" asp-route-categoryId="@item.Id" title="">@item.Name</a>
+								</li>
+							}
 								</ul><!-- /.cat-list -->
 							</div><!-- /.widget widget-categories -->
-							<div class="widget widget-products">
-								<div class="widget-title">
-									<h3>Latest Products</h3>
-								</div>
-								<ul class="product-list">
-									<li>
-										<div class="img-product">
-											<a href="#" title="">
-												<img src="images/blog/14.jpg" alt="">
-											</a>
-										</div>
-										<div class="info-product">
-											<div class="name">
-												<a href="#" title="">Razer RZ02-01071 <br />500-R3M1</a>
-											</div>
-											<div class="queue">
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-											</div>
-											<div class="price">
-												<span class="sale">$50.00</span>
-												<span class="regular">$2,999.00</span>
-											</div>
-										</div>
-									</li>
-									<li>
-										<div class="img-product">
-											<a href="#" title="">
-												<img src="images/blog/13.jpg" alt="">
-											</a>
-										</div>
-										<div class="info-product">
-											<div class="name">
-												<a href="#" title="">Notebook Black Spire <br />V Nitro VN7-591G</a>
-											</div>
-											<div class="queue">
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-											</div>
-											<div class="price">
-												<span class="sale">$24.00</span>
-												<span class="regular">$2,999.00</span>
-											</div>
-										</div>
-									</li>
-									<li>
-
-										<div class="img-product">
-											<a href="#" title="">
-												<img src="images/blog/12.jpg" alt="">
-											</a>
-										</div>
-										<div class="info-product">
-											<div class="name">
-												<a href="#" title="">Apple iPad Mini <br />G2356</a>
-											</div>
-											<div class="queue">
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-											</div>
-											<div class="price">
-												<span class="sale">$90.00</span>
-												<span class="regular">$2,999.00</span>
-											</div>
-										</div>
-									</li>
-								</ul><!-- /.product-list -->
-							</div><!-- /.widget widget-products -->
 							<div class="widget widget-tags">
 								<div class="widget-title">
 									<h3>Popular Tags</h3>
 								</div>
 								<ul class="tag-list">
-									<li>
-										<a href="#" class="waves-effect waves-teal" title="">Phone</a>
-									</li>
-									<li>
-										<a href="#" class="waves-effect waves-teal" title="">Cameras</a>
-									</li>
-									<li>
-										<a href="#" class="waves-effect waves-teal" title="">Computers</a>
-									</li>
-									<li>
-										<a href="#" class="waves-effect waves-teal" title="">Laptops</a>
-									</li>
-									<li>
-										<a href="#" class="waves-effect waves-teal" title="">Headphones</a>
-									</li>
+							@foreach (var item in Model.Tags)
+							{
+								<li>
+									<a asp-action="index" asp-controller="Blog" asp-route-tagId="@item.Id" class="waves-effect waves-teal" title="">@item.Name</a>
+								</li>
+							}
+									
 								</ul><!-- /.tag-list -->
 							</div><!-- /.widget widget-tags -->
 						</div><!-- /.sidebar left -->

@@ -1,6 +1,8 @@
 ﻿using Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.IdentityModel.Tokens;
 using TechnoStore.ViewModels;
@@ -8,7 +10,8 @@ using TechnoStore.ViewModels;
 namespace TechnoStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class RoleController : Controller
+	[Authorize(Roles = "SuperAdmin")]
+	public class RoleController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<AppUser> _userManager;
@@ -55,28 +58,53 @@ namespace TechnoStore.Areas.Admin.Controllers
 
         }
 
-        public async Task<IActionResult> Update(string id)
-        {
-            var user = await _userManager.FindByIdAsync(id);
-            if (user == null) return NotFound();
-            AdminRoleVm adminRoleVm = new AdminRoleVm();
-            adminRoleVm.UserRoles = await _userManager.GetRolesAsync(user);
-            adminRoleVm.Roles =  _roleManager.Roles.ToList();
-            adminRoleVm.User = user;
+		[HttpGet]
+		public async Task<IActionResult> Update(string id)
+		{
+			var user = await _userManager.FindByIdAsync(id);
+			if (user == null)
+			{
+				return NotFound();
+			}
 
-            return View(adminRoleVm);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Update(string id,List<string> roles)
-        {
-            AppUser user = await _userManager.FindByIdAsync(id);
-           var userRoles = await _userManager.GetRolesAsync(user);
-            await _userManager.RemoveFromRolesAsync(user,userRoles);
-            await _userManager.AddToRolesAsync(user, roles);
+			var userRoles = await _userManager.GetRolesAsync(user);
+			var allRoles = await _roleManager.Roles.ToListAsync();
 
+			var model = new AdminRoleVm
+			{
+				User = user,
+				Roles = allRoles,
+				UserRoles = userRoles
+			};
 
-          
-            return RedirectToAction("index","user");
-        }
-    }
+			return View(model);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Update(string id, List<string> roles)
+		{
+			AppUser user = await _userManager.FindByIdAsync(id);
+			if (user == null)
+			{
+				return NotFound();
+			}
+
+			var userRoles = await _userManager.GetRolesAsync(user);
+			var resultRemove = await _userManager.RemoveFromRolesAsync(user, userRoles);
+			if (!resultRemove.Succeeded)
+			{
+				ModelState.AddModelError("", "Failed to remove existing roles.");
+				return View();
+			}
+
+			var resultAdd = await _userManager.AddToRolesAsync(user, roles);
+			if (!resultAdd.Succeeded)
+			{
+				ModelState.AddModelError("", "Failed to add new roles.");
+				return View();
+			}
+
+			return RedirectToAction("Index", "User");
+		}
+	}
 }

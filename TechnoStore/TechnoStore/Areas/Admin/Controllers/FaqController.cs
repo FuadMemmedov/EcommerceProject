@@ -6,12 +6,14 @@ using Business.Extensions;
 using Business.Service.Abstracts;
 using Business.Service.Concretes;
 using Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class FaqController : Controller
+	[Authorize(Roles = "SuperAdmin")]
+	public class FaqController : Controller
     {
         private readonly IFaqService _faqService;
         private readonly IMapper _mapper;
@@ -115,7 +117,10 @@ namespace TechnoStore.Areas.Admin.Controllers
         }
 		public IActionResult SoftDelete(int id)
 		{
-			try
+
+            var faq = _faqService.GetFaq(x => x.Id == id);
+            if (faq == null) return NotFound();
+            try
 			{
 				_faqService.SoftDelete(id);
 			}
@@ -128,6 +133,8 @@ namespace TechnoStore.Areas.Admin.Controllers
 		}
         public IActionResult Return(int id)
         {
+            var faq = _faqService.GetFaq(x => x.Id == id);
+            if (faq == null) return NotFound();
             try
             {
                 _faqService.ReturnFaq(id);

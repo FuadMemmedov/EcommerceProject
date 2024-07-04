@@ -6,11 +6,13 @@ using Business.Service.Abstracts;
 using Business.Service.Concretes;
 using Core.Models;
 using Data.DAL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize(Roles = "SuperAdmin")]
 	public class BlogController : Controller
 	{
 		private readonly IBlogService _blogService;
@@ -156,27 +158,23 @@ namespace TechnoStore.Areas.Admin.Controllers
 
 		public IActionResult SoftDelete(int id)
 		{
-			try
-			{
-				_blogService.SoftDelete(id);
-			}
-			catch (EntityNotFoundException ex)
-			{
-				return NotFound();
-			}
+            var blog = _blogService.GetAllBlogs(x => x.Id == id);
+            if (blog == null) return NotFound();
+
+            _blogService.SoftDelete(id);
+			
+			
 
 			return RedirectToAction("Index");
 		}
 		public IActionResult Return(int id)
 		{
-			try
-			{
-				_blogService.ReturnBlog(id);
-			}
-			catch (EntityNotFoundException ex)
-			{
-				return NotFound();
-			}
+
+            var blog = _blogService.GetAllBlogs(x => x.Id == id);
+            if (blog == null) return NotFound();
+           	
+			_blogService.ReturnBlog(id);
+			
 
 			return RedirectToAction("Index");
 		}

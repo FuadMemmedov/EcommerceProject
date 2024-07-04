@@ -11,10 +11,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Stripe;
 using System.Linq.Expressions;
 using System.Xml.Linq;
 using TechnoStore.ViewModels;
 using TechnoStore.ViewService;
+using Product = Core.Models.Product;
 
 namespace TechnoStore.Controllers
 {
@@ -46,18 +48,23 @@ namespace TechnoStore.Controllers
 			_layoutService = layoutService;
 		}
 
-		public IActionResult Index(string? search, decimal? minPrice, decimal? maxPrice, List<int> selectedBrands, List<int> selectedColors, int? order, int page = 1)
+		public IActionResult Index(string? search, decimal? minPrice, decimal? maxPrice, List<int> selectedBrands, List<int> selectedColors, int? order,int? categoryId,int page = 1)
 		{
 
 			var products = _productService.GetAllProducts(x => x.IsDeleted == false).AsQueryable();
 
 			if (!string.IsNullOrEmpty(search))
 			{
-				products = products.Where(x => x.Name.ToLower().Contains(search.Trim().ToLower()) &&
-											   x.Category.Name.ToLower().Contains(search.Trim().ToLower()) &&
+				products = products.Where(x => x.Name.ToLower().Contains(search.Trim().ToLower()) ||
+											   x.Category.Name.ToLower().Contains(search.Trim().ToLower()) ||
 											   x.Brand.Name.ToLower().Contains(search.Trim().ToLower()));
 			}
 
+			if(categoryId != null)
+			{
+				products = products.Where(x => x.Category.Id == categoryId);
+			}
+			
 			if (selectedBrands != null && selectedBrands.Any())
 			{
 				products = products.Where(x => selectedBrands.Contains(x.Brand.Id));
@@ -77,11 +84,18 @@ namespace TechnoStore.Controllers
 			{
 				products = products.Where(x => x.Price <= maxPrice);
 			}
+            ViewBag.search = search;
+            ViewBag.minPrice = minPrice;
+            ViewBag.maxPrice = maxPrice;
+            ViewBag.categoryId = categoryId;
+            ViewBag.selectedBrands = selectedBrands;
+            ViewBag.selectedColors = selectedColors;
+            ViewBag.order = order;
 
 
 
 
-			if (order != null)
+            if (order != null)
 			{
 				switch (order)
 				{
@@ -103,20 +117,21 @@ namespace TechnoStore.Controllers
 			}
 
 
-			List<Product> productGetDTOs = _mapper.Map<List<Product>>(products);
+			List<Product> productGetDTOs = _mapper.Map<List<Core.Models.Product>>(products);
 
-			//if (page <= 0 || page > (double)Math.Ceiling((double)productGetDTOs.Count / 2))
-			//{
-			//	return RedirectToAction("Index", "ErrorPage");
-			//}
-			var paginatedDatas = PaginatedList<Product>.Create(productGetDTOs, 12, page);
-
+			if (page <= 0 || page > (double)Math.Ceiling((double)productGetDTOs.Count / 2))
+			{
+				return RedirectToAction("Index", "ErrorPage");
+			}
+			var paginatedDatas = PaginatedList<Product>.Create(productGetDTOs, 6, page);
+			var categories = _categoryService.GetAllCategories(x => x.IsDeleted == false && x.ParentCategoryId == null);
+			List<Category> categoryGetDtos = _mapper.Map<List<Category>>(categories);
 			ShopVm shopVm = new ShopVm
 			{
 				Colors = _productColorService.GetAllProductColors(x => x.IsDeleted == false),
 				Brands = _brandService.GetAllBrands(x => x.IsDeleted == false),
 				ShopSliders = _shopSliderService.GetAllShopSliders(x => x.IsDeleted == false),
-				Categories = _categoryService.GetAllCategories(x => x.IsDeleted == false),
+				Categories = categoryGetDtos,
 				PaginatedProducts = paginatedDatas,
 				Products = _productService.GetAllProducts(x => x.IsDeleted == false)
 
@@ -131,6 +146,7 @@ namespace TechnoStore.Controllers
 		public IActionResult Detail(int id)
 		{
 			var product = _productService.GetProduct(x => x.Id == id && x.IsDeleted == false);
+			if(product == null) return RedirectToAction("Index", "ErrorPage");
 			ShopVm shopVm = new ShopVm
 			{
 
@@ -145,63 +161,12 @@ namespace TechnoStore.Controllers
 
 
 
-	//public IActionResult Filter(string? search, decimal? minPrice, decimal? maxPrice, List<int> selectedBrands, List<int> selectedColors, int page = 1)
-		//{
-		//	var products = _productService.GetAllProducts(x => x.IsDeleted == false).AsQueryable();
-
-		//	if (!string.IsNullOrEmpty(search))
-		//	{
-		//		products = products.Where(x => x.Name.ToLower().Contains(search.Trim().ToLower()) &&
-		//									   x.Category.Name.ToLower().Contains(search.Trim().ToLower()) &&
-		//									   x.Brand.Name.ToLower().Contains(search.Trim().ToLower()));
-		//	}
-
-		//	if (selectedBrands != null && selectedBrands.Any())
-		//	{
-		//		products = products.Where(x => selectedBrands.Contains(x.Brand.Id));
-		//	}
-
-		//	if (selectedColors != null && selectedColors.Any())
-		//	{
-		//		products = products.Where(x => selectedColors.Contains(x.ProductColor.Id));
-		//	}
-
-		//	if (minPrice.HasValue)
-		//	{
-		//		products = products.Where(x => x.Price >= minPrice);
-		//	}
-
-		//	if (maxPrice.HasValue)
-		//	{
-		//		products = products.Where(x => x.Price <= maxPrice);
-		//	}
-
-
-		//	List<Product> productGetDTOs = _mapper.Map<List<Product>>(products);
-		//	var paginatedDatas = PaginatedList<Product>.Create(productGetDTOs, 12, page);
-
-		//	ShopVm shopVm = new ShopVm
-		//	{
-		//		Colors = _productColorService.GetAllProductColors(x => x.IsDeleted == false),
-		//		Brands = _brandService.GetAllBrands(x => x.IsDeleted == false),
-		//		ShopSliders = _shopSliderService.GetAllShopSliders(x => x.IsDeleted == false),
-		//		Categories = _categoryService.GetAllCategories(x => x.IsDeleted == false),
-		//		Products = _productService.GetAllProducts(x => x.IsDeleted == false),
-		//		PaginatedProducts = paginatedDatas,
-
-
-		//	};
-
-		//	return View(shopVm);
-		//}
-
-
 		public async Task<IActionResult> AddToBasket(int productId)
 		{
 
 			ProductGetDTO product = _productService.GetProduct(x => x.Id == productId);
 
-			if (product == null) return NotFound();
+			if (product == null) return RedirectToAction("Index", "ErrorPage");
 
 			List<BasketItemVm> BasketItemViewModels = new List<BasketItemVm>();
 			BasketItemVm BasketItemViewModel = null;
@@ -213,9 +178,9 @@ namespace TechnoStore.Controllers
 				user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
 			}
 
+				string basketItemsStr = HttpContext.Request.Cookies["BasketItems"];
 			if (user == null)
 			{
-				string basketItemsStr = HttpContext.Request.Cookies["BasketItems"];
 
 				if (string.IsNullOrEmpty(basketItemsStr))
 				{
@@ -246,6 +211,7 @@ namespace TechnoStore.Controllers
 					{
 						ProductId = productId,
 						Count = 1
+						
 					};
 					BasketItemViewModels.Add(BasketItemViewModel);
 				}
@@ -277,9 +243,72 @@ namespace TechnoStore.Controllers
 
 			}
 
+			List<ProductGetDTO> products = new List<ProductGetDTO>();
+		
+			//if(BasketItemViewModels != null)
+   //         {
+			//	foreach (var item in BasketItemViewModels)
+			//	{
+			//		products.Add(_productService.GetProduct(x => x.Id == item.ProductId));
+			//	}
+			//}
+			//else if (_productService.GetAllProducts() != null)
+			//{
+			//	foreach (var item in _productService.GetAllProducts())
+			//	{
+			//		products.Add(_productService.GetProduct(x => x.Id == item.Id));
+			//	}
+			//}
 
+		    if(user == null)
+			{
 
-			return Ok();
+            BasketItemViewModels = JsonConvert.DeserializeObject<List<BasketItemVm>>(basketItemsStr);
+				foreach (var item in BasketItemViewModels)
+				{
+					var existProduct = _productService.GetProduct(x => x.Id == item.ProductId);
+					if (existProduct != null)
+					{
+						item.Name = existProduct.Name;
+						item.Price = existProduct.Price;
+						item.ImageUrl = existProduct.ProductImages.FirstOrDefault(x => x.IsPoster)?.ImageUrl;
+						item.DiscountPercent = existProduct.DiscountPercent;
+		
+					}
+				}
+			}
+			else
+			{
+				var basketItems = _basketItemService.GetAllBasketItems(x => x.UserId ==
+			 user.Id && !x.IsDeleted);
+
+				if (basketItems != null)
+				{
+					foreach (var basketItem in basketItems)
+					{
+						var existProduct = _productService.GetProduct(x => x.Id == basketItem.ProductId);
+					
+						if (existProduct != null)
+						{
+
+							BasketItemViewModels.Add(new BasketItemVm
+							{
+								ProductId = basketItem.ProductId,
+								Count = basketItem.Counter,
+								Name = existProduct.Name,
+								Price = existProduct.Price,
+								ImageUrl = existProduct.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl,
+								DiscountPercent = existProduct.DiscountPercent,
+							
+							});
+						}
+					}
+				}
+			}
+
+			
+
+			return Ok(BasketItemViewModels);
 
 		}
 
@@ -347,7 +376,7 @@ namespace TechnoStore.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> CheckOut(OrderVm orderViewModel)
+		public async Task<IActionResult> CheckOut(OrderVm orderViewModel, string stripeEmail, string stripeToken)
 		{
 
 
@@ -357,6 +386,7 @@ namespace TechnoStore.Controllers
 			CheckOutVm checkOutVm = null;
 			OrderItem orderItem = null;
 			AppUser user = null;
+		
 
 			if (HttpContext.User.Identity.IsAuthenticated)
 			{
@@ -375,9 +405,10 @@ namespace TechnoStore.Controllers
 				Note = orderViewModel.Note,
 				OrderItems = new List<OrderItem>(),
 				AppUserId = user?.Id,
-				CreatedDate = DateTime.UtcNow.AddHours(4)
+				CreatedDate = DateTime.UtcNow.AddHours(4),
+				TotalPrice=0
 			};
-
+			//order.TotalPrice = 0;
 			order.OrderItems = new List<OrderItem>();
 
 			if (user == null)
@@ -388,7 +419,7 @@ namespace TechnoStore.Controllers
 				{
 					basketItemVms = JsonConvert.DeserializeObject<List<BasketItemVm>>(basketItemsStr);
 
-					order.TotalPrice = 0;
+					//order.TotalPrice = 0;
 
 					foreach (var item in basketItemVms)
 					{
@@ -401,17 +432,32 @@ namespace TechnoStore.Controllers
 						Product product = _appDbContext.Products.FirstOrDefault(x => x.Id == item.ProductId);
 
 
-						orderItem = new OrderItem
+						if(item.DiscountPercent != null)
 						{
-							Product = product,
-							ProductName = product.Name,
-							DiscountPercent = product.DiscountPercent,
-							Price = product.Price - product.Price * product.DiscountPercent / 100,
-							Count = item.Count,
-							Order = order
-						};
+                            orderItem = new OrderItem
+                            {
+                                Product = product,
+                                ProductName = product.Name,
+                                DiscountPercent = product.DiscountPercent,
+                                Price = product.Price - product.Price * product.DiscountPercent / 100,
+                                Count = item.Count,
+                                Order = order
+                            };
+                        }
+						else
+						{
+                            orderItem = new OrderItem
+                            {
+                                Product = product,
+                                ProductName = product.Name,
+                                DiscountPercent = product.DiscountPercent,
+                                Price = product.Price ,
+                                Count = item.Count,
+                                Order = order
+                            };
+                        }
 
-						order.TotalPrice += orderItem.Price * orderItem.Count;
+						order.TotalPrice += orderItem.Product.Price * orderItem.Count;
 
 						order.OrderItems.Add(orderItem);
 
@@ -431,7 +477,6 @@ namespace TechnoStore.Controllers
 				userBasketItems = _basketItemService.GetAllBasketItems(x => x.UserId ==
 					user.Id && x.IsDeleted == false).ToList();
 
-				order.TotalPrice = 0;
 
 				foreach (var item in userBasketItems)
 				{
@@ -471,7 +516,7 @@ namespace TechnoStore.Controllers
 
 
 
-					order.TotalPrice += orderItem.Price * orderItem.Count;
+					order.TotalPrice += orderItem.Product.Price * orderItem.Count;
 					order.OrderItems.Add(orderItem);
 
 					item.IsDeleted = true;
@@ -481,6 +526,40 @@ namespace TechnoStore.Controllers
 			ViewBag.CheckOutViewModel = checkOutVms;
 			if (!ModelState.IsValid)
 				return View();
+
+			var optionCust = new CustomerCreateOptions
+			{
+				Email = stripeEmail,
+				Name = user?.Name + " " + user?.Surname ?? "Undifined",
+				Phone = "+994 50 66"
+			};
+			var serviceCust = new CustomerService();
+			Customer customer = serviceCust.Create(optionCust);
+
+			order.TotalPrice = order.TotalPrice * 100;
+			var orderTotalPrice = (long)order.TotalPrice;
+
+
+
+			var optionsCharge = new ChargeCreateOptions
+			{
+
+				Amount = orderTotalPrice,
+				Currency = "USD",
+				Description = "Product Selling amount",
+				Source = stripeToken,
+				ReceiptEmail = stripeEmail
+
+
+			};
+			var serviceCharge = new ChargeService();
+			Charge charge = serviceCharge.Create(optionsCharge);
+			if (charge.Status != "succeeded")
+			{
+				ViewBag.BasketItems = checkOutVms;
+				ModelState.AddModelError("Address", "There are problem in payment");
+				return View();
+			}
 
 
 			await _appDbContext.Orders.AddAsync(order);
@@ -584,98 +663,120 @@ namespace TechnoStore.Controllers
 
 			return RedirectToAction("ShowBasket");
 		}
-		[HttpPost]
-		public async Task<IActionResult> IncreaseItem(int productId)
-		{
-			AppUser user = null;
-			BasketItem basketItem = null;
+		
+        [HttpPost]
+        public async Task<IActionResult> UpdateItem(int productId, int quantity)
+        {
 
-			if (HttpContext.User.Identity.IsAuthenticated)
-			{
-				user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
-			}
+            AppUser user = null;
+            BasketItem basketItem = null;
+       
 
-			if (user == null)
-			{
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+            }
+                var baskets = HttpContext.Request.Cookies["BasketItems"];
 
-				var baskets = HttpContext.Request.Cookies["BasketItems"];
-				if (baskets != null)
-				{
-					var products = JsonConvert.DeserializeObject<List<BasketItemVm>>(baskets);
-					var itemToUpdate = products.FirstOrDefault(x => x.ProductId == productId);
-					if (itemToUpdate != null)
-					{
-						itemToUpdate.Count++;
-						var updatedBasket = JsonConvert.SerializeObject(products);
-						HttpContext.Response.Cookies.Append("BasketItems", updatedBasket);
-					}
-				}
+            if (user == null)
+            {
 
-			}
-			else
-			{
-				basketItem = _basketItemService.GetBasketItem(x => x.UserId ==
-				  user.Id && x.ProductId == productId && !x.IsDeleted);
+                if (baskets != null)
+                {
+                    var products = JsonConvert.DeserializeObject<List<BasketItemVm>>(baskets);
+                    var itemToUpdate = products.FirstOrDefault(x => x.ProductId == productId);
+                    if (itemToUpdate != null)
+                    {
+                        itemToUpdate.Count = quantity;
+                        var updatedBasket = JsonConvert.SerializeObject(products);
+                        HttpContext.Response.Cookies.Append("BasketItems", updatedBasket);
+                    }
+                }
 
-				if (basketItem != null)
-				{
-					basketItem.Counter++;
-					_basketItemRepository.Commit();
-				}
+            }
+            else
+            {
+                basketItem = _basketItemService.GetBasketItem(x => x.UserId ==
+                  user.Id && x.ProductId == productId && !x.IsDeleted);
 
-			}
+                if (basketItem != null)
+                {
+                    basketItem.Counter = quantity;
+                    _basketItemRepository.Commit();
+                }
 
-			return Ok();
-		}
-		[HttpPost]
-		public async Task<IActionResult> DecreaseItem(int productId)
-		{
-			AppUser user = null;
-			BasketItem basketItem = null;
-
-			if (HttpContext.User.Identity.IsAuthenticated)
-			{
-				user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
-			}
-
-			if (user == null)
-			{
-
-				var baskets = HttpContext.Request.Cookies["BasketItems"];
-				if (baskets != null)
-				{
-					var products = JsonConvert.DeserializeObject<List<BasketItemVm>>(baskets);
-					var itemToUpdate = products.FirstOrDefault(x => x.ProductId == productId);
-					if (itemToUpdate != null && itemToUpdate.Count > 1)
-					{
-						itemToUpdate.Count--;
-						var updatedBasket = JsonConvert.SerializeObject(products);
-						HttpContext.Response.Cookies.Append("BasketItems", updatedBasket);
-					}
-				}
-
-			}
-			else
-			{
-				basketItem = _basketItemService.GetBasketItem(x => x.UserId ==
-				  user.Id && x.ProductId == productId && !x.IsDeleted);
-
-				if (basketItem != null && basketItem.Counter > 1)
-				{
-					basketItem.Counter--;
-					_basketItemRepository.Commit();
-				}
-
-			}
-
-			return Ok();
-		}
+            }
 
 
+            return Ok();
+        }
+
+        public async Task<IActionResult> GetBasketItems()
+        {
+
+            List<BasketItemVm> products = new();
+            AppUser user = null;
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+            }
+
+            if (user == null)
+            {
+                var baskets = HttpContext.Request.Cookies["BasketItems"];
+                if (baskets != null)
+                {
+                    products = JsonConvert.DeserializeObject<List<BasketItemVm>>(baskets);
+                    foreach (var item in products)
+                    {
+                        var existProduct = _productService.GetProduct(x => x.Id == item.ProductId);
+                        if (existProduct != null)
+                        {
+                            item.Name = existProduct.Name;
+                            item.Price = existProduct.Price;
+                            item.ImageUrl = existProduct.ProductImages.FirstOrDefault(x => x.IsPoster)?.ImageUrl;
+                            item.DiscountPercent = existProduct.DiscountPercent;
+                        }
+                    }
+                }
+            }
+            else
+            {
+
+                var basketItems = _basketItemService.GetAllBasketItems(x => x.UserId ==
+                  user.Id && !x.IsDeleted);
+
+                if (basketItems != null)
+                {
+                    foreach (var basketItem in basketItems)
+                    {
+                        var existProduct = _productService.GetProduct(x => x.Id == basketItem.ProductId);
+                        if (existProduct != null)
+                        {
+                            products.Add(new BasketItemVm
+                            {
+                                ProductId = basketItem.ProductId,
+                                Count = basketItem.Counter,
+                                Name = existProduct.Name,
+                                Price = existProduct.Price,
+                                ImageUrl = existProduct.ProductImages.FirstOrDefault(x => x.IsPoster)?.ImageUrl,
+                                DiscountPercent = existProduct.DiscountPercent
+                            }); ;
+                        }
+                    }
+                }
+            }
+
+            return Ok(products);
+        }
+
+    }
 
 
 
-	}
+
 }
+
 
 	

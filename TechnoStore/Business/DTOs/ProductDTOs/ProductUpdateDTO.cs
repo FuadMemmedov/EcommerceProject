@@ -16,8 +16,9 @@ public class ProductUpdateDTO
     public bool IsNewArrivals { get; set; }
     public bool IsFeatured { get; set; }
     public bool IsTopSelling { get; set; }
-    public string TechnicalSpecs { get; set; }
 	public bool IsAvaibily { get; set; }
+	public bool IsBestSellers { get; set; }
+	public bool IsHotSale { get; set; }
 	public string Description { get; set; }
 	public string ShortDescription { get; set; }
     public int BrandId { get; set; }
@@ -30,7 +31,7 @@ public class ProductUpdateDTO
     public List<ProductImage>? ProductImages { get; set; }
     public IFormFile? ProductPosterImageFile { get; set; }
     public List<IFormFile>? ImageFiles { get; set; }
-    public List<int> ProductImageIds { get; set; }
+    public List<int>? ProductImageIds { get; set; }
 
 }
 public class ProductUpdateDTOValidator : AbstractValidator<ProductUpdateDTO>
@@ -70,9 +71,7 @@ public class ProductUpdateDTOValidator : AbstractValidator<ProductUpdateDTO>
         .NotEmpty().WithMessage("Brand is required")
         .NotNull().WithMessage("Brand is required");
 
-        RuleFor(x => x.TechnicalSpecs)
-        .NotEmpty().WithMessage("TechnicalSpecs is required")
-        .NotNull().WithMessage("TechnicalSpecs is required");
+   
 
         RuleFor(x => x).Custom((x, context) =>
         {

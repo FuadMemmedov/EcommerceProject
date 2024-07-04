@@ -15,7 +15,6 @@ public class SliderConfiguration : IEntityTypeConfiguration<Slider>
 	{
 		builder.Property(x => x.Title).IsRequired().HasMaxLength(100);
 		builder.Property(x => x.Price).IsRequired();
-		builder.Property(x => x.DiscountPrice).IsRequired();
 		builder.Property(x => x.CreatedDate).HasDefaultValue(DateTime.UtcNow.AddHours(4));
 		
 	}

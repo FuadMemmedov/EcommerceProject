@@ -1,6 +1,7 @@
 ﻿using Business.DTOs.FaqDTOs;
 using Core.Models;
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ public class CategoryCreateDTO
 {
 	public string Name { get; set; }
 	public int? ParentCategoryId { get; set; }
-
+    public IFormFile? IconFile { get; set; }
 	public ICollection<Category>? SubCategories { get; set; }
 
 }

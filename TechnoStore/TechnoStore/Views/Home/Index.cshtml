@@ -20,22 +20,35 @@
 								<div class="divider65"></div>
 								<div class="content-item">
 									<div class="price">
-										<span class="sale">$@item.DiscountPrice</span>
-										<span class="btn-shop">
+											@if(item.DiscountPercent != null)
+											{
+												<span class="sale">$@(item.Price -item.Price * item.DiscountPercent / 100) </span>
+											}
+											else
+											{
+												<span class="sale">$@item.Price</span>
+											}
+											<span class="btn-shop">
 											<a asp-action="index" asp-controller="shop" title="">@item.RedirectUrl <img src="~/images/icons/right-2.png" alt=""></a>
 										</span>
 										<div class="clearfix"></div>
 									</div>
-									<div class="regular">
-										$@item.Price
+										@if(item.DiscountPercent != null)
+										{
+											<div class="regular">
+												$@item.Price
+											</div>
+										}
 									</div>
-								</div>
 							</div>
 							<div class="item-image">
-								<div class="sale-off">
-									60 % <span>sale</span>
-								</div>
-								<img src="~/uploads/sliders/@item.ImageUrl" alt="">
+									@if(item.DiscountPercent != null)
+									{
+										<div class="sale-off">
+											@item.DiscountPercent % <span>sale</span>
+										</div>
+									}
+									<img src="~/uploads/sliders/@item.ImageUrl" alt="">
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -48,27 +61,39 @@
 							<div class="slider-item ">
 								<div class="item-text">
 									<div class="header-item">
-										<p>Enhanced Technology</p>
 										<h2 class="name">@item.Title</h2>
 									</div>
 									<div class="divider65"></div>
 									<div class="content-item">
 										<div class="price">
-											<span class="sale">$@item.DiscountPrice</span>
+											@if (item.DiscountPercent != null)
+											{
+												<span class="sale">$@(item.Price - item.Price * item.DiscountPercent / 100) </span>
+											}
+											else
+											{
+												<span class="sale">$@item.Price</span>
+											}
 											<span class="btn-shop">
 												<a asp-action="index" asp-controller="shop" title="">@item.RedirectUrl <img src="~/images/icons/right-2.png" alt=""></a>
 											</span>
 											<div class="clearfix"></div>
 										</div>
-										<div class="regular">
-											$@item.Price
-										</div>
+										@if (item.DiscountPercent != null)
+										{
+											<div class="regular">
+												$@item.Price
+											</div>
+										}
 									</div>
 								</div>
 								<div class="item-image">
-									<div class="sale-off">
-										60 % <span>sale</span>
-									</div>
+									@if (item.DiscountPercent != null)
+									{
+										<div class="sale-off">
+											@item.DiscountPercent % <span>sale</span>
+										</div>
+									}
 									<img src="~/uploads/sliders/@item.ImageUrl" alt="">
 								</div>
 								<div class="clearfix"></div>
@@ -104,21 +129,28 @@
 					<div class="col-lg-3 col-sm-6">
 					<div class="product-box">
 						<div class="imagebox">
-							<span class="item-new">NEW</span>
-							<ul class="box-image owl-carousel-1">
+								@if (item.CreatedDate > DateTime.Now.AddDays(-6) && item.DiscountPercent == 0)
+								{
+									<span class="item-new">NEW</span>
+								}
+								else
+								{
+									<span class="item-sale">SALE</span>
+								}
+								<ul class="box-image owl-carousel-1">
 								<li>
 										<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
-										    <img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)"  alt="">
+											<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl)" alt="">
 									    </a>
 								</li>
 								<li>
 										<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
-										    <img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+											<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl)" alt="">
 									    </a>
 								</li>
 								<li>
 										<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
-											<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+											<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl)" alt="">
 									    </a>
 								</li>
 							</ul><!-- /.box-image -->
@@ -127,7 +159,7 @@
 									<a href="#" title="">@item.Category.Name</a>
 								</div>
 								<div class="product-name">
-									<a href="#" title="">@item.Name<br />@item.Brand.Name</a>
+									<a href="#" title="">@item.Name</a>
 								</div>
 									@if(item.DiscountPercent != 0)
 									{
@@ -168,21 +200,28 @@
 					<div class="col-lg-3 col-sm-6">
 						<div class="product-box">
 							<div class="imagebox">
-								<span class="item-new">NEW</span>
+								@if (item.CreatedDate > DateTime.Now.AddDays(-6) && item.DiscountPercent == 0)
+								{
+									<span class="item-new">NEW</span>
+								}
+								else
+								{
+									<span class="item-sale">SALE</span>
+								}
 								<ul class="box-image owl-carousel-1">
 									<li>
 										<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
-											<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+											<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl)" alt="">
 										</a>
 									</li>
 									<li>
 										<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
-											<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+											<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl)" alt="">
 										</a>
 									</li>
 									<li>
 										<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
-											<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+											<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl)" alt="">
 										</a>
 									</li>
 								</ul><!-- /.box-image -->
@@ -191,7 +230,7 @@
 										<a href="#" title="">@item.Category.Name</a>
 									</div>
 									<div class="product-name">
-										<a href="#" title="">@item.Name<br />@item.Brand.Name</a>
+										<a href="#" title="">@item.Name</a>
 									</div>
 									@if (item.DiscountPercent != 0)
 									{
@@ -230,21 +269,28 @@
 					<div class="col-lg-3 col-sm-6">
 						<div class="product-box">
 							<div class="imagebox">
-								<span class="item-new">NEW</span>
+								@if (item.CreatedDate > DateTime.Now.AddDays(-6) && item.DiscountPercent == 0)
+								{
+									<span class="item-new">NEW</span>
+								}
+								else
+								{
+									<span class="item-sale">SALE</span>
+								}
 								<ul class="box-image owl-carousel-1">
 									<li>
 										<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
-											<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+											<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl)" alt="">
 										</a>
 									</li>
 									<li>
 										<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
-											<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+											<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl)" alt="">
 										</a>
 									</li>
 									<li>
 										<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
-											<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+											<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl)" alt="">
 										</a>
 									</li>
 								</ul><!-- /.box-image -->
@@ -253,7 +299,7 @@
 										<a href="#" title="">@item.Category.Name</a>
 									</div>
 									<div class="product-name">
-										<a href="#" title="">@item.Name<br />@item.Brand.Name</a>
+										<a href="#" title="">@item.Name</a>
 									</div>
 									@if (item.DiscountPercent != 0)
 									{
@@ -307,7 +353,7 @@
 							<div class="imagebox style1">
 								<div class="box-image">
 									<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
-										<img src="~/uploads/products/@item.ProductImages?.FirstOrDefault(x=> x.IsPoster = true).ImageUrl" alt="">
+										<img src="~/uploads/products/@item.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl" alt="">
 									</a>
 								</div><!-- /.box-image -->
 								<div class="box-content">
@@ -315,7 +361,7 @@
 										<a href="#" title="">@item.Category.Name</a>
 									</div>
 									<div class="product-name">
-										<a href="#" title="">@item.Name<br />@item.Brand.Name</a>
+										<a href="#" title="">@item.Name</a>
 									</div>
 									@if(item.DiscountPercent != 0)
 									{
@@ -333,14 +379,6 @@
 
 								</div><!-- /.box-content -->
 								<div class="box-bottom">
-									<div class="compare-wishlist">
-										<a href="#" class="compare" title="">
-											<img src="~/images/icons/compare.png" alt="">Compare
-										</a>
-										<a href="#" class="wishlist" title="">
-											<img src="~/images/icons/wishlist.png" alt="">Wishlist
-										</a>
-									</div>
 									<div class="btn-add-cart">
 										<a asp-action="AddToBasket" asp-controller="shop" asp-route-productId="@item.Id" class="add-to-basket" title="">
 											Add to Cart
@@ -376,7 +414,7 @@
 					<div class="imagebox style4">
 						<div class="box-image">
 							<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
-									<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+									<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl)" alt="">
 							</a>
 						</div><!-- /.box-image -->
 						<div class="box-content">
@@ -384,7 +422,7 @@
 								<a href="#" title="">@item.Category.Name</a>
 							</div>
 							<div class="product-name">
-								<a href="#" title="">@item.Name<br />@item.Brand.Name</a>
+								<a href="#" title="">@item.Name</a>
 							</div>
 								@if (item.DiscountPercent != null)
 								{
@@ -417,78 +455,36 @@
 					<h3>Bestsellers</h3>
 				</div>
 				<ul class="product-list style1">
-					<li>
-						<div class="img-product">
-							<a href="#" title="">
-								<img src="~/images/product/highlights/10.jpg" alt="">
-							</a>
-						</div>
-						<div class="info-product">
-							<div class="name">
-								<a href="#" title="">Razer RZ02-01071500-R3M1</a>
+					@foreach(var item in Model.Products.Where(x=>x.IsBestSellers == true))
+					{
+						<li>
+							<div class="img-product">
+								<a href="#" title="">
+									<img src="~/uploads/products/@item.ProductImages.FirstOrDefault(x=> x.IsPoster)?.ImageUrl" alt="">
+								</a>
 							</div>
-							<div class="queue">
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
+							<div class="info-product">
+								<div class="name">
+									<a href="#" title="">@item.Name</a>
+								</div>
+								@if (item.DiscountPercent != null)
+								{
+									<div class="price">
+										<span class="regular">$@item.Price</span>
+										<span class="sale">$@(item.Price - item.Price * item.DiscountPercent / 100)</span>
+									</div>
+								}
+								else
+								{
+									<div class="price">
+										<span class="sale">$@item.Price</span>
+									</div>
+								}
 							</div>
-							<div class="price">
-								<span class="sale">$50.00</span>
-								<span class="regular">$2,999.00</span>
-							</div>
-						</div>
-						<div class="clearfix"></div>
-					</li>
-					<li>
-						<div class="img-product">
-							<a href="#" title="">
-								<img src="~/images/product/highlights/9.jpg" alt="">
-							</a>
-						</div>
-						<div class="info-product">
-							<div class="name">
-								<a href="#" title="">Apple iPad Mini G2356</a>
-							</div>
-							<div class="queue">
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-							</div>
-							<div class="price">
-								<span class="sale">$24.00</span>
-								<span class="regular">$2,999.00</span>
-							</div>
-						</div>
-						<div class="clearfix"></div>
-					</li>
-					<li>
-						<div class="img-product">
-							<a href="#" title="">
-								<img src="~/images/product/highlights/8.jpg" alt="">
-							</a>
-						</div>
-						<div class="info-product">
-							<div class="name">
-								<a href="#" title="">Beats Pill + Portable Speaker</a>
-							</div>
-							<div class="queue">
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-							</div>
-							<div class="price">
-								<span class="sale">$90.00</span>
-								<span class="regular">$2,999.00</span>
-							</div>
-						</div>
-						<div class="clearfix"></div>
-					</li>
+							<div class="clearfix"></div>
+						</li>
+					}
+
 				</ul><!-- /.product-list style1 -->
 			</div><!-- /.col-md-4 -->
 			<div class="col-md-4">
@@ -496,78 +492,36 @@
 					<h3>Featured</h3>
 				</div>
 				<ul class="product-list style1">
-					<li>
-						<div class="img-product">
-							<a href="#" title="">
-								<img src="~/images/product/highlights/3.jpg" alt="">
-							</a>
-						</div>
-						<div class="info-product">
-							<div class="name">
-								<a href="#" title="">Razer RZ02-01071500-R3M1</a>
+					@foreach (var item in Model.Products.Where(x => x.IsFeatured == true))
+					{
+						<li>
+							<div class="img-product">
+								<a href="#" title="">
+									<img src="~/uploads/products/@item.ProductImages.FirstOrDefault(x=>x.IsPoster)?.ImageUrl" alt="">
+								</a>
 							</div>
-							<div class="queue">
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
+							<div class="info-product">
+								<div class="name">
+									<a href="#" title="">@item.Name</a>
+								</div>
+								@if (item.DiscountPercent != null)
+								{
+									<div class="price">
+										<span class="regular">$@item.Price</span>
+										<span class="sale">$@(item.Price - item.Price * item.DiscountPercent / 100)</span>
+									</div>
+								}
+								else
+								{
+									<div class="price">
+										<span class="sale">$@item.Price</span>
+									</div>
+								}
 							</div>
-							<div class="price">
-								<span class="sale">$50.00</span>
-								<span class="regular">$2,999.00</span>
-							</div>
-						</div>
-						<div class="clearfix"></div>
-					</li>
-					<li>
-						<div class="img-product">
-							<a href="#" title="">
-								<img src="~/images/product/highlights/2.jpg" alt="">
-							</a>
-						</div>
-						<div class="info-product">
-							<div class="name">
-								<a href="#" title="">Apple iPad Mini G2356</a>
-							</div>
-							<div class="queue">
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-							</div>
-							<div class="price">
-								<span class="sale">$24.00</span>
-								<span class="regular">$2,999.00</span>
-							</div>
-						</div>
-						<div class="clearfix"></div>
-					</li>
-					<li>
-						<div class="img-product">
-							<a href="#" title="">
-								<img src="~/images/product/highlights/1.jpg" alt="">
-							</a>
-						</div>
-						<div class="info-product">
-							<div class="name">
-								<a href="#" title="">Beats Pill + Portable Speaker</a>
-							</div>
-							<div class="queue">
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-							</div>
-							<div class="price">
-								<span class="sale">$90.00</span>
-								<span class="regular">$2,999.00</span>
-							</div>
-						</div>
-						<div class="clearfix"></div>
-					</li>
+							<div class="clearfix"></div>
+						</li>
+					}
+
 				</ul>
 			</div><!-- /.col-md-4 -->
 			<div class="col-md-4">
@@ -575,78 +529,35 @@
 					<h3>Hot Sale</h3>
 				</div>
 				<ul class="product-list style1">
-					<li>
-						<div class="img-product">
-							<a href="#" title="">
-								<img src="~/images/product/highlights/19.jpg" alt="">
-							</a>
-						</div>
-						<div class="info-product">
-							<div class="name">
-								<a href="#" title="">Razer RZ02-01071500-R3M1</a>
+					@foreach (var item in Model.Products.Where(x => x.IsHotSale == true))
+					{
+						<li>
+							<div class="img-product">
+								<a href="#" title="">
+									<img src="~/uploads/products/@item.ProductImages.FirstOrDefault(x=>x.IsPoster)?.ImageUrl" alt="">
+								</a>
 							</div>
-							<div class="queue">
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
+							<div class="info-product">
+								<div class="name">
+									<a href="#" title="">@item.Name</a>
+								</div>
+								@if (item.DiscountPercent != null)
+								{
+									<div class="price">
+										<span class="regular">$@item.Price</span>
+										<span class="sale">$@(item.Price - item.Price * item.DiscountPercent / 100)</span>
+									</div>
+								}
+								else
+								{
+									<div class="price">
+										<span class="sale">$@item.Price</span>
+									</div>
+								}
 							</div>
-							<div class="price">
-								<span class="sale">$50.00</span>
-								<span class="regular">$2,999.00</span>
-							</div>
-						</div>
-						<div class="clearfix"></div>
-					</li>
-					<li>
-						<div class="img-product">
-							<a href="#" title="">
-								<img src="~/images/product/highlights/11.jpg" alt="">
-							</a>
-						</div>
-						<div class="info-product">
-							<div class="name">
-								<a href="#" title="">Apple iPad Mini G2356</a>
-							</div>
-							<div class="queue">
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-							</div>
-							<div class="price">
-								<span class="sale">$24.00</span>
-								<span class="regular">$2,999.00</span>
-							</div>
-						</div>
-						<div class="clearfix"></div>
-					</li>
-					<li>
-						<div class="img-product">
-							<a href="#" title="">
-								<img src="~/images/product/highlights/20.jpg" alt="">
-							</a>
-						</div>
-						<div class="info-product">
-							<div class="name">
-								<a href="#" title="">Beats Pill + Portable Speaker</a>
-							</div>
-							<div class="queue">
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-								<i class="fa fa-star" aria-hidden="true"></i>
-							</div>
-							<div class="price">
-								<span class="sale">$90.00</span>
-								<span class="regular">$2,999.00</span>
-							</div>
-						</div>
-						<div class="clearfix"></div>
-					</li>
+							<div class="clearfix"></div>
+						</li>
+					}
 				</ul>
 			</div><!-- /.col-md-4 -->
 		</div><!-- /.row -->

@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 namespace TechnoStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-   
-    public class OrderController : Controller
+	[Authorize(Roles = "SuperAdmin")]
+	public class OrderController : Controller
     {
         private readonly AppDbContext _appDbContext;
 

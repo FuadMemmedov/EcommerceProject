@@ -1,5 +1,9 @@
 ﻿@using TechnoStore.ViewModels
 @model List<BasketItemVm>
+@{
+    decimal? itemAmount = Model.Sum(item => item.Price - item.Price * item.DiscountPercent / 100);
+    decimal? totalAmount = Model.Sum(item => itemAmount * item.Count);
+}
 
 <section class="flat-shop-cart">
     <div class="container">
@@ -35,17 +39,18 @@
                                     </td>
                                     <td>
                                         <div class="quantity">
-                                            <button class="btn-change-quantity" data-action="decrease" title="Decrease Quantity">
+                                            <span class="btn-change-quantity decrease" data-action="decrease" title="Decrease Quantity">
                                                 <i class="fa fa-minus"></i>
-                                            </button>
+                                            </span>
                                             <input type="number" name="number" value="@item.Count" min="1" max="100" placeholder="Quantity">
-                                            <button class="btn-change-quantity" data-action="increase" title="Increase Quantity">
+                                            <span class="btn-change-quantity increase" data-action="increase" title="Increase Quantity">
                                                 <i class="fa fa-plus"></i>
-                                            </button>
+                                            </span>
                                         </div>
+
                                     </td>
                                     <td>
-                                        <div class="total">$@(item.Price - item.Price * item.DiscountPercent / 100 * item.Count)</div>
+                                        <div class="total">$@((item.Price - item.Price * item.DiscountPercent / 100 )* item.Count)</div>
                                     </td>
                                     <td>
                                         <button class="btn btn-danger btn-sm remove-item-btn" title="Remove">
@@ -66,24 +71,11 @@
                             <tbody>
                                 <tr>
                                     <td>Subtotal</td>
-                                    <td class="subtotal">$@Model.Sum(item => item.Price - item.Price * item.DiscountPercent / 100 * item.Count)</td>
-                                </tr>
-                                <tr>
-                                    <td>Shipping</td>
-                                    <td class="btn-radio">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" id="flat-rate" checked name="radio-flat-rate">
-                                            <label class="form-check-label" for="flat-rate">Flat Rate: <span>$3.00</span></label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" id="free-shipping" name="radio-flat-rate">
-                                            <label class="form-check-label" for="free-shipping">Free Shipping</label>
-                                        </div>
-                                    </td><!-- /.btn-radio -->
+                                    <td class="subtotal">$@totalAmount</td>
                                 </tr>
                                 <tr>
                                     <td>Total</td>
-                                    <td class="price-total">$@(Model.Sum(item => item.Price - item.Price * item.DiscountPercent / 100 * item.Count) + 3)</td>
+                                    <td class="price-total">$@totalAmount</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -160,7 +152,7 @@
 <script>
     $(document).ready(function () {
         // Handle remove item button click
-        $('.remove-item-btn').click(function (e) {
+        $(document).on('click', '.remove-item-btn', function (e) {
             e.preventDefault();
 
             var $item = $(this).closest('.basket-item');
@@ -173,6 +165,7 @@
                 success: function () {
                     $item.remove();
                     updateCartTotals();
+                    updateLayoutBasket();
                 },
                 error: function (xhr, status, error) {
                     console.error('Error removing item:', error);
@@ -182,7 +175,7 @@
         });
 
         // Handle quantity change button click
-        $('.btn-change-quantity').click(function (e) {
+        $(document).on('click', '.btn-change-quantity', function (e) {
             e.preventDefault();
 
             var $item = $(this).closest('.basket-item');
@@ -196,23 +189,45 @@
                 newVal--;
             }
 
+            updateQuantity($item, newVal);
+        });
+
+        // Handle manual input change
+        $(document).on('input', 'input[name="number"]', function () {
+            var $item = $(this).closest('.basket-item');
+            var newVal = parseInt($(this).val());
+
+            // Ensure the value is within the min-max range
+            if (isNaN(newVal) || newVal < 1) {
+                newVal = 0;
+            } else if (newVal > 100) {
+                newVal = 100;
+            }
+
+            updateQuantity($item, newVal);
+        });
+
+        // Update quantity function
+        function updateQuantity($item, newVal) {
+            var $input = $item.find('input[name="number"]');
             var productId = $item.data('product-id');
 
             $.ajax({
-                url: action === 'increase' ? '@Url.Action("IncreaseItem", "Shop")' : '@Url.Action("DecreaseItem", "Shop")',
+                url: '@Url.Action("UpdateItem", "Shop")',
                 type: 'POST',
-                data: { productId: productId },
+                data: { productId: productId, quantity: newVal },
                 success: function () {
                     $input.val(newVal);
                     updateItemTotal($item);
                     updateCartTotals();
+                    updateLayoutBasket();
                 },
                 error: function (xhr, status, error) {
                     console.error('Error updating item quantity:', error);
                     alert('There was an error updating the quantity. Please try again.');
                 }
             });
-        });
+        }
 
         // Update item total
         function updateItemTotal($item) {
@@ -236,11 +251,68 @@
 
             $('.subtotal').text('$' + subtotal.toFixed(2));
             $('.price-total').text('$' + total.toFixed(2));
+
         }
 
         // Handle shipping option change
         $('input[name="radio-flat-rate"]').change(function () {
             updateCartTotals();
         });
+
+        // Update layout basket function
+        function updateLayoutBasket() {
+            fetch('@Url.Action("GetBasketItems", "Shop")')
+                .then(response => response.json())
+                .then(data => {
+                    let subtotal = 0;
+                    document.querySelector("#basket-items").innerHTML = "";
+
+                    if (data.length === 0) {
+
+                        document.querySelector(".icon-cart span").innerHTML = "0";
+                        return;
+                    }
+
+                    document.querySelector(".icon-cart span").innerHTML = data.length;
+
+                    data.forEach(x => {
+                        let itemTotal = (x.price - x.price * x.discountPercent / 100) * x.count;
+                        subtotal += itemTotal;
+
+                        document.querySelector("#basket-items").innerHTML += `
+                        <li data-id="${x.id}">
+                            <div class="img-product">
+                                <img src="/uploads/products/${x.imageUrl}" alt="">
+                            </div>
+                            <div class="info-product">
+                                <div class="name">${x.name}</div>
+                                <div class="price">
+                                    <span class="count">${x.count} x</span>
+                                    <span class="item-price">$${x.price}</span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                    `;
+                    });
+
+                    document.querySelector("#basket-items").innerHTML += `
+                    <div class="total">
+                        <span>Subtotal:</span>
+                        <span class="price" id="basket-subtotal">$${subtotal.toFixed(2)}</span>
+                    </div>
+                    <div class="btn-cart">
+                        <a href="/shop/showbasket" class="view-cart" title="">View Cart</a>
+                        <a href="/shop/checkout" class="check-out" title="">Checkout</a>
+                    </div>
+                `;
+                });
+        }
+
+
+        // Call updateLayoutBasket on page load
+        updateLayoutBasket();
     });
 </script>
+
+

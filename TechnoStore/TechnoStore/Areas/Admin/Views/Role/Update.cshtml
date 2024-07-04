@@ -3,16 +3,17 @@
 
 <div class="container">
     <div class="row">
-        <h1>@Model.User.Surname</h1>
-        <form method="post" asp-action="Update" asp-controller="role">
+        <h1>@Model.User.UserName</h1>
+        <form method="post" asp-action="Update" asp-controller="Role">
+            <input type="hidden" name="id" value="@Model.User.Id" />
             @foreach (var role in Model.Roles)
             {
-                @if(role != null)
-                {
-                    <input @(Model.UserRoles.Any(userrole => userrole == role.Name)?"checked":"") type="checkbox" value="" name="" /> @role.Name <br />
-                }
+                <input type="checkbox"
+                       value="@role.Name"
+                       name="roles"
+                @(Model.UserRoles.Any(userRole => userRole == role.Name) ? "checked" : "") /> @role.Name <br />
             }
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit">Save</button>
         </form>
     </div>
 </div>

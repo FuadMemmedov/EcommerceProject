@@ -17,9 +17,10 @@ public class ProductCreateDTO
 	public decimal Price { get; set; }
 	public bool IsAvaibily { get; set; }
 	public bool IsNewArrivals { get; set; } 
-    public bool IsFeatured { get; set; } 
-    public bool IsTopSelling { get; set; } 
-    public string TechnicalSpecs { get; set; }
+    public bool IsFeatured { get; set; }
+	public bool IsBestSellers { get; set; }
+	public bool IsHotSale { get; set; }
+	public bool IsTopSelling { get; set; } 
     public int? DiscountPercent { get; set; }
     public decimal CostPrice { get; set; }
     public int BrandId { get; set; }
@@ -66,10 +67,7 @@ public class ProductCreateDTOValidator : AbstractValidator<ProductCreateDTO>
         .NotEmpty().WithMessage("Brand is required")
         .NotNull().WithMessage("Brand is required");
 
-        RuleFor(x => x.TechnicalSpecs)
-        .NotEmpty().WithMessage("TechnicalSpecs is required")
-        .NotNull().WithMessage("TechnicalSpecs is required");
-
+       
         RuleFor(x => x).Custom((x, context) =>
         {
             if (x.CostPrice > x.Price)

@@ -568,3 +568,4 @@ C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\obj\Debug\net8.0
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\obj\Debug\net8.0\TechnoStore.pdb
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\obj\Debug\net8.0\TechnoStore.genruntimeconfig.cache
 C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\obj\Debug\net8.0\ref\TechnoStore.dll
+C:\Users\memme\Desktop\EcommerceProject\TechnoStore\TechnoStore\bin\Debug\net8.0\Stripe.net.dll

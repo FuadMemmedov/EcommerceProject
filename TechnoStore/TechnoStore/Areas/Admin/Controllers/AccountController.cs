@@ -19,32 +19,24 @@ namespace TechnoStore.Areas.Admin.Controllers
             _roleManager = roleManager;
         }
 
-        public async Task<IActionResult> CreateAdmin()
-        {
-            AppUser user = new AppUser
-            {
-                Name = "Fuad",
-                Surname="Memmedov",
-                UserName = "Admin"
-
-            };
-
-            await _userManager.CreateAsync(user, "Admin123@");
-            await _userManager.AddToRoleAsync(user, "Super Admin");
-
-            return Ok("Admin yarandi");
-        }
-
-        //public async Task<IActionResult> CreateRole()
+        //public async Task<IActionResult> CreateAdmin()
         //{
-        //    IdentityRole role = new IdentityRole("Super Admin");
-        //    IdentityRole role1 = new IdentityRole("Member");
+        //    AppUser user = new AppUser
+        //    {
+        //        Name = "Fuad",
+        //        Surname = "Memmedov",
+        //        UserName = "Admin",
+        //        EmailConfirmed = true
 
-        //    await _roleManager.CreateAsync(role);
-        //    await _roleManager.CreateAsync(role1);
+        //    };
 
-        //    return Ok("Rollar yarandi");
+        //    await _userManager.CreateAsync(user, "Admin123@");
+        //    await _userManager.AddToRoleAsync(user, "SuperAdmin");
+
+        //    return Ok("Admin yarandi");
         //}
+
+
 
         public IActionResult Login()
         {

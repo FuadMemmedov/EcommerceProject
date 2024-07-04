@@ -4,11 +4,13 @@ using Business.Exceptions;
 using Business.Extensions;
 using Business.Service.Abstracts;
 using Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize(Roles ="SuperAdmin")]
 	public class BlogCategoryController : Controller
 	{
 		private readonly IBlogCategoryService _blogCategoryService;
@@ -41,7 +43,22 @@ namespace TechnoStore.Areas.Admin.Controllers
 			if (!ModelState.IsValid)
 				return View();
 
+			try
+			{
 			await _blogCategoryService.AddBlogCategoryAsync(blogCategoryCreateDTO);
+
+			}
+			catch (DuplicateCategoryException ex)
+			{
+				ModelState.AddModelError("Name", ex.Message);
+				return View();
+				
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+
 
 
 			return RedirectToAction("Index");
@@ -78,7 +95,13 @@ namespace TechnoStore.Areas.Admin.Controllers
 			{
 				return NotFound();
 			}
-			catch (Exception ex)
+            catch (DuplicateCategoryException ex)
+            {
+                ModelState.AddModelError("Name", ex.Message);
+                return View();
+
+            }
+            catch (Exception ex)
 			{
 				return BadRequest(ex.Message);
 			}
@@ -107,27 +130,23 @@ namespace TechnoStore.Areas.Admin.Controllers
 
 		public IActionResult SoftDelete(int id)
 		{
-			try
-			{
-				_blogCategoryService.SoftDelete(id);
-			}
-			catch (EntityNotFoundException ex)
-			{
-				return NotFound();
-			}
+			var blogCategory = _blogCategoryService.GetBlogCategory(x => x.Id == id);
+			if (blogCategory == null) return NotFound();
+				
+			_blogCategoryService.SoftDelete(id);
+			
+			
 
 			return RedirectToAction("Index");
 		}
 		public IActionResult Return(int id)
 		{
-			try
-			{
-				_blogCategoryService.ReturnBlogCategory(id);
-			}
-			catch (EntityNotFoundException ex)
-			{
-				return NotFound();
-			}
+            var blogCategory = _blogCategoryService.GetBlogCategory(x => x.Id == id);
+            if (blogCategory == null) return NotFound();
+
+            _blogCategoryService.ReturnBlogCategory(id);
+			
+			
 
 			return RedirectToAction("Index");
 		}

@@ -117,7 +117,7 @@ public class SliderService : ISliderService
 
 		oldSlider.Title = updateDTO.Title;
 		oldSlider.Price = updateDTO.Price;
-		oldSlider.DiscountPrice = updateDTO.DiscountPrice;
+		oldSlider.DiscountPercent = updateDTO.DiscountPercent;
 		oldSlider.RedirectUrl = updateDTO.RedirectUrl;
         oldSlider.UpdatedDate = DateTime.UtcNow.AddHours(4);
 

@@ -1,13 +1,18 @@
 ﻿using AutoMapper;
+using Business.DTOs.BlogDTOs;
 using Business.DTOs.CategoryDTOs;
 using Business.Exceptions;
+using Business.Extensions;
 using Business.Service.Abstracts;
 using Core.Models;
 using Core.RepositoryAbstracts;
 using Data.RepositoryConcretes;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,15 +22,17 @@ public class CategoryService : ICategoryService
 {
 	private readonly ICategoryRepository _categoryRepository;
 	private readonly IMapper _mapper;
+	private readonly IWebHostEnvironment _env;
 
-	public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
-	{
-		_categoryRepository = categoryRepository;
-		_mapper = mapper;
-	}
+    public CategoryService(ICategoryRepository categoryRepository, IMapper mapper, IWebHostEnvironment env)
+    {
+        _categoryRepository = categoryRepository;
+        _mapper = mapper;
+        _env = env;
+    }
 
 
-	public List<CategoryGetDTO> GetAllCategories(Func<Category, bool>? func = null)
+    public List<CategoryGetDTO> GetAllCategories(Func<Category, bool>? func = null)
 	{
 		var categories =  _categoryRepository.GetAllEntities(func, "SubCategories");
 		List<CategoryGetDTO> categoryGetDTOs = _mapper.Map<List<CategoryGetDTO>>(categories);
@@ -42,10 +49,19 @@ public class CategoryService : ICategoryService
 
 	public async Task AddCategoryAsync(CategoryCreateDTO categoryDto)
 	{
-        //var existBrand = _categoryRepository.GetEntity(x => x.Id == categoryDto.ParentCategoryId);
-        //if (existBrand == null) throw new EntityNotFoundException("Category not found!");
+		if(categoryDto.ParentCategoryId != null)
+		{
+			var existCategory = _categoryRepository.GetEntity(x => x.Id == categoryDto.ParentCategoryId);
+			if (existCategory == null) throw new EntityNotFoundException("Category not found!");
+        }
         Category category = _mapper.Map<Category>(categoryDto);
-		await _categoryRepository.AddEntityAsync(category);
+		if(categoryDto.IconFile != null)
+		{
+         category.IconUrl = Helper.SaveFile(_env.WebRootPath, @"uploads/categories", categoryDto.IconFile, "categoryIcon");
+
+		}
+
+        await _categoryRepository.AddEntityAsync(category);
 		await _categoryRepository.CommitAsync();
 	}
 
@@ -53,9 +69,23 @@ public class CategoryService : ICategoryService
 	{
 		var oldCategory = _categoryRepository.GetEntity(x => x.Id == categoryDto.Id);
 		if (oldCategory == null) throw new EntityNotFoundException("Category not found");
-        var existBrand = _categoryRepository.GetEntity(x => x.Id == categoryDto.ParentCategoryId);
-        if (existBrand == null) throw new EntityNotFoundException("Category not found!");
-        Category category = _mapper.Map<Category>(categoryDto);
+        if (categoryDto.ParentCategoryId != null)
+        {
+            var existCategory = _categoryRepository.GetEntity(x => x.Id == categoryDto.ParentCategoryId);
+            if (existCategory == null) throw new EntityNotFoundException("Category not found!");
+        }
+		if (categoryDto.IconFile != null)
+		{
+			Category category = _mapper.Map<Category>(categoryDto);
+			category.IconUrl = Helper.SaveFile(_env.WebRootPath, @"uploads/categories", categoryDto.IconFile, "categoryIcon");
+			if (oldCategory.IconUrl != null)
+			{
+            Helper.DeleteFile(_env.WebRootPath, @"uploads\categories", oldCategory.IconUrl);
+
+			}
+
+            oldCategory.IconUrl = category.IconUrl;
+        }
 
 		oldCategory.Name = categoryDto.Name;
 		oldCategory.ParentCategoryId = categoryDto.ParentCategoryId;
@@ -72,7 +102,12 @@ public class CategoryService : ICategoryService
         var existCategory = _categoryRepository.GetEntity(x => x.Id == id);
         if (existCategory == null) throw new EntityNotFoundException("Category not found");
 
-		_categoryRepository.DeleteEntity(existCategory);
+        if(existCategory.IconUrl != null)
+		{
+			Helper.DeleteFile(_env.WebRootPath, @"uploads\categories", existCategory.IconUrl);
+		}
+
+        _categoryRepository.DeleteEntity(existCategory);
 		_categoryRepository.Commit();
     }
 

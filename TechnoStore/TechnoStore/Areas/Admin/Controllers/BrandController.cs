@@ -4,13 +4,16 @@ using Business.DTOs.ProductColorDTOs;
 using Business.Exceptions;
 using Business.Extensions;
 using Business.Service.Abstracts;
+using Business.Service.Concretes;
 using Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class BrandController : Controller
+	[Authorize(Roles = "SuperAdmin")]
+	public class BrandController : Controller
     {
         private readonly IBrandService _brandService;
         private readonly IMapper _mapper;
@@ -108,27 +111,22 @@ namespace TechnoStore.Areas.Admin.Controllers
 
         public IActionResult SoftDelete(int id)
         {
-            try
-            {
-                _brandService.SoftDelete(id);
-            }
-            catch (EntityNotFoundException ex)
-            {
-                return NotFound();
-            }
+            var brand = _brandService.GetAllBrands(x => x.Id == id);
+            if (brand == null) return NotFound();
+
+            _brandService.SoftDelete(id);
+            
 
             return RedirectToAction("Index");
         }
         public IActionResult Return(int id)
         {
-            try
-            {
+
+            var brand = _brandService.GetAllBrands(x => x.Id == id);
+            if (brand == null) return NotFound();
+            
                 _brandService.ReturnBrand(id);
-            }
-            catch (EntityNotFoundException ex)
-            {
-                return NotFound();
-            }
+           
 
             return RedirectToAction("Index");
         }

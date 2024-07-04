@@ -5,12 +5,14 @@ using Business.Extensions;
 using Business.Service.Abstracts;
 using Business.Service.Concretes;
 using Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class TagController : Controller
+	[Authorize(Roles = "SuperAdmin")]
+	public class TagController : Controller
     {
         private readonly ITagService _tagService;
         private readonly IMapper _mapper;

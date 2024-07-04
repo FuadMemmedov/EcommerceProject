@@ -9,9 +9,9 @@
 						<h3>Login</h3>
 					</div>
 					<form asp-action="Login"  method="post" id="form-login" accept-charset="utf-8">
-						<div asp-validation-summary="All" class="text-danger"></div>
+						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 						<p>
-							@Html.ValidationMessage("Verify");
+							@Html.ValidationMessage("Verify")
 						</p>
 						<div class="form-box">
 							<label for="name-login"></label>
@@ -19,7 +19,7 @@
 							<span asp-validation-for="Email" class="text-danger"></span>
 						</div><!-- /.form-box -->
 						<div class="form-box">
-							<label for="password-login">Password * </label>
+							<label for="password-login">Password</label>
 							<input asp-for="Password" id="password-login" placeholder="******">
 							<span asp-validation-for="Password" class="text-danger"></span>
 						</div><!-- /.form-box -->

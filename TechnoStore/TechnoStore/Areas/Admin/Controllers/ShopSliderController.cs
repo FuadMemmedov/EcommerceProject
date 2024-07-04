@@ -5,11 +5,13 @@ using Business.Extensions;
 using Business.Service.Abstracts;
 using Business.Service.Concretes;
 using Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize(Roles = "SuperAdmin")]
 	public class ShopSliderController : Controller
 	{
 		private readonly IShopSliderService _shopSliderService;
@@ -139,7 +141,9 @@ namespace TechnoStore.Areas.Admin.Controllers
 
 		public IActionResult SoftDelete(int id)
 		{
-			try
+            var shopSlider = _shopSliderService.GetShopSlider(x => x.Id == id);
+            if (shopSlider == null) return NotFound();
+            try
 			{
 				_shopSliderService.SoftDelete(id);
 			}
@@ -152,6 +156,8 @@ namespace TechnoStore.Areas.Admin.Controllers
 		}
         public IActionResult Return(int id)
         {
+            var shopSlider = _shopSliderService.GetShopSlider(x => x.Id == id);
+            if (shopSlider == null) return NotFound();
             try
             {
                 _shopSliderService.ReturnShopSlider(id);

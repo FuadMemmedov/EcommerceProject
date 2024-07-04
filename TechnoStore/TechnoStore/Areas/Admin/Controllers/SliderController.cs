@@ -6,11 +6,13 @@ using Business.Service.Abstracts;
 using Business.Service.Concretes;
 using Core.Models;
 using Data.DAL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize(Roles = "SuperAdmin")]
 	public class SliderController : Controller
 	{
 
@@ -82,7 +84,7 @@ namespace TechnoStore.Areas.Admin.Controllers
                 Id = existSlider.Id,
                 Title = existSlider.Title,
                 Price = existSlider.Price,
-                DiscountPrice = existSlider.DiscountPrice,
+                DiscountPercent = existSlider.DiscountPercent,
                 RedirectUrl = existSlider.RedirectUrl
             };
 
@@ -145,7 +147,10 @@ namespace TechnoStore.Areas.Admin.Controllers
 
 		public IActionResult SoftDelete(int id)
 		{
-			try
+
+            var Slider = _sliderService.GetSlider(x => x.Id == id);
+            if (Slider == null) return NotFound();
+            try
 			{
 				_sliderService.SoftDelete(id);
 			}
@@ -158,6 +163,8 @@ namespace TechnoStore.Areas.Admin.Controllers
 		}
         public IActionResult Return(int id)
         {
+            var Slider = _sliderService.GetSlider(x => x.Id == id);
+            if (Slider == null) return NotFound();
             try
             {
                 _sliderService.ReturnSlider(id);

@@ -1,227 +1,209 @@
-﻿@using TechnoStore.ViewModels
+﻿@using Core.Models
+@using Microsoft.Extensions.Options
+@using TechnoStore.ViewModels
  @model OrderVm
+ @inject IOptions<StripeSettings> Stripe
 @{
-	decimal totalAmount = 0;
-	decimal itemAmount = 0;
-	List<CheckOutVm> checkout = ViewBag.CheckOutViewModel;
+    decimal totalAmount = 0;
+    decimal itemAmount = 0;
+    List<CheckOutVm> checkout = ViewBag.CheckOutViewModel;
 }
-         <section class="flat-checkout">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-7">
-						<div class="box-checkout">
-							<h3 class="title">Checkout</h3>
-							<div class="checkout-login">
-								Returning customer? <a href="#" title="">Click here to login</a>
-							</div>
-					            <form asp-action="CheckOut" method="post" id="orderForm" accept-charset="utf-8">
-								<div class="billing-fields">
-									<div class="fields-title">
-										<h3>Billing details</h3>
-										<span></span>
-										<div class="clearfix"></div>
-									</div><!-- /.fields-title -->
-									<div class="fields-content">
-										<div class="field-row">
-											<p class="field-one-half">
-												<label for="first-name">First Name </label>
-										        <input asp-for="@Model.Name" id="first-name" placeholder="Ali">
-												<span asp-validation-for="@Model.Name" class="text-danger"></span>
-											</p>
-											<p class="field-one-half">
-												<label for="last-name">Last Name </label>
-												<input asp-for="@Model.Surname"  id="last-name"  placeholder="Tufan">
-										        <span asp-validation-for="@Model.Surname" class="text-danger"></span>
-											</p>
-											<div class="clearfix"></div>
-										</div>
-										<div class="field-row">
-											<p class="field-one-half">
-												<label for="email-address">Email Address</label>
-												<input asp-for="@Model.Email" id="email-address" >
-										        <span asp-validation-for="@Model.Email" class="text-danger"></span>
-											</p>
-											<p class="field-one-half">
-												<label for="phone">Phone</label>
-												<input asp-for="@Model.Phone" id="phone">
-										        <span asp-validation-for="@Model.Phone" class="text-danger"></span>
-											</p>
-											<div class="clearfix"></div>
-										</div>
-										<div class="field-row">
-											<label>Country</label>
-											<input asp-for="@Model.Country" />
-									        <span asp-validation-for="@Model.Country" class="text-danger"></span>
-										</div>
-										<div class="field-row">
-											<label for="address">Address</label>
-											<input asp-for="@Model.Address" id="address"  placeholder="Street address">
-									        <span asp-validation-for="@Model.Address" class="text-danger"></span>
-										</div>
-										<div class="field-row">
-											<p class="field-one-half">
-												<label for="post-code">Postcode / ZIP </label>
-												<input asp-for="@Model.ZipCode" id="post-code" n>
-										        <span asp-validation-for="@Model.ZipCode" class="text-danger"></span>
-											</p>
-											<div class="clearfix"></div>
-										</div>
-								      <div class="field-row">
-									      <label for="notes">Order Notes</label>
-									      <textarea asp-for="@Model.Note" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-								       </div>
-									</div><!-- /.fields-content -->
-								</div><!-- /.billing-fields -->
-							</form><!-- /.checkout -->
-						</div><!-- /.box-checkout -->
-					</div><!-- /.col-md-7 -->
-					<div class="col-md-5">
-						<div class="cart-totals style2">
-							<h3>Your Order</h3>
-								<table class="product">
-									<thead>
-										<tr>
-											<th>Product</th>
-											<th>Total</th>
-										</tr>
-									</thead>
-									<tbody>
-										@foreach(var item in checkout)
-									{
-									  <tr>
-										<td>@item.Product.Name x @item.Count</td>
-										@if(item.Product.DiscountPercent != null)
-										{
-											<td>$@(itemAmount =((item.Product.Price - item.Product.Price * item.Product.DiscountPercent / 100) * @item.Count))</td>
-											<input hidden @(totalAmount += itemAmount) />
-										}
-										else
-										{
-											<td>$@(itemAmount =(item.Product.Price * @item.Count))</td>
-											<input hidden @(totalAmount += itemAmount) />
-										}
+<section class="flat-checkout">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="box-checkout">
+                    <h3 class="title">Checkout</h3>
+                    <div class="checkout-login">
+                        Returning customer? <a asp-action="login" asp-controller="account" title="">Click here to login</a>
+                    </div>
+                    <form asp-action="CheckOut" method="post" class="checkoutForm" id="orderForm" accept-charset="utf-8">
+                        <div class="billing-fields">
+                            <div class="fields-title">
+                                <h3>Billing details</h3>
+                                <span></span>
+                                <div class="clearfix"></div>
+                            </div><!-- /.fields-title -->
+                            <div class="fields-content">
+                                <div class="field-row">
+                                    <p class="field-one-half">
+                                        <label for="first-name">First Name </label>
+                                        <input asp-for="@Model.Name" id="first-name" placeholder="Ali">
+                                        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                                    </p>
+                                    <p class="field-one-half">
+                                        <label for="last-name">Last Name </label>
+                                        <input asp-for="@Model.Surname" id="last-name" placeholder="Tufan">
+                                        <span asp-validation-for="@Model.Surname" class="text-danger"></span>
+                                    </p>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="field-row">
+                                    <p class="field-one-half">
+                                        <label for="email-address">Email Address</label>
+                                        <input asp-for="@Model.Email" id="email-address">
+                                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                                    </p>
+                                    <p class="field-one-half">
+                                        <label for="phone">Phone</label>
+                                        <input asp-for="@Model.Phone" id="phone">
+                                        <span asp-validation-for="@Model.Phone" class="text-danger"></span>
+                                    </p>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="field-row">
+                                    <label>Country</label>
+                                    <input asp-for="@Model.Country" />
+                                    <span asp-validation-for="@Model.Country" class="text-danger"></span>
+                                </div>
+                                <div class="field-row">
+                                    <label for="address">Address</label>
+                                    <input asp-for="@Model.Address" id="address" placeholder="Street address">
+                                    <span asp-validation-for="@Model.Address" class="text-danger"></span>
+                                </div>
+                                <div class="field-row">
+                                    <p class="field-one-half">
+                                        <label for="post-code">Postcode / ZIP </label>
+                                        <input asp-for="@Model.ZipCode" id="post-code" n>
+                                        <span asp-validation-for="@Model.ZipCode" class="text-danger"></span>
+                                    </p>
+                                    <div class="clearfix"></div>
+                                  
+                                </div>
+                                <div class="field-row">
+                                    <label for="notes">Order Notes</label>
+                                    <textarea asp-for="@Model.Note" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                </div>
+                            </div><!-- /.fields-content -->
+                        </div><!-- /.billing-fields -->
+                        <script src="//checkout.stripe.com/v2/checkout.js"
+                                class="stripe-button"
+                                data-key="@Stripe.Value.Publishablekey"
+                                data-amount="@ViewBag.Total"
+                                data-name="[Deveducate]"
+                                data-locale="en"
+                                data-discription="Sample charge"
+                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                data-zip-code="true">
+                        </script>
+                    </form><!-- /.checkout -->
+                </div><!-- /.box-checkout -->
+            </div><!-- /.col-md-7 -->
+            <div class="col-md-5">
+                <div class="cart-totals style2">
+                    <h3>Your Order</h3>
+                    <table class="product">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in checkout)
+                            {
+                                <tr>
+                                    <td>@item.Product.Name x @item.Count</td>
+                                    @if (item.Product.DiscountPercent != null)
+                                    {
+                                        <td>$@(itemAmount = ((item.Product.Price - item.Product.Price * item.Product.DiscountPercent / 100) * @item.Count))</td>
+                                        <input hidden @(totalAmount += itemAmount) />
+                                    }
+                                    else
+                                    {
+                                        <td>$@(itemAmount = (item.Product.Price * @item.Count))</td>
+                                        <input hidden @(totalAmount += itemAmount) />
+                                    }
 
-									  </tr>
-									}
-										
-									</tbody>
-								</table><!-- /.product -->
-								<table>
-									<tbody>
-										<tr>
-											<td>Total</td>
-									<td class="subtotal">$@totalAmount</td>
-										</tr>
-										<tr>
-											<td>Shipping</td>
-											<td class="btn-radio">
-												<div class="radio-info">
-													<input type="radio" checked id="flat-rate" name="radio-flat-rate">
-													<label for="flat-rate">Flat Rate: <span>$3.00</span></label>
-												</div>
-												<div class="radio-info">
-													<input type="radio" id="free-shipping" name="radio-flat-rate">
-													<label for="free-shipping">Free Shipping</label>
-												</div>
-												<div class="btn-shipping">
-													<a href="#" title="">Calculate Shipping</a>
-												</div>
-											</td><!-- /.btn-radio -->
-										</tr>
-										<tr>
-											<td>Total</td>
-									<td class="price-total">$@totalAmount</td>
-										</tr>
-									</tbody>
-								</table>
-								<div class="btn-radio style2">
-									<div class="radio-info">
-										<input type="radio" id="flat-payment" checked name="radio-cash-2">
-										<label for="flat-payment">Check Payments</label>
-										<p>Please send a check to Store Name, Store Street, Store <br />Town, Store State / County, Store Postcode.</p>
-									</div>
-									<div class="radio-info">
-										<input type="radio" id="bank-transfer" name="radio-cash-2">
-										<label for="bank-transfer">Direct Bank Transfer</label>
-									</div>
-									<div class="radio-info">
-										<input type="radio" id="cash-delivery" name="radio-cash-2">
-										<label for="cash-delivery">Cash on Delivery</label>
-									</div>
-									<div class="radio-info">
-										<input type="radio" id="paypal" name="radio-cash-2">
-										<label for="paypal">Paypal</label>
-									</div>
-								</div><!-- /.btn-radio style2 -->
-								<div class="checkbox">
-									<input type="checkbox" id="checked-order" name="checked-order" checked>
-									<label for="checked-order">I’ve read and accept the terms & conditions *</label>
-								</div><!-- /.checkbox -->
-								<div class="btn-order">
-							     <button form="orderForm" type="submit" class="btn btn-danger" >Place Order</button>
-								</div><!-- /.btn-order -->
-						</div><!-- /.cart-totals style2 -->
-					</div><!-- /.col-md-5 -->
-				</div><!-- /.row -->
-			</div><!-- /.container -->
-		</section><!-- /.flat-checkout -->
+                                </tr>
+                            }
 
-		<section class="flat-row flat-iconbox style5">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 col-md-6">
-						<div class="iconbox style1">
-							<div class="box-header">
-								<div class="image">
-									<img src="~/images/icons/car.png" alt="">
-								</div>
-								<div class="box-title">
-									<h3>Worldwide Shipping</h3>
-								</div>
-								<div class="clearfix"></div>
-							</div><!-- /.box-header -->
-						</div><!-- /.iconbox -->
-					</div><!-- /.col-lg-3 col-md-6 -->
-					<div class="col-lg-3 col-md-6">
-						<div class="iconbox style1">
-							<div class="box-header">
-								<div class="image">
-									<img src="~/images/icons/order.png" alt="">
-								</div>
-								<div class="box-title">
-									<h3>Order Online Service</h3>
-								</div>
-								<div class="clearfix"></div>
-							</div><!-- /.box-header -->
-						</div><!-- /.iconbox -->
-					</div><!-- /.col-lg-3 col-md-6 -->
-					<div class="col-lg-3 col-md-6">
-						<div class="iconbox style1">
-							<div class="box-header">
-								<div class="image">
-									<img src="~/images/icons/payment.png" alt="">
-								</div>
-								<div class="box-title">
-									<h3>Payment</h3>
-								</div>
-								<div class="clearfix"></div>
-							</div><!-- /.box-header -->
-						</div><!-- /.iconbox -->
-					</div><!-- /.col-lg-3 col-md-6 -->
-					<div class="col-lg-3 col-md-6">
-						<div class="iconbox style1">
-							<div class="box-header">
-                                <div class="image"> 
-									<img src="~/images/icons/return.png" alt="">
-								</div>
-								<div class="box-title">
-									<h3>Return 30 Days</h3>
-								</div>
-								<div class="clearfix"></div>
-							</div><!-- /.box-header -->
-						</div><!-- /.iconbox -->
-					</div><!-- /.col-lg-3 col-md-6 -->
-				</div><!-- /.row -->
-			</div><!-- /.container -->
-		</section><!-- /.flat-iconbox -->
+                        </tbody>
+                    </table><!-- /.product -->
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Total</td>
+                                <td class="subtotal">$@totalAmount</td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td class="price-total">$@totalAmount</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    <div class="btn-order">
+
+                     
+                        @*  <button form="orderForm" type="submit" class="btn btn-danger" >Place Order</button> *@
+                    </div><!-- /.btn-order -->
+                </div><!-- /.cart-totals style2 -->
+            </div><!-- /.col-md-5 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section><!-- /.flat-checkout -->
+
+<section class="flat-row flat-iconbox style5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="iconbox style1">
+                    <div class="box-header">
+                        <div class="image">
+                            <img src="~/images/icons/car.png" alt="">
+                        </div>
+                        <div class="box-title">
+                            <h3>Worldwide Shipping</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><!-- /.box-header -->
+                </div><!-- /.iconbox -->
+            </div><!-- /.col-lg-3 col-md-6 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="iconbox style1">
+                    <div class="box-header">
+                        <div class="image">
+                            <img src="~/images/icons/order.png" alt="">
+                        </div>
+                        <div class="box-title">
+                            <h3>Order Online Service</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><!-- /.box-header -->
+                </div><!-- /.iconbox -->
+            </div><!-- /.col-lg-3 col-md-6 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="iconbox style1">
+                    <div class="box-header">
+                        <div class="image">
+                            <img src="~/images/icons/payment.png" alt="">
+                        </div>
+                        <div class="box-title">
+                            <h3>Payment</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><!-- /.box-header -->
+                </div><!-- /.iconbox -->
+            </div><!-- /.col-lg-3 col-md-6 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="iconbox style1">
+                    <div class="box-header">
+                        <div class="image">
+                            <img src="~/images/icons/return.png" alt="">
+                        </div>
+                        <div class="box-title">
+                            <h3>Return 30 Days</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><!-- /.box-header -->
+                </div><!-- /.iconbox -->
+            </div><!-- /.col-lg-3 col-md-6 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section><!-- /.flat-iconbox -->
+
+
+
 

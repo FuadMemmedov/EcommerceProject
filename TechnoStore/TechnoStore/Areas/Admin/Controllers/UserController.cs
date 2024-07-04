@@ -1,10 +1,12 @@
 ﻿using Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize(Roles = "SuperAdmin")]
 	public class UserController : Controller
 	{
 		private readonly UserManager<AppUser> _userManager;
@@ -32,6 +34,7 @@ namespace TechnoStore.Areas.Admin.Controllers
 			return NotFound();
 
 			await _userManager.DeleteAsync(user);
+			
 
 			return Ok();
 

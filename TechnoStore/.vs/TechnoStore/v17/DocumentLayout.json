@@ -3,36 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\technostore\\controllers\\shopcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|solutionrelative:technostore\\controllers\\shopcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\technostore\\viewservice\\layoutservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|solutionrelative:technostore\\viewservice\\layoutservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\technostore\\views\\shop\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|c:\\users\\memme\\desktop\\ecommerceproject\\technostore\\technostore\\views\\shop\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|solutionrelative:technostore\\views\\shop\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\technostore\\viewmodels\\basketitemvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|solutionrelative:technostore\\viewmodels\\basketitemvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|c:\\users\\memme\\desktop\\ecommerceproject\\technostore\\technostore\\areas\\admin\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|solutionrelative:technostore\\areas\\admin\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\technostore\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|solutionrelative:technostore\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\technostore\\wwwroot\\javascript\\sorting.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|solutionrelative:technostore\\wwwroot\\javascript\\sorting.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\technostore\\wwwroot\\javascript\\basket.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|solutionrelative:technostore\\wwwroot\\javascript\\basket.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\technostore\\controllers\\blogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|solutionrelative:technostore\\controllers\\blogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|c:\\users\\memme\\desktop\\ecommerceproject\\technostore\\technostore\\controllers\\shopcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11EAAA70-C0BB-4F8D-A64D-60609A05131C}|TechnoStore\\TechnoStore.csproj|solutionrelative:technostore\\controllers\\shopcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,108 +22,46 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "LayoutService.cs",
-              "DocumentMoniker": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\ViewService\\LayoutService.cs",
-              "RelativeDocumentMoniker": "TechnoStore\\ViewService\\LayoutService.cs",
-              "ToolTip": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\ViewService\\LayoutService.cs",
-              "RelativeToolTip": "TechnoStore\\ViewService\\LayoutService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:33:52.326Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "BasketItemVm.cs",
-              "DocumentMoniker": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\ViewModels\\BasketItemVm.cs",
-              "RelativeDocumentMoniker": "TechnoStore\\ViewModels\\BasketItemVm.cs",
-              "ToolTip": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\ViewModels\\BasketItemVm.cs",
-              "RelativeToolTip": "TechnoStore\\ViewModels\\BasketItemVm.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAKAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:21:40.867Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "basket.js",
-              "DocumentMoniker": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\basket.js",
-              "RelativeDocumentMoniker": "TechnoStore\\wwwroot\\javascript\\basket.js",
-              "ToolTip": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\basket.js",
-              "RelativeToolTip": "TechnoStore\\wwwroot\\javascript\\basket.js",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-07-01T03:20:38.244Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "TechnoStore\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "TechnoStore\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AQIAAKUAAAAAAAAAAAAAALUAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-30T03:33:00.475Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "sorting.js",
-              "DocumentMoniker": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\sorting.js",
-              "RelativeDocumentMoniker": "TechnoStore\\wwwroot\\javascript\\sorting.js",
-              "ToolTip": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\wwwroot\\javascript\\sorting.js",
-              "RelativeToolTip": "TechnoStore\\wwwroot\\javascript\\sorting.js",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-06-30T03:32:20.227Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Views\\Shop\\Index.cshtml",
               "RelativeDocumentMoniker": "TechnoStore\\Views\\Shop\\Index.cshtml",
               "ToolTip": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Views\\Shop\\Index.cshtml",
               "RelativeToolTip": "TechnoStore\\Views\\Shop\\Index.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAGsBAAAAAAAA",
+              "ViewState": "AQIAAGgAAAAAAAAAAAAAAIUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-30T02:28:43.777Z",
+              "WhenOpened": "2024-07-04T06:49:31.043Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Areas\\Admin\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "TechnoStore\\Areas\\Admin\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Areas\\Admin\\Controllers\\UserController.cs",
+              "RelativeToolTip": "TechnoStore\\Areas\\Admin\\Controllers\\UserController.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAACQAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-04T06:23:55.118Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "ShopController.cs",
               "DocumentMoniker": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Controllers\\ShopController.cs",
               "RelativeDocumentMoniker": "TechnoStore\\Controllers\\ShopController.cs",
               "ToolTip": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Controllers\\ShopController.cs",
               "RelativeToolTip": "TechnoStore\\Controllers\\ShopController.cs",
-              "ViewState": "AQIAAB0AAAAAAAAAAAAAAJMAAAABAAAA",
+              "ViewState": "AQIAACkAAAAAAAAAAADwv0MAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-30T02:26:19.083Z",
+              "WhenOpened": "2024-07-04T05:40:42.088Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "BlogController.cs",
-              "DocumentMoniker": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Controllers\\BlogController.cs",
-              "RelativeDocumentMoniker": "TechnoStore\\Controllers\\BlogController.cs",
-              "ToolTip": "C:\\Users\\memme\\Desktop\\EcommerceProject\\TechnoStore\\TechnoStore\\Controllers\\BlogController.cs",
-              "RelativeToolTip": "TechnoStore\\Controllers\\BlogController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-30T01:11:22.145Z"
             }
           ]
         }

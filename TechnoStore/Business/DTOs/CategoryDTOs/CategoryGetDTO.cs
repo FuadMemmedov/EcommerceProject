@@ -11,10 +11,10 @@ public class CategoryGetDTO
 {
 	public int Id { get; set; }
 	public string Name { get; set; }
-
 	public Category? ParentCategory { get; set; }
-
-	public ICollection<Category>? SubCategories { get; set; }
+	public ICollection<CategoryGetDTO>? SubCategories { get; set; }
+    public string? IconUrl { get; set; }
+    public List<Product> Products { get; set; }
 
 
 }

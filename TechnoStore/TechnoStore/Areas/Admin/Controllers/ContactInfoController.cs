@@ -5,10 +5,12 @@ using System.Net.Mail;
 using System.Net;
 using Business.DTOs.SliderDTOs;
 using Business.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TechnoStore.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize(Roles = "SuperAdmin")]
 	public class ContactInfoController : Controller
 	{
 		private readonly IContactPostService _contactPost;

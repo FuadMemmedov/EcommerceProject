@@ -13,7 +13,7 @@ public class SliderUpdateDTO
 	public int Id { get; set; }
 	public string Title { get; set; }
 	public decimal Price { get; set; }
-	public decimal DiscountPrice { get; set; }
+	public int? DiscountPercent { get; set; }
 	public string RedirectUrl { get; set; }
 	public IFormFile? ImageFile { get; set; }
 }
@@ -29,10 +29,6 @@ public class SliderUpdateDTOValidator : AbstractValidator<SliderUpdateDTO>
 		RuleFor(x => x.Price)
 			.NotEmpty().WithMessage("Price is required")
 			.NotNull().WithMessage("Price is required");
-
-		RuleFor(x => x.DiscountPrice)
-			.NotEmpty().WithMessage("Discount is required")
-			.NotNull().WithMessage("Discount is required");
 
 
 

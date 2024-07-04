@@ -7,13 +7,15 @@ using Business.Service.Abstracts;
 using Business.Service.Concretes;
 using Core.Models;
 using Data.DAL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ProductController : Controller
+	[Authorize(Roles = "SuperAdmin")]
+	public class ProductController : Controller
     {
 
         private readonly IProductService _productService;
@@ -81,6 +83,10 @@ namespace TechnoStore.Areas.Admin.Controllers
                 return View();
 
             }
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
             return RedirectToAction("Index");
         }
 		public IActionResult Update(int id)
@@ -104,11 +110,13 @@ namespace TechnoStore.Areas.Admin.Controllers
 				ProductColorId = existProduct.ProductColor.Id,
 				BrandId = existProduct.Brand.Id,
 				ProductImages = existProduct.ProductImages,
-				TechnicalSpecs = existProduct.TechnicalSpecs,
 				IsTopSelling = existProduct.IsTopSelling,
 				IsNewArrivals = existProduct.IsNewArrivals,
 				IsFeatured = existProduct.IsFeatured,
-				IsAvaibily = existProduct.IsAvaibily
+				IsAvaibily = existProduct.IsAvaibily,
+				IsHotSale = existProduct.IsHotSale,
+				IsBestSellers = existProduct.IsBestSellers
+				
 				
 
 			};
@@ -179,7 +187,9 @@ namespace TechnoStore.Areas.Admin.Controllers
 
 		public IActionResult SoftDelete(int id)
 		{
-			try
+            var product = _productService.GetProduct(x => x.Id == id);
+            if (product == null) return NotFound();
+            try
 			{
 				_productService.SoftDelete(id);
 			}
@@ -192,6 +202,8 @@ namespace TechnoStore.Areas.Admin.Controllers
 		}
         public IActionResult Return(int id)
         {
+            var product = _productService.GetProduct(x => x.Id == id);
+            if (product == null) return NotFound();
             try
             {
                 _productService.ReturnProduct(id);

@@ -15,7 +15,7 @@ public class ShopVm
 	public List<ProductGetDTO> Products = new List<ProductGetDTO>();
 	public List<BrandGetDTO> Brands = new List<BrandGetDTO>();
 	public List<ShopSliderGetDTO> ShopSliders = new List<ShopSliderGetDTO>();
-	public List<CategoryGetDTO> Categories = new List<CategoryGetDTO>();
+	public List<Category> Categories = new List<Category>();
 	public PaginatedList<Product> PaginatedProducts = new PaginatedList<Product>();
 	public List<Comment> Comments = new List<Comment>();
 

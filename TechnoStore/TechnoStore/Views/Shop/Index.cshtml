@@ -13,45 +13,8 @@
 								<div class="widget-title">
 									<h3>Categories<span></span></h3>
 								</div>
-								<ul class="cat-list style1 widget-content">
-							<ul class="category-list">
-								@* @foreach (var category in Model.Categories)
-								{
-									<li>
-										<span>@category.Name</span>
-										@if (category.ParentCategory != null)
-										{
-											<ul class="cat-parent">
-												<li>
-													<a href="#" title="">@category.ParentCategory.Name</a>
-												</li>
-											</ul>
-										}
-										@if (category.SubCategories != null)
-										{
-											@foreach (var subCategory in category.SubCategories)
-											{
-											    <ul class="cat-child">
-													<li>
-
-														@if (subCategory.ParentCategory != null)
-														{
-															<ul class="cat-parent">
-																<li>
-																	<a href="#" title="">@subCategory.ParentCategory.Name</a>
-																</li>
-															</ul>
-														}
-														<!-- Add further nesting or actions as needed -->
-													</li>
-											   </ul>
-											}
-										}
-									</li>
-								} *@
-							</ul>
-
-								</ul><!-- /.cat-list -->
+								@Html.Raw(Model.Categories.GetCategoriesRaw())
+						
 							</div><!-- /.widget-categories -->
 					<form asp-action="index" asp-controller="Shop" method="get">
 						<div class="widget widget-price">
@@ -80,7 +43,7 @@
 									{
 										<li class="check-box">
 											<input type="checkbox" id="brand_@item.Id" name="selectedBrands" value="@item.Id">
-											<label for="brand_@item.Id">@item.Name</label><span></span>
+											<label for="brand_@item.Id">@item.Name <span>(@Model.Products.Where(x => x.Brand.Id == item.Id).ToList().Count)</span></label>
 										</li>
 									}
 								</ul>
@@ -99,7 +62,7 @@
 									{
 										<li class="check-box">
 											<input type="checkbox" id="color_@item.Id" name="selectedColors" value="@item.Id">
-											<label for="color_@item.Id">@item.Name</label>
+											<label for="color_@item.Id">@item.Name <span>(@Model.Products.Where(x => x.ProductColor.Id == item.Id).ToList().Count)</span></label>
 										</li>
 									}
 								</ul>
@@ -152,17 +115,15 @@
 									</ul>
 							<div class="sort">
 								<div class="popularity">
-									<select name="order" id="order">
-										<option value="4">Sort by popularity</option>
-										<option value="3">Sort by price descending</option>
-										<option value="2">Sort by name ascending</option>
-										<option value="1">Sort by price ascending</option>
+									<select name="order" id="order" onchange="location = this.value;">
+										<option value="@Url.Action("index", "shop", new { order = 4 })">Sort by name descending</option>
+										<option value="@Url.Action("index", "shop", new { order = 3 })">Sort by price descending</option>
+										<option value="@Url.Action("index", "shop", new { order = 2 })">Sort by name ascending</option>
+										<option value="@Url.Action("index", "shop", new { order = 1 })">Sort by price ascending</option>
 									</select>
 								</div>
 							</div>
-							<div id="products-container">
-								<!-- This div will be updated with the sorted products -->
-							</div>
+
 
 									<div class="clearfix"></div>
 								</div>
@@ -170,18 +131,27 @@
 									<div class="row sort-box">
 								@foreach(var item in Model.PaginatedProducts)
 								{
+
 									<div class="col-lg-4 col-sm-6">
 										<div class="product-box">
 											<div class="imagebox">
+												@if (item.CreatedDate > DateTime.Now.AddDays(-6) && item.DiscountPercent == 0)
+												{
+													<span class="item-new">NEW</span>
+												}
+												else
+												{
+													<span class="item-sale">SALE</span>
+												}
 												<div class="box-image owl-carousel-1">
 													<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
-														<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+														<img src="@Url.Content("~/uploads/products/"+item.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl)" alt="">
 													</a>
 													<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
-														<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+														<img src="@Url.Content("~/uploads/products/"+item.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl)" alt="">
 													</a>
 													<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
-														<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+														<img src="@Url.Content("~/uploads/products/"+item.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl)" alt="">
 													</a>
 												</div><!-- /.box-image -->
 												<div class="box-content">
@@ -208,7 +178,7 @@
 												<div class="box-bottom">
 													<div class="btn-add-cart">
 														<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" class="add-to-basket" title="">
-															<img src="~/images//icons/add-cart.png" alt="">
+															<img src="~/images/icons/add-cart.png" alt="">Add to Cart
 														</a>
 													</div>
 												</div><!-- /.box-bottom -->
@@ -227,7 +197,7 @@
 										<div class="imagebox style1 v3">
 											<div class="box-image">
 												<a href="#" title="">
-													<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+													<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl)" alt="">
 												</a>
 											</div><!-- /.box-image -->
 											<div class="box-content">
@@ -262,7 +232,7 @@
 												}
 												<div class="btn-add-cart">
 													<a asp-action="addtobasket" asp-controller="shop" asp-route-productId="@item.Id" class="add-to-basket" title="">
-														<img src="~/images//icons/add-cart.png" alt="">
+														<img src="~/images/icons/add-cart.png" alt="">Add to Cart
 													</a>
 												</div>
 											</div><!-- /.box-price -->
@@ -277,9 +247,6 @@
 								</div>
 							</div><!-- /.wrap-imagebox -->
 							<div class="blog-pagination">
-								<span>
-									Showing 1–15 of 20 results
-								</span>
 						<nav aria-label="...">
 						<ul class="flat-pagination style1">
 						<li class="prev">
@@ -326,7 +293,7 @@
 						<div class="imagebox style4">
 							<div class="box-image">
 								<a asp-action="detail" asp-route-id="@item.Id" asp-controller="shop" title="">
-									<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.Where(x => x.IsPoster = true).FirstOrDefault()?.ImageUrl)" alt="">
+									<img src="@Url.Content("~/uploads/products/"+@item.ProductImages?.FirstOrDefault(x => x.IsPoster)?.ImageUrl)" alt="">
 								</a>
 							</div><!-- /.box-image -->
 							<div class="box-content">

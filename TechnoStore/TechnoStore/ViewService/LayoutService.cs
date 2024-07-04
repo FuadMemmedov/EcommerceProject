@@ -1,8 +1,11 @@
-﻿using Business.Service.Abstracts;
+﻿using AutoMapper;
+using Business.Service.Abstracts;
+using Business.Service.Concretes;
 using Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,13 +22,45 @@ public class LayoutService
     private readonly IProductService _productService;
     private readonly IHttpContextAccessor _contextAccessor;
     private readonly UserManager<AppUser> _userManager;
+    private readonly ICategoryService _categoryService;
+    private readonly IMapper _mapper;
+    private readonly SettingService _settingService;
 
-    public LayoutService(IBasketItemService basketItemService, IProductService productService, UserManager<AppUser> userManager, IHttpContextAccessor contextAccessor)
+	public LayoutService(IBasketItemService basketItemService, IProductService productService, UserManager<AppUser> userManager, IHttpContextAccessor contextAccessor, ICategoryService categoryService, IMapper mapper, SettingService settingService)
+	{
+		_basketItemService = basketItemService;
+		_productService = productService;
+		_userManager = userManager;
+		_contextAccessor = contextAccessor;
+		_categoryService = categoryService;
+		_mapper = mapper;
+		_settingService = settingService;
+	}
+
+	public async Task<List<Setting>> GetSetting()
+	{
+        var settings = _settingService.GetAllSettings();
+
+		List<Setting> settingGetDtos = _mapper.Map<List<Setting>>(settings);
+		
+		return settingGetDtos;
+	}
+
+	public async Task<AppUser> GetUserData()
+	{
+		if (_contextAccessor.HttpContext.User.Identity.IsAuthenticated)
+		{
+			return await _userManager.FindByNameAsync(_contextAccessor.HttpContext.User.Identity.Name);
+		}
+		return null;
+	}
+
+	public List<Category> GetAllCategories()
     {
-        _basketItemService = basketItemService;
-        _productService = productService;
-        _userManager = userManager;
-        _contextAccessor = contextAccessor;
+        var categories = _categoryService.GetAllCategories(x => x.IsDeleted == false && x.ParentCategoryId == null);
+        List<Category> categoryGetDtos = _mapper.Map<List<Category>>(categories);
+
+        return categoryGetDtos;
     }
 
     public async Task<List<BasketItemVm>> Basket()

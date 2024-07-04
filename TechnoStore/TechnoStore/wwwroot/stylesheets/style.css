@@ -594,7 +594,8 @@ ul.flat-unstyled.style2 > li {
 
 /* Flat Infomation */
 ul.flat-infomation {
-	text-align:center;
+	text-align:left;
+	margin-left:-400px;
 }
 
 ul.flat-infomation li.phone {
@@ -867,8 +868,8 @@ ul.flat-unstyled li > ul > li > a {
 }
 
 .top-search form.form-search .box-search input {
-	padding-left:191px;
-	padding-top:11px;
+	padding-left:14px;
+	padding-top:13px;
 	height:49px;
 }
 

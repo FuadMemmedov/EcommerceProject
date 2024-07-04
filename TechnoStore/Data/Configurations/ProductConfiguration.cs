@@ -21,7 +21,6 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(x => x.Name).IsRequired();
         builder.Property(x => x.ProductColorId).IsRequired();
         builder.Property(x => x.CategoryId).IsRequired();
-        builder.Property(x => x.TechnicalSpecs).IsRequired();
         builder.Property(x => x.BrandId).IsRequired();
         builder.Property(x => x.CreatedDate).HasDefaultValue(DateTime.UtcNow.AddHours(4));
     }

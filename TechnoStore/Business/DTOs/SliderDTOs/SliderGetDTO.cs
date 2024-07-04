@@ -12,7 +12,7 @@ public class SliderGetDTO
 	public int Id { get; set; }
 	public string Title { get; set; }
 	public decimal Price { get; set; }
-	public decimal DiscountPrice { get; set; }
+	public int? DiscountPercent { get; set; }
 	public string RedirectUrl { get; set; }
 	public string ImageUrl { get; set; }
 }

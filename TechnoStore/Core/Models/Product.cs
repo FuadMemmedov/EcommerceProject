@@ -16,8 +16,9 @@ public class Product:BaseEntity
     public bool  IsFeatured { get; set; }
     public bool IsTopSelling { get; set; }
 	public bool IsAvaibily { get; set; }
-    public string TechnicalSpecs { get; set; }
-    public int? DiscountPercent { get; set; }
+	public bool IsBestSellers { get; set; }
+	public bool IsHotSale { get; set; }
+	public int? DiscountPercent { get; set; }
 	public decimal CostPrice { get; set; }
 	public int CategoryId { get; set; }
     public int BrandId { get; set; }

@@ -25,14 +25,22 @@ public class BlogCategoryService:IBlogCategoryService
 	}
 
 
-	public async Task AddBlogCategoryAsync(BlogCategoryCreateDTO BlogCategoryCreateDTO)
+	public async Task AddBlogCategoryAsync(BlogCategoryCreateDTO blogCategoryCreateDTO)
 	{
-		BlogCategory BlogCategory = _mapper.Map<BlogCategory>(BlogCategoryCreateDTO);
 
-		
+		BlogCategory blogCategory = _mapper.Map<BlogCategory>(blogCategoryCreateDTO);
+        if (!_blogCategory.GetAllEntities().Any(x => x.Name == blogCategory.Name))
+        {
+            await _blogCategory.AddEntityAsync(blogCategory);
+            await _blogCategory.CommitAsync();
+        }
+        else
+        {
+            throw new DuplicateCategoryException("Blog Category cannot be same name!");
+        }
 
-		await _blogCategory.AddEntityAsync(BlogCategory);
-		await _blogCategory.CommitAsync();
+
+       
 	}
 
 	public void DeleteBlogCategory(int id)
@@ -93,12 +101,19 @@ public class BlogCategoryService:IBlogCategoryService
 		var oldBlogCategory = _blogCategory.GetEntity(x => x.Id == updateDTO.Id);
 		if (oldBlogCategory == null) throw new EntityNotFoundException("BlogCategory not found");
 
+        if (!_blogCategory.GetAllEntities().Any(x => x.Name == updateDTO.Name && x.Id != updateDTO.Id))
+        {
+            oldBlogCategory.Name = updateDTO.Name;
+            oldBlogCategory.UpdatedDate = DateTime.UtcNow.AddHours(4);
+            _blogCategory.Commit();
+        }
+        else
+        {
+            throw new DuplicateCategoryException("Blog Category cannot be same name!");
+        }
+
 		
 
-		oldBlogCategory.Name = updateDTO.Name;
-		oldBlogCategory.UpdatedDate = DateTime.UtcNow.AddHours(4);
 
-
-		_blogCategory.Commit();
 	}
 }

@@ -34,15 +34,20 @@
                     <textarea asp-for="Description" class="form-control" id="Description"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
-                <div class="mb-3">
-                    <label for="TechnicalSpecs" class="form-label">Technical Specs</label>
-                    <textarea asp-for="TechnicalSpecs" class="form-control" id="TechnicalSpecs"></textarea>
-                    <span asp-validation-for="TechnicalSpecs" class="text-danger"></span>
-                </div>
                 <div class="form-check mb-3">
                     <input asp-for="IsFeatured"  class="form-check-input" id="IsFeatured">
                     <label class="form-check-label" for="IsFeatured">Is Featured</label>
                     <span asp-validation-for="IsFeatured" class="text-danger"></span>
+                </div>
+                 <div class="form-check mb-3">
+                    <input asp-for="IsBestSellers" class="form-check-input" id="IsBestSellers">
+                    <label class="form-check-label" for="IsBestSellers">Is Best Sellers</label>
+                    <span asp-validation-for="IsBestSellers" class="text-danger"></span>
+                </div>
+                <div class="form-check mb-3">
+                    <input asp-for="IsHotSale" class="form-check-input" id="IsHotSale">
+                    <label class="form-check-label" for="IsHotSale">Is Hot Sale</label>
+                    <span asp-validation-for="IsHotSale" class="text-danger"></span>
                 </div>
                 <div class="form-check mb-3">
                     <input asp-for="IsNewArrivals"  class="form-check-input" id="IsNewArrivals">
@@ -63,7 +68,7 @@
                     <label for="exampleInputEmail1" class="form-label">ProductPosterImageFile</label>
                     <input asp-for="ProductPosterImageFile" class="form-control" id="exampleInputEmail1">
                     <div style="width:150px;margin:0 20px">
-                        <img style="max-width:100%" src="~/uploads/products/@Model.ProductImages?.Where(x=> x.IsPoster == true).FirstOrDefault()?.ImageUrl" />
+                        <img style="max-width:100%" src="~/uploads/products/@Model.ProductImages?.FirstOrDefault(x=> x.IsPoster)?.ImageUrl" />
                             </div>
                     <span asp-validation-for="ProductPosterImageFile" class="text-danger"></span>
                 </div>
@@ -85,7 +90,7 @@
                     <span asp-validation-for="ImageFiles" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">ColorName</label>
+                    <label for="exampleInputEmail1" class="form-label">CategoryName</label>
                     <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.Categories,"Id","Name"))"></select>
                     <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>

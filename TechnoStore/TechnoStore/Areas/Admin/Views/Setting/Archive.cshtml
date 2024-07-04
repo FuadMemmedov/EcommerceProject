@@ -1,5 +1,5 @@
-﻿@using Business.DTOs.FaqDTOs
-@model List<FaqGetDTO>
+﻿@using Business.DTOs.SettingDTOs
+@model List<SettingGetDTO>
 @{
     int counter = 1;
 }
@@ -28,8 +28,8 @@
                         <tr>
                             <th scope="row">@(counter++)</th>
                             <td>@item.Id</td>
-                            <td>@item.Question</td>
-                            <td>@item.Answer</td>
+                            <td>@item.Key</td>
+                            <td>@item.Value</td>
                             <td>
                                 <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning">Update</a>
                                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger  item-delete">Delete</a>

@@ -10,6 +10,7 @@ using Business.DTOs.SliderDTOs;
 using Core.Models;
 using Microsoft.AspNetCore.Identity;
 using TechnoStore.ViewService;
+using Stripe;
 
 
 namespace TechnoStore
@@ -55,7 +56,11 @@ namespace TechnoStore
 
                 opt.User.RequireUniqueEmail = false;
 
-            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+				opt.Lockout.MaxFailedAccessAttempts = 5;
+				opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+				opt.Lockout.AllowedForNewUsers = true;
+
+			}).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 			builder.Services.AddScoped<ISliderService, SliderService>();
 			builder.Services.AddScoped<ISliderRepository, SliderRepository>();
 
@@ -66,7 +71,7 @@ namespace TechnoStore
             builder.Services.AddScoped<ICategoryService, CategoryService>();
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
-            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IProductService, Business.Service.Concretes.ProductService>();
 
             builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
 
@@ -106,7 +111,8 @@ namespace TechnoStore
 
 			builder.Services.AddScoped<LayoutService>();
 
-
+			builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+			StripeConfiguration.ApiKey = builder.Configuration["Stripe:Secretkey"];
 
 			var app = builder.Build();
 
@@ -126,7 +132,7 @@ namespace TechnoStore
             app.UseAuthorization();
 			app.MapControllerRoute(
 		   name: "areas",
-		   pattern: "{area:exists}/{controller=dashboard}/{action=Index}/{id?}"
+		   pattern: "{area:exists}/{controller=account}/{action=login}/{id?}"
 		  );
 
 			app.MapControllerRoute(

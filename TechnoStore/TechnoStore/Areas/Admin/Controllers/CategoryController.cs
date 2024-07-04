@@ -7,12 +7,14 @@ using Business.Service.Abstracts;
 using Business.Service.Concretes;
 using Core.Models;
 using Data.DAL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace TechnoStore.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize(Roles = "SuperAdmin")]
 	public class CategoryController : Controller
 	{
 		private readonly ICategoryService _categoryService;
@@ -29,7 +31,7 @@ namespace TechnoStore.Areas.Admin.Controllers
             var categories = _categoryService.GetAllCategories(x => x.IsDeleted == false);
             List<Category> categoryGetDTOs = _mapper.Map<List<Category>>(categories);
 
-            var paginatedDatas = PaginatedList<Category>.Create(categoryGetDTOs, 2, page);
+            var paginatedDatas = PaginatedList<Category>.Create(categoryGetDTOs, 5, page);
 
             return View(paginatedDatas);
         }
@@ -71,7 +73,7 @@ namespace TechnoStore.Areas.Admin.Controllers
             {
                 Id = existCategory.Id,
                 Name = existCategory.Name,
-                ParentCategoryId = existCategory.ParentCategory.Id
+                ParentCategoryId = existCategory.ParentCategory?.Id
             };
 
 
@@ -124,6 +126,8 @@ namespace TechnoStore.Areas.Admin.Controllers
         }
         public IActionResult SoftDelete(int id)
         {
+            var category = _categoryService.GetAllCategories(x => x.Id == id);
+            if (category == null) return NotFound();
             try
             {
                 _categoryService.SoftDelete(id);
@@ -137,6 +141,9 @@ namespace TechnoStore.Areas.Admin.Controllers
         }
         public IActionResult Return(int id)
         {
+
+            var category = _categoryService.GetCategory(x => x.Id == id);
+            if (category == null) return NotFound();
             try
             {
                 _categoryService.ReturnCategory(id);

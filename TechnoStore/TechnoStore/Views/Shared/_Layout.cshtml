@@ -1,10 +1,15 @@
-﻿@using TechnoStore.ViewModels
+﻿@using Core.Models
+@using TechnoStore.ViewModels
 @using TechnoStore.ViewService
 
 @inject  LayoutService service
 @{
 	List<BasketItemVm> basketItemVms = await service.Basket();
-	decimal subtotal = 0;
+	List<Category> categories = service.GetAllCategories();
+	List<Setting> settings = await service.GetSetting();
+	AppUser appUser = await service.GetUserData();
+	decimal? itemAmount =basketItemVms.Sum(item => item.Price - item.Price * item.DiscountPercent / 100);
+	decimal? totalAmount = basketItemVms.Sum(item => itemAmount * item.Count);
 }
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
@@ -47,94 +52,54 @@
 			</div>
 		</div><!-- /.preloader -->
 
-		<div class="popup-newsletter">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-2">
-					</div>
-					<div class="col-sm-8">
-						<div class="popup">
-							<span></span>
-							<div class="popup-text">
-								<h2>Join our newsletter and <br />get discount!</h2>
-								<p class="subscribe">Subscribe to the newsletter to receive updates about new products.</p>
-								<div class="form-popup">
-									<form action="#" class="subscribe-form" method="get" accept-charset="utf-8">
-										<div class="subscribe-content">
-											<input type="text" name="email" class="subscribe-email" placeholder="Your E-Mail">
-											<button type="submit"><img src="~/images/icons/right-2.png" alt=""></button>
-										</div>
-									</form><!-- /.subscribe-form -->
-									<div class="checkbox">
-										<input type="checkbox" id="popup-not-show" name="category">
-										<label for="popup-not-show">Don't show this popup again</label>
-									</div>
-								</div><!-- /.form-popup -->
-							</div><!-- /.popup-text -->
-							<div class="popup-image">
-								<img src="~/images/banner_boxes/popup.png" alt="">
-							</div><!-- /.popup-text -->
-						</div><!-- /.popup -->
-					</div><!-- /.col-sm-8 -->
-					<div class="col-sm-2">
-					</div>
-				</div><!-- /.row -->
-			</div><!-- /.container -->
-		</div><!-- /.popup-newsletter -->
+	
 
 		<section id="header" class="header">
 			<div class="header-top">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-4">
-							<ul class="flat-support">
-								<li>
-									<a href="faq.html" title="">Support</a>
-								</li>
-								<li>
-									<a href="store-location.html" title="">Store Locator</a>
-								</li>
-								<li>
-									<a href="order-tracking.html" title="">Track Your Order</a>
-								</li>
-							</ul><!-- /.flat-support -->
 						</div><!-- /.col-md-4 -->
 						<div class="col-md-4">
 							<ul class="flat-infomation">
 								<li class="phone">
-									Call Us: <a href="#" title=""></a>
+									Call Us:<a href="#" title=""> @settings.FirstOrDefault(x => x.Key == "Phone").Value</a>
 								</li>
 							</ul><!-- /.flat-infomation -->
 						</div><!-- /.col-md-4 -->
 						<div class="col-md-4">
 							<ul class="flat-unstyled">
 								<li class="account">
-									<a href="#" title="">My Account<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+									@if (!User.Identity.IsAuthenticated)
+									{
+									  <li>
+										<a asp-action="register" asp-controller="account" title="">Register</a>
+									</li>
+									<li>
+										<a asp-action="login" asp-controller="account" title="">Login</a>
+										</li>
+
+									}
+									else
+									{
+									<a asp-action="profile" asp-controller="account" title="">My Account<i class="fa fa-angle-down" aria-hidden="true"></i></a>
 									<ul class="unstyled">
-										@if (User.Identity.IsAuthenticated)
-										{
 											
-											<li>
-												<a asp-action="logout" asp-controller="account" title="">Signout</a>
-											</li>
-										}
-										else
-										{
-											<li>
-												<a asp-action="register" asp-controller="account" title="">Register</a>
-											</li>
-											<li>
-												<a asp-action="login" asp-controller="account" title="">Login</a>
-											</li>
+									    <li>
+											<a asp-action="logout" asp-controller="account" title="">Signout</a>
+									    </li>
 											
-										}
 										<li>
 											<a asp-action="showbasket" asp-controller="shop" title="">My Cart</a>
 										</li>
 										<li>
 											<a asp-action="checkout" asp-controller="shop" title="">Checkout</a>
 										</li>
-									</ul><!-- /.unstyled -->
+									</ul>
+
+										<!-- /.unstyled -->
+									}
+									
 								</li>
 							</ul><!-- /.flat-unstyled -->
 						</div><!-- /.col-md-4 -->
@@ -146,7 +111,7 @@
 					<div class="row">
 						<div class="col-md-3">
 							<div id="logo" class="logo">
-								<a href="index.html" title="">
+								<a asp-action="index" asp-controller="home" title="">
 									<img src="~/images/logos/logo.png" alt="">
 								</a>
 							</div><!-- /#logo -->
@@ -166,37 +131,53 @@
 						<div class="col-md-3">
 							<div class="box-cart">
 								<div class="inner-box">
-									<a href="#" title="">
+									<a asp-action="showbasket" asp-controller="shop" title="">
 										<div class="icon-cart">
 											<img src="~/images/icons/cart.png" alt="">
 											<span>@basketItemVms.Count</span>
 										</div>
 									</a>
 									<div class="dropdown-box">
+
 										<ul id="basket-items">
-											@foreach (var item in basketItemVms)
+											@if (basketItemVms.Count() == 0)
 											{
-												<li data-id="@item.ProductId">
-													<div class="img-product">
-														<img src="~/uploads/products/@item.ImageUrl" alt="">
-													</div>
-													<div class="info-product">
-														<div class="name">@item.Name</div>
-														<div class="price">
-															<span class="count">@item.Count x</span>
-															<span class="item-price">$@(item.Price - item.Price * item.DiscountPercent / 100)</span>
-															<input hidden class="item-subtotal" value="@(item.Price - item.Price * item.DiscountPercent / 100)" />
-														</div>
-													</div>
-													<div class="clearfix"></div>
-													<span class="remove-item-btn" onclick="removeFromBasket(@item.ProductId)">x</span>
-												</li>
+												<span>No items Foiund</span>
 											}
+											else
+											{
+												@foreach (var item in basketItemVms)
+												{
+													<li data-id="@item.ProductId">
+														<div class="img-product">
+															<img src="~/uploads/products/@item.ImageUrl" alt="">
+														</div>
+														<div class="info-product">
+															<div class="name">@item.Name</div>
+															<div class="price">
+																<span class="count">@item.Count x</span>
+																<span class="item-price">$@(item.Price - item.Price * item.DiscountPercent / 100)</span>
+															</div>
+														</div>
+														<div class="clearfix"></div>
+													</li>
+												}
+												<div class="total">
+													<span>Subtotal:</span>
+													<span class="price" id="basket-subtotal">$@totalAmount</span>
+												</div>
+												<div class="btn-cart">
+													<a asp-action="showbasket" asp-controller="shop" class="view-cart" title="">View Cart</a>
+													<a asp-action="checkout" asp-controller="shop" class="check-out" title="">Checkout</a>
+												</div>
+
+											}
+											
 										</ul>
-										<div class="total">
-											<span>Subtotal:</span>
-											<span class="price" id="basket-subtotal">$@subtotal</span>
-										</div>
+										
+										
+									
+										
 									</div>
 
 								</div><!-- /.inner-box -->
@@ -211,675 +192,7 @@
 						<div class="col-md-3 col-2">
 							<div id="mega-menu">
 								<div class="btn-mega"><span></span>ALL CATEGORIES</div>
-								<ul class="menu">
-									<li>
-										<a href="#" title="" class="dropdown">
-											<span class="menu-img">
-												<img src="~/images/icons/menu/01.png" alt="">
-											</span>
-											<span class="menu-title">
-												Laptops & Mac
-											</span>
-										</a>
-										<div class="drop-menu">
-											<div class="one-third">
-												<div class="cat-title">
-													Laptop And Mac
-												</div>
-												<ul>
-													<li>
-														<a href="#" title="">Networking & Internet Devices</a>
-													</li>
-													<li>
-														<a href="#" title="">Laptops, Desktops & Monitors</a>
-													</li>
-													<li>
-														<a href="#" title="">Hard Drives & Memory Cards</a>
-													</li>
-													<li>
-														<a href="#" title="">Computer Accessories</a>
-													</li>
-													<li>
-														<a href="#" title="">Software</a>
-													</li>
-												</ul>
-												<div class="show">
-													<a href="#" title="">Shop All</a>
-												</div>
-											</div>
-											<div class="one-third">
-												<div class="cat-title">
-													Audio & Video
-												</div>
-												<ul>
-													<li>
-														<a href="#" title="">Headphones & Speakers</a>
-													</li>
-													<li>
-														<a href="#" title="">Home Entertainment Systems</a>
-													</li>
-													<li>
-														<a href="#" title="">MP3 & Media Players</a>
-													</li>
-													<li>
-														<a href="#" title="">Software</a>
-													</li>
-												</ul>
-												<div class="show">
-													<a href="#" title="">Shop All</a>
-												</div>
-											</div>
-											<div class="one-third">
-												<ul class="banner">
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																Headphones
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-01.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																TV & Audio
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-02.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																Computers
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-03.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</li>
-									<li>
-										<a href="#" title="" class="dropdown">
-											<span class="menu-img">
-												<img src="~/images/icons/menu/02.png" alt="">
-											</span>
-											<span class="menu-title">
-												Mobile & Tablet
-											</span>
-										</a>
-										<div class="drop-menu">
-											<div class="one-third">
-												<div class="cat-title">
-													Laptop And Computer
-												</div>
-												<ul>
-													<li>
-														<a href="#" title="">Networking & Internet Devices</a>
-													</li>
-													<li>
-														<a href="#" title="">Laptops, Desktops & Monitors</a>
-													</li>
-													<li>
-														<a href="#" title="">Hard Drives & Memory Cards</a>
-													</li>
-													<li>
-														<a href="#" title="">Printers & Ink</a>
-													</li>
-													<li>
-														<a href="#" title="">Networking & Internet Devices</a>
-													</li>
-													<li>
-														<a href="#" title="">Computer Accessories</a>
-													</li>
-													<li>
-														<a href="#" title="">Software</a>
-													</li>
-												</ul>
-												<div class="show">
-													<a href="#" title="">Shop All</a>
-												</div>
-											</div>
-											<div class="one-third">
-												<div class="cat-title">
-													Audio & Video
-												</div>
-												<ul>
-													<li>
-														<a href="#" title="">Headphones & Speakers</a>
-													</li>
-													<li>
-														<a href="#" title="">Home Entertainment Systems</a>
-													</li>
-													<li>
-														<a href="#" title="">MP3 & Media Players</a>
-													</li>
-												</ul>
-												<div class="show">
-													<a href="#" title="">Shop All</a>
-												</div>
-											</div>
-											<div class="one-third">
-												<ul class="banner">
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																Headphones
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-01.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																TV & Audio
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-02.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																Computers
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-03.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</li>
-									<li>
-										<a href="#" title="" class="dropdown">
-											<span class="menu-img">
-												<img src="~/images/icons/menu/03.png" alt="">
-											</span>
-											<span class="menu-title">
-												Home Devices
-											</span>
-										</a>
-										<div class="drop-menu">
-											<div class="one-third">
-												<div class="cat-title">
-													Home Devices
-												</div>
-												<ul>
-													<li>
-														<a href="#" title="">Internet Devices</a>
-													</li>
-													<li>
-														<a href="#" title="">Desktops & Monitors</a>
-													</li>
-													<li>
-														<a href="#" title="">Hard Drives & Memory Cards</a>
-													</li>
-													<li>
-														<a href="#" title="">Networking</a>
-													</li>
-													<li>
-														<a href="#" title="">Software</a>
-													</li>
-												</ul>
-												<div class="show">
-													<a href="#" title="">Shop All</a>
-												</div>
-											</div>
-											<div class="one-third">
-												<div class="cat-title">
-													Audio
-												</div>
-												<ul>
-													<li>
-														<a href="#" title="">Home Entertainment Systems</a>
-													</li>
-													<li>
-														<a href="#" title="">MP3 & Media Players</a>
-													</li>
-													<li>
-														<a href="#" title="">Software</a>
-													</li>
-												</ul>
-												<div class="show">
-													<a href="#" title="">Shop All</a>
-												</div>
-											</div>
-											<div class="one-third">
-												<ul class="banner">
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																Headphones
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-01.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																TV & Audio
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-02.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																Computers
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-03.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</li>
-									<li>
-										<a href="#" title="">
-											<span class="menu-img">
-												<img src="~/images/icons/menu/04.png" alt="">
-											</span>
-											<span class="menu-title">
-												Software
-											</span>
-										</a>
-									</li>
-									<li>
-										<a href="#" title="">
-											<span class="menu-img">
-												<img src="~/images/icons/menu/05.png" alt="">
-											</span>
-											<span class="menu-title">
-												TV & Audio
-											</span>
-										</a>
-									</li>
-									<li>
-										<a href="#" title="">
-											<span class="menu-img">
-												<img src="~/images/icons/menu/06.png" alt="">
-											</span>
-											<span class="menu-title">
-												Sports & Fitness
-											</span>
-										</a>
-									</li>
-									<li>
-										<a href="#" title="" class="dropdown">
-											<span class="menu-img">
-												<img src="~/images/icons/menu/07.png" alt="">
-											</span>
-											<span class="menu-title">
-												Games & Toys
-											</span>
-										</a>
-										<div class="drop-menu">
-											<div class="one-third">
-												<div class="cat-title">
-													Games & Toys
-												</div>
-												<ul>
-													<li>
-														<a href="#" title="">Internet Devices</a>
-													</li>
-													<li>
-														<a href="#" title="">Desktops & Monitors</a>
-													</li>
-													<li>
-														<a href="#" title="">Hard Drives & Memory Cards</a>
-													</li>
-													<li>
-														<a href="#" title="">Networking</a>
-													</li>
-													<li>
-														<a href="#" title="">Software</a>
-													</li>
-												</ul>
-												<div class="show">
-													<a href="#" title="">Shop All</a>
-												</div>
-											</div>
-											<div class="one-third">
-												<div class="cat-title">
-													Audio
-												</div>
-												<ul>
-													<li>
-														<a href="#" title="">Home Entertainment Systems</a>
-													</li>
-													<li>
-														<a href="#" title="">MP3 & Media Players</a>
-													</li>
-													<li>
-														<a href="#" title="">Software</a>
-													</li>
-												</ul>
-												<div class="show">
-													<a href="#" title="">Shop All</a>
-												</div>
-											</div>
-											<div class="one-third">
-												<ul class="banner">
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																Headphones
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-01.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																TV & Audio
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-02.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																Computers
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-03.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</li>
-									<li>
-										<a href="#" title="">
-											<span class="menu-img">
-												<img src="~/images/icons/menu/08.png" alt="">
-											</span>
-											<span class="menu-title">
-												Video Cameras
-											</span>
-										</a>
-									</li>
-									<li>
-										<a href="#" title="" class="dropdown">
-											<span class="menu-img">
-												<img src="~/images/icons/menu/09.png" alt="">
-											</span>
-											<span class="menu-title">
-												Accessories
-											</span>
-										</a>
-										<div class="drop-menu">
-											<div class="one-third">
-												<div class="cat-title">
-													Accessories
-												</div>
-												<ul>
-													<li>
-														<a href="#" title="">Internet Devices</a>
-													</li>
-													<li>
-														<a href="#" title="">Desktops & Monitors</a>
-													</li>
-													<li>
-														<a href="#" title="">Hard Drives & Memory Cards</a>
-													</li>
-													<li>
-														<a href="#" title="">Networking</a>
-													</li>
-													<li>
-														<a href="#" title="">Software</a>
-													</li>
-												</ul>
-												<div class="show">
-													<a href="#" title="">Shop All</a>
-												</div>
-											</div>
-											<div class="one-third">
-												<div class="cat-title">
-													Audio
-												</div>
-												<ul>
-													<li>
-														<a href="#" title="">Home Entertainment Systems</a>
-													</li>
-													<li>
-														<a href="#" title="">MP3 & Media Players</a>
-													</li>
-													<li>
-														<a href="#" title="">Software</a>
-													</li>
-												</ul>
-												<div class="show">
-													<a href="#" title="">Shop All</a>
-												</div>
-											</div>
-											<div class="one-third">
-												<ul class="banner">
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																Headphones
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-01.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																TV & Audio
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-02.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																Computers
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-03.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</li>
-									<li>
-										<a href="#" title="" class="dropdown">
-											<span class="menu-img">
-												<img src="~/images/icons/menu/10.png" alt="">
-											</span>
-											<span class="menu-title">
-												Security
-											</span>
-										</a>
-										<div class="drop-menu">
-											<div class="one-third">
-												<div class="cat-title">
-													Security
-												</div>
-												<ul>
-													<li>
-														<a href="#" title="">Internet Devices</a>
-													</li>
-													<li>
-														<a href="#" title="">Desktops & Monitors</a>
-													</li>
-													<li>
-														<a href="#" title="">Hard Drives & Memory Cards</a>
-													</li>
-													<li>
-														<a href="#" title="">Networking</a>
-													</li>
-													<li>
-														<a href="#" title="">Software</a>
-													</li>
-												</ul>
-												<div class="show">
-													<a href="#" title="">Shop All</a>
-												</div>
-											</div>
-											<div class="one-third">
-												<div class="cat-title">
-													Audio
-												</div>
-												<ul>
-													<li>
-														<a href="#" title="">Home Entertainment Systems</a>
-													</li>
-													<li>
-														<a href="#" title="">MP3 & Media Players</a>
-													</li>
-													<li>
-														<a href="#" title="">Software</a>
-													</li>
-													<li>
-														<a href="#" title="">Hard Drives & Memory Cards</a>
-													</li>
-													<li>
-														<a href="#" title="">Networking</a>
-													</li>
-												</ul>
-												<div class="show">
-													<a href="#" title="">Shop All</a>
-												</div>
-											</div>
-											<div class="one-third">
-												<ul class="banner">
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																Headphones
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-01.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																TV & Audio
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-02.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-													<li>
-														<div class="banner-text">
-															<div class="banner-title">
-																Computers
-															</div>
-															<div class="more-link">
-																<a href="#" title="">Shop Now <img src="~/images/icons/right-2.png" alt=""></a>
-															</div>
-														</div>
-														<div class="banner-img">
-															<img src="~/images/banner_boxes/menu-03.png" alt="">
-														</div>
-														<div class="clearfix"></div>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</li>
-								</ul>
+								@Html.Raw(categories.GetAllCategoriesRaw())
 							</div>
 						</div><!-- /.col-md-3 -->
 						<div class="col-md-9 col-10">
@@ -891,11 +204,6 @@
 										</li>
 										<li class="column-1">
 											<a asp-action="index" asp-controller="shop" title="">Shop</a>
-											<ul class="submenu">
-												<li>
-													<a asp-action="index" asp-controller="shopcart" title=""><i class="fa fa-angle-right" aria-hidden="true"></i>Shop cart</a>
-												</li>
-											</ul><!-- /.submenu -->
 										</li><!-- /.column-1 -->
 										<li class="column-1">
 											<a href="#" title="">Pages</a>
@@ -1173,7 +481,7 @@
 	<script type="text/javascript" src="~/javascript/jquery.countdown.js"></script>
 	<script type="text/javascript" src="~/javascript/main.js"></script>
 	<script type="text/javascript" src="~/javascript/basket.js"></script>
-	<script type="text/javascript" src="~/javascript/sorting.js"></script>
+	
 
 
 

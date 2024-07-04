@@ -7,12 +7,14 @@ using Business.Extensions;
 using Business.Service.Abstracts;
 using Business.Service.Concretes;
 using Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TechnoStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ProductColorController : Controller
+	[Authorize(Roles = "SuperAdmin")]
+	public class ProductColorController : Controller
     {
         private readonly IProductColorService _productColorService;
         private readonly IMapper _mapper;
@@ -111,6 +113,8 @@ namespace TechnoStore.Areas.Admin.Controllers
 
         public IActionResult SoftDelete(int id)
         {
+            var color = _productColorService.GetProductColor(x => x.Id == id);
+            if (color == null) return NotFound();
             try
             {
                 _productColorService.SoftDelete(id);
@@ -124,6 +128,8 @@ namespace TechnoStore.Areas.Admin.Controllers
         }
         public IActionResult Return(int id)
         {
+            var color = _productColorService.GetProductColor(x => x.Id == id);
+            if (color == null) return NotFound();
             try
             {
                 _productColorService.ReturnProductColor(id);

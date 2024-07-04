@@ -5,12 +5,14 @@ using Business.Extensions;
 using Business.Service.Abstracts;
 using Business.Service.Concretes;
 using Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace TechnoStore.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize(Roles = "SuperAdmin")]
 	public class SettingController : Controller
 	{
 		private readonly ISettingService _settingService;
@@ -106,9 +108,12 @@ namespace TechnoStore.Areas.Admin.Controllers
 
 		public IActionResult Return(int id)
 		{
-			try
+            var setting = _settingService.GetSetting(x => x.Id == id);
+            if (setting == null) return NotFound();
+            try
 			{
 				_settingService.ReturnSetting(id);
+				
 			}
 			catch (EntityNotFoundException ex)
 			{
@@ -118,8 +123,25 @@ namespace TechnoStore.Areas.Admin.Controllers
 			return RedirectToAction("Index");
 		}
 
+        public IActionResult SoftDelete(int id)
+        {
+            var setting = _settingService.GetSetting(x => x.Id == id);
+            if (setting == null) return NotFound();
+            try
+            {
+                _settingService.SoftDelete(id);
 
-		public IActionResult Archive()
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+        public IActionResult Archive()
 		{
 			var faqs = _settingService.GetAllSettings(x => x.IsDeleted == true);
 

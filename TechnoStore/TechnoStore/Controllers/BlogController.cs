@@ -25,7 +25,7 @@ namespace TechnoStore.Controllers
 			_tagService = tagService;
 		}
 
-		public IActionResult Index(string? search,int page = 1)
+		public IActionResult Index(string? search,int? tagId,int? categoryId,int page = 1)
 		{
 
 			var blogs = _blogService.GetAllBlogs(x => x.IsDeleted == false).AsQueryable();
@@ -35,12 +35,20 @@ namespace TechnoStore.Controllers
 											 
 			}
 
+			if(categoryId != null)
+			{
+				blogs = blogs.Where(x => x.BlogCategory.Id == categoryId);
+			}
+
+
 			List<Blog> blogGetDTOs = _mapper.Map<List<Blog>>(blogs);
 
-			//if (page <= 0 || page > (double)Math.Ceiling((double)blogGetDTOs.Count / 2))
-			//{
-			//	return RedirectToAction("Index", "ErrorPage");
-			//}
+
+
+			if (page <= 0 || page > (double)Math.Ceiling((double)blogGetDTOs.Count / 2))
+			{
+				return RedirectToAction("Index", "ErrorPage");
+			}
 
 			var paginatedDatas = PaginatedList<Blog>.Create(blogGetDTOs, 3, page);
             BlogVm blogVm = new BlogVm
@@ -58,7 +66,9 @@ namespace TechnoStore.Controllers
 			BlogVm blogVm = new BlogVm
 			{
 
-				Blog = _blogService.GetBlog(x => x.IsDeleted == false && x.Id == id)
+				Blog = _blogService.GetBlog(x => x.IsDeleted == false && x.Id == id),
+				BlogCategories = _blogCategoryService.GetAllBlogCategories(x => x.IsDeleted == false),
+				Tags = _tagService.GetAllTags(x => x.IsDeleted == false)
 			};
 
 			return View(blogVm);

@@ -16,4 +16,5 @@ public class BlogGetDTO
 	public string ImageUrl { get; set; }
 	public List<BlogTag> BlogTags { get; set; }
 	public BlogCategory BlogCategory { get; set; }
+	public DateTime CreatedDate { get; set; }
 }
